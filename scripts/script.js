@@ -1,146 +1,38 @@
 
 // SCRIPT FOR U TALK CHAT
 
-// asignar nombre de usuario aleatorio
+
+// al entrar, asignar nombre de usuario aleatorio
 var random = Math.floor((Math.random() * 999) + 1);
 var guestname = "Guest" + random;
+
+// asignamos también un avatar por defecto 
 var avatarPath = "assets/avatar5.png";
+
+// actualizamos los datos en la página
 update();
 
-console.log(guestname);
 
-// estado inicial de los elementos visuales
+// estados inicials de ciertos elementos visuales
 document.getElementById("chatBox").style.display = "block";
 document.getElementById("rprofile").style.display = "none";
 document.getElementById("contentpiano").style.display = "none";
 
-// tema de las mayúsculas en el chat
+
+// característica mayúsculas en el chat ***************************************
+// inicialmente desactivado
 var checked = false;
 
+// activamos la mayúscula inicial
 function validateBox(){
   checked = document.getElementById("check1").checked;
 }
 
-// primera letra mayúscula
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
-// aparecer en la lista de conectados
-var conectados = document.createElement("div");
-conectados.innerHTML = "<div class='user'>" +
-              "<div class='avatar mycon'><img src='" + avatarPath + "''></div>" +
-              "<p class='userme mycon'>" + guestname + "</p>" +
-              "</div>";
-var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
-people.appendChild(conectados);
-
-
-// recibimos un guest name como mensaje
-document.getElementById("fmessage").innerHTML = "Hi " + guestname + "!";
-
-
-// boton SEND "envia" el mensaje que hay en el input
-var button = document.querySelector("#sendbutton");
-button.addEventListener("click", send);
-
-// boton USERNAME cambia el nombre de usuario
-var ubutton = document.querySelector("#ubutton");
-ubutton.addEventListener("click", changeUsername);
-
-// tecla ENTER hace que boton SEND se active
-document.getElementById("textinput").addEventListener("keyup", function(event){
-	event.preventDefault();
-	if(event.keyCode == 13)
-	{
-		document.getElementById("sendbutton").click()
-	}
-});
-
-// tecla ENTER hace que boton accept (cambiar nombre) se active
-document.getElementById("uinput").addEventListener("keyup", function(event){
-  event.preventDefault();
-  if(event.keyCode == 13)
-  {
-    document.getElementById("uaccept").click()
-  }
-});
-
-// boton accept modifica el nombre de usuario
-var accept = document.querySelector("#uaccept");
-accept.addEventListener("click", modifyName);
-
-
-// enviar nuestros mensajes al chat
-function send(){
-
-	var input = document.querySelector("#textinput");
-
-	if(input.value != ""){
-		var msg = document.createElement("div"); // creamos un div para el mensaje
-
-    if(checked){
-      input.value = input.value.capitalize(); // si la casilla está marcada, se pone mayus
-    } 
-
-		msg.innerHTML =	"<div class='msg sent'>"+
-		"<div class='myavatar'><img src='" + avatarPath + "'></div>"+
-		"<p class='message'>" + input.value + "</p>"+
-		"</div>"; // escribimos el codigo del mensaje a enviar en el div
-
-		input.value = "" // reiniciamos el input 
-		var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
-		msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
-
-		msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
-              	                         // al enviar más mensajes
-	}
-}
-
-function deleteChat(){
-
-  var div = document.getElementById('log');
-    while(div.firstChild){
-      div.removeChild(div.firstChild);
-    }
-
-}
-
-// menu desplegable al hacer click
-function showMenu(){
-  document.getElementById("menu").style.display = "block";
-}
-
-// si hacemos click fuera del menu, deberia desaparecer
-window.onclick = function(event) {
-
-  // si clicamos en cualquier sitio que no sea el boton del menu, se cierra
-  if (!event.target.matches('.showbutton')) {
-    document.getElementById("menu").style.display = "none";
-  }
-
-  // si clicamos en cualquier sitio que no sea el perfil de la otra persona, se cerrará
-  if (!event.target.matches('.profilebutton')) {
-    if(document.getElementById("rprofile") != null)
-      document.getElementById("rprofile").style.display = "none";
-  }
-
-  // si clicamos en hide profile, el perfil se esconderá
-  if (event.target.matches('.hideProfile')) {
-    document.getElementById("persInfoBox").style.display = "none";
-  }
-
-  // si clicamos en aceptar, el boton y el input desapareceran
-  if(event.target.matches('.accept')) {
-    document.getElementById("uaccept").style.display = "none";
-    document.getElementById("uinput").style.display = "none";
-  }
-
-  // si clicamos fuera de los avatares, la lista se esconderá
-  if ((!event.target.matches('.showAva')) && (!event.target.matches('.avatartype'))) {
-    document.getElementById("avatarslist").style.display = "none";
-  }
-}
+// My profile *****************************************************************
 
 // cambiar nombre de usuario
 function changeUsername(){
@@ -174,16 +66,152 @@ function modifyName(){
   var input = document.querySelector("#uinput");
   if(input.value != "") guestname = input.value;
   input.value = "";
+  document.getElementById("uaccept").style.display = "none";
+  document.getElementById("uinput").style.display = "none";
   update();
 }
+
+// añadir funcionalidad: boton USERNAME cambia el nombre de usuario
+var ubutton = document.querySelector("#ubutton");
+ubutton.addEventListener("click", changeUsername);
+
+// añadir funcionalidad: boton accept modifica el nombre de usuario
+var accept = document.querySelector("#uaccept");
+accept.addEventListener("click", modifyName);
+
+// tecla ENTER modifica el nombre de usuario
+document.getElementById("uinput").addEventListener("keyup", function(event){
+  event.preventDefault();
+  if(event.keyCode == 13)
+  {
+    modifyName();
+  }
+});
+
+// CHAT BOX *******************************************************************
+
+// recibimos un guest name como mensaje
+document.getElementById("fmessage").innerHTML = "Hi " + guestname + "!";
+
+// enviar nuestros mensajes al chat
+function send(){
+
+  var input = document.querySelector("#textinput");
+
+  input.value = input.value.substring(0, input.value.length - 1);
+
+  if(input.value != ""){
+
+    console.log("input: -" + input.value + "-")
+
+    var msg = document.createElement("div"); // creamos un div para el mensaje
+
+    if(checked){
+      input.value = input.value.capitalize(); // si la casilla está marcada, se pone mayus
+    } 
+
+    msg.innerHTML = "<div class='msg sent'>"+
+    "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
+    "<p class='message'>" + input.value + "</p>"+
+    "</div>"; // escribimos el codigo del mensaje a enviar en el div
+
+    input.value = "" // reiniciamos el input 
+    var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
+    msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
+
+    msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
+                                         // al enviar más mensajes
+  }
+}
+
+// boton SEND "envia" el mensaje que hay en el input
+var button = document.querySelector("#sendbutton");
+button.addEventListener("click", send);
+
+// tecla ENTER hace que boton SEND se active
+document.getElementById("textinput").addEventListener("keyup", function(event){
+  event.preventDefault();
+  if(event.keyCode == 13)
+  {
+    send();
+  }
+});
+
+
+
+
+
+
+
+// aparecer en la lista de conectados
+var conectados = document.createElement("div");
+conectados.innerHTML = "<div class='user'>" +
+              "<div class='avatar mycon'><img src='" + avatarPath + "''></div>" +
+              "<p class='userme mycon'>" + guestname + "</p>" +
+              "</div>";
+var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
+people.appendChild(conectados);
+
+
+function deleteChat(){
+
+  var div = document.getElementById('log');
+    while(div.firstChild){
+      div.removeChild(div.firstChild);
+    }
+
+}
+
+// menu desplegable al hacer click
+function showMenu(){
+  document.getElementById("menu").style.display = "block";
+}
+
+// si hacemos click fuera del menu, deberia desaparecer
+window.onclick = function(event) {
+
+  // si clicamos en cualquier sitio que no sea el boton del menu, se cierra
+  if (!event.target.matches('.showbutton')) {
+    document.getElementById("menu").style.display = "none";
+  }
+
+  // si clicamos en cualquier sitio que no sea el perfil de la otra persona, se cerrará
+  if (!event.target.matches('.profilebutton')) {
+    if(document.getElementById("rprofile") != null){
+      document.getElementById("rprofile").style.display = "none";
+      document.getElementById("opacitypanel").style.display = "none";
+    }
+  }
+
+  // si clicamos en hide profile, el perfil se esconderá
+  if (event.target.matches('.hideProfile')) {
+    document.getElementById("persInfoBox").style.display = "none";
+  }
+
+  // si clicamos en aceptar, el boton y el input desapareceran
+  if(event.target.matches('.accept')) {
+    document.getElementById("uaccept").style.display = "none";
+    document.getElementById("uinput").style.display = "none";
+  }
+
+  // si clicamos fuera de los avatares, la lista se esconderá
+  if ((!event.target.matches('.showAva')) && (!event.target.matches('.avatartype'))) {
+    document.getElementById("avatarslist").style.display = "none";
+  }
+}
+
+
 
 // mostrar perfil del usuario
 function showProfile() {
   document.getElementById("rprofile").style.display = "block";
+  document.getElementById("opacitypanel").style.display = "block";
 }
 
 // mostrar coleccion de avatares
 function showAvatars() {
+  document.getElementById("uaccept").style.display = "none"; 
+  document.getElementById("uinput").style.display = "none";
   document.getElementById("avatarslist").style.display = "block";
 }
 
@@ -205,7 +233,7 @@ function openPiano() {
   }
 }
 
-//ver información propia
+//actualizar información del usuario
 function update(){
   document.querySelector("#gn").innerHTML = guestname;
   document.getElementById("myPic").src = avatarPath;
@@ -225,7 +253,6 @@ function update(){
 }
 
 function privateInfo() {
-  
   update();
   document.getElementById("persInfoBox").style.display = "block";
 }
