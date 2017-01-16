@@ -15,7 +15,7 @@ update();
 
 // estados inicials de ciertos elementos visuales
 document.getElementById("chatBox").style.display = "block";
-document.getElementById("rprofile").style.display = "none";
+if(document.getElementById("rprofile")!= null) document.getElementById("rprofile").style.display = "none";
 document.getElementById("contentpiano").style.display = "none";
 
 
@@ -61,6 +61,13 @@ function changeMyPic(path){
   document.getElementById("avatarslist").style.display = "none";
 }
 
+function changeSuPic(path, id){
+
+  var img_usuarios = document.querySelectorAll(".avatar_" + id + " img");
+  for(var i = 0; i < img_usuarios.length; ++i)
+    img_usuarios[i].src = path;
+}
+
 // cambia el nombre de usuario
 function modifyName(){
   var input = document.querySelector("#uinput");
@@ -99,17 +106,17 @@ function update(){
   document.querySelector("#gn").innerHTML = guestname;
   document.getElementById("myPic").src = avatarPath;
 
-  var x = document.getElementsByClassName("avatar mycon");
-  for (var i = 0; i < x.length; i++) {
-    var y = x[i].childNodes;
-    for (var j = 0; j < y.length; j++) {
-      y[j].src = avatarPath;
+  var my_avatar_conn = document.getElementsByClassName("avatar mycon");
+  for (var i = 0; i < my_avatar_conn.length; i++) {
+    var childNodes = my_avatar_conn[i].childNodes;
+    for (var j = 0; j < childNodes.length; j++) {
+      childNodes[j].src = avatarPath;
     }
   }
 
-  var x = document.getElementsByClassName("userme mycon");
-  for (var i = 0; i < x.length; i++) {
-    x[i].innerHTML = guestname;
+  var my_name_conn = document.getElementsByClassName("userme mycon");
+  for (var i = 0; i < my_name_conn.length; i++) {
+    my_name_conn[i].innerHTML = guestname;
   }
 }
 
@@ -123,19 +130,21 @@ function showAvatars() {
 
 // CHAT BOX *******************************************************************
 
-// recibimos un guest name como mensaje
-document.getElementById("fmessage").innerHTML = "Hi " + guestname + "!";
-
 // enviar nuestros mensajes al chat
 function send(){
 
   var input = document.querySelector("#textinput");
 
+  var objectToSend = {}; // nuestro objeto a enviar
+
+  objectToSend.message = input.value;
+  objectToSend.avatar = avatarPath;
+
+  server.sendMessage(objectToSend);
+
   input.value = input.value.substring(0, input.value.length - 1);
 
   if(input.value != ""){
-
-    console.log("input: -" + input.value + "-")
 
     var msg = document.createElement("div"); // creamos un div para el mensaje
 
