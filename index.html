@@ -13,18 +13,23 @@
 
 	<body>
 
-		<div class="trans" id="opacitypanel"></div>
+	<div id="mySidenav" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	  <a class="privi" href="#" onclick="privateInfo()">My profile</a>
+	  <a class="pianoSec" href="#" onclick="openPiano()">U Play Piano</a>
+	  <a class="occhat" href="#" onclick="openChat()">Open/close chat</a>
+	  <a class="dchat" href="#" onclick="deleteChat()">Delete chat</a>
+	  <a class="themes" href="#" onclick="">Change theme</a>
+	</div>
+
+	<div id="main"> <!-- EN ESTE DIV ESTÁ APLICADA LA TRANSICIÓN DEL MENÚ -->
+
+  		<div class="trans" id="opacitypanel"></div>
 
 		<div class="content" id="cnt">
 			<div class="heading">
 				<div class="logo">
-					<img src="assets/reorder.png" class="showbutton" onclick="showMenu()">
-					<div id="menu" class="dropdown-content-menu">
-	    				<a class="privi" href="#" onclick="privateInfo()">My profile</a>
-	    				<a class="pianoSec" href="#" onclick="openPiano()">U Play Piano</a>
-	    				<a class="occhat" href="#" onclick="openChat()">Open/close chat</a>
-	    				<a class="dchat" href="#" onclick="deleteChat()">Delete chat</a>
-	  				</div>
+					<img src="assets/reorder.png" class="showbutton" onclick="openNav()">
 				</div>
 				<div class="titlename"><img src="assets/title.png"></div>
 			</div>
@@ -166,6 +171,8 @@
 				</div>
 			</div>
 		</div>
+	</div>
+		
 	</body>
 </html>
 

@@ -88,6 +88,39 @@ document.getElementById("uinput").addEventListener("keyup", function(event){
   }
 });
 
+function privateInfo() {
+  update();
+  document.getElementById("persInfoBox").style.display = "block";
+  closeNav();
+}
+
+//actualizar información del usuario
+function update(){
+  document.querySelector("#gn").innerHTML = guestname;
+  document.getElementById("myPic").src = avatarPath;
+
+  var x = document.getElementsByClassName("avatar mycon");
+  for (var i = 0; i < x.length; i++) {
+    var y = x[i].childNodes;
+    for (var j = 0; j < y.length; j++) {
+      y[j].src = avatarPath;
+    }
+  }
+
+  var x = document.getElementsByClassName("userme mycon");
+  for (var i = 0; i < x.length; i++) {
+    x[i].innerHTML = guestname;
+  }
+}
+
+// mostrar coleccion de avatares
+function showAvatars() {
+  document.getElementById("uaccept").style.display = "none"; 
+  document.getElementById("uinput").style.display = "none";
+  document.getElementById("avatarslist").style.display = "block";
+}
+
+
 // CHAT BOX *******************************************************************
 
 // recibimos un guest name como mensaje
@@ -137,12 +170,34 @@ document.getElementById("textinput").addEventListener("keyup", function(event){
   }
 });
 
+function deleteChat(){
 
+  var div = document.getElementById('log');
+    while(div.firstChild){
+      div.removeChild(div.firstChild);
+    }
+  closeNav();
+}
 
+// mostrar perfil del usuario
+function showProfile() {
+  document.getElementById("rprofile").style.display = "block";
+  document.getElementById("opacitypanel").style.display = "block";
+}
 
+//abrir o cerrar chat
+function openChat() {
+  if (document.getElementById("chatBox").style.display == "block"){
+    document.getElementById("chatBox").style.display = "none";
+    closeNav();
+  }else {
+    document.getElementById("chatBox").style.display = "block";
+    closeNav();
+  }
+}
 
-
-
+// ****************************************************************************
+// PEOPLE ********
 // aparecer en la lista de conectados
 var conectados = document.createElement("div");
 conectados.innerHTML = "<div class='user'>" +
@@ -153,27 +208,34 @@ var people = document.querySelector("#pp"); // cogemos el sitio donde iran los c
 people.appendChild(conectados);
 
 
-function deleteChat(){
+// ****************************************************************************
+// **** MENU  ****
 
-  var div = document.getElementById('log');
-    while(div.firstChild){
-      div.removeChild(div.firstChild);
-    }
-
-}
 
 // menu desplegable al hacer click
-function showMenu(){
-  document.getElementById("menu").style.display = "block";
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
 }
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+
+// tecla ESC cierra el menú
+document.addEventListener("keydown", keyListener, false);
+function keyListener(event){
+  var keyCode = event.keyCode;
+  if(keyCode == 27){
+    closeNav();
+  }
+}
+
+// ****************************************************************************
 
 // si hacemos click fuera del menu, deberia desaparecer
 window.onclick = function(event) {
-
-  // si clicamos en cualquier sitio que no sea el boton del menu, se cierra
-  if (!event.target.matches('.showbutton')) {
-    document.getElementById("menu").style.display = "none";
-  }
 
   // si clicamos en cualquier sitio que no sea el perfil de la otra persona, se cerrará
   if (!event.target.matches('.profilebutton')) {
@@ -200,29 +262,8 @@ window.onclick = function(event) {
   }
 }
 
-
-
-// mostrar perfil del usuario
-function showProfile() {
-  document.getElementById("rprofile").style.display = "block";
-  document.getElementById("opacitypanel").style.display = "block";
-}
-
-// mostrar coleccion de avatares
-function showAvatars() {
-  document.getElementById("uaccept").style.display = "none"; 
-  document.getElementById("uinput").style.display = "none";
-  document.getElementById("avatarslist").style.display = "block";
-}
-
-//abrir o cerrar chat
-function openChat() {
-  if (document.getElementById("chatBox").style.display == "block"){
-    document.getElementById("chatBox").style.display = "none";
-  }else {
-    document.getElementById("chatBox").style.display = "block";
-  }
-}
+// ?????????????
+// PIANO **********************************************************************
 
 //abrir piano
 function openPiano() {
@@ -232,34 +273,4 @@ function openPiano() {
     document.getElementById("contentpiano").style.display = "none";
   }
 }
-
-//actualizar información del usuario
-function update(){
-  document.querySelector("#gn").innerHTML = guestname;
-  document.getElementById("myPic").src = avatarPath;
-
-  var x = document.getElementsByClassName("avatar mycon");
-  for (var i = 0; i < x.length; i++) {
-    var y = x[i].childNodes;
-    for (var j = 0; j < y.length; j++) {
-      y[j].src = avatarPath;
-    }
-  }
-
-  var x = document.getElementsByClassName("userme mycon");
-  for (var i = 0; i < x.length; i++) {
-    x[i].innerHTML = guestname;
-  }
-}
-
-function privateInfo() {
-  update();
-  document.getElementById("persInfoBox").style.display = "block";
-}
-
-
-
-
-
-
 
