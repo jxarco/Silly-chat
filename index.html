@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<script src="sillyclient.js"></script>
+<link rel="stylesheet" type="text/css" href="style/style.css">
+<link id="favicon" rel="shortcut icon" href="assets/reorder.png" type="image/png" />
+
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Práctica 1 ECV</title>
+	</head>
+
+	<body>
+
+		<div class="content" id="cnt">
+			<div class="heading">
+				<div class="logo">
+					<img src="assets/reorder.png" class="showbutton" onclick="showMenu()">
+					<div id="menu" class="dropdown-content-menu">
+	    				<a class="privi" href="#" onclick="privateInfo()">My profile</a>
+	    				<a class="pianoSec" href="#" onclick="openPiano()">U Play Piano</a>
+	    				<a class="occhat" href="#" onclick="openChat()">Open/close chat</a>
+	    				<a class="dchat" href="#" onclick="deleteChat()">Delete chat</a>
+	  				</div>
+				</div>
+				<div class="titlename"><img src="assets/title.png"></div>
+			</div>
+
+			<div class="screen">
+
+				<div class="personalInfo" id="persInfoBox">
+					<p>My profile</p>
+				    <div class="pic"><img id="myPic"></div>
+				    <div class="guestName" id="gn"></div>
+				    <div class="profileOptions">
+				    	<button id="ubutton">NAME</button>
+				    	<button class="showAva" onclick="showAvatars()">AVATAR</button>
+				    	<button class="hideProfile">HIDE</button>
+				    </div>
+				    <input placeholder="Enter new name here" type="text" class="newname" id="uinput">
+				    <button class="accept" id="uaccept">Accept</button>
+				    <div class=avatars id="avatarslist">
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar1.png')" src="assets/avatar1.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar2.png')" src="assets/avatar2.png" class="avatartype" width="100" height="100">		
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar3.png')" src="assets/avatar3.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar4.png')" src="assets/avatar4.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar5.png')" src="assets/avatar5.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar6.png')" src="assets/avatar6.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar7.png')" src="assets/avatar7.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar8.png')" src="assets/avatar8.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar9.png')" src="assets/avatar9.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar10.png')" src="assets/avatar10.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar11.png')" src="assets/avatar11.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar12.png')" src="assets/avatar12.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar13.png')" src="assets/avatar13.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar14.png')" src="assets/avatar14.png" class="avatartype" width="100" height="100">
+						</div>
+						<div class="dropdown">
+	  						<img onclick="changeMyPic('assets/avatar15.png')" src="assets/avatar15.png" class="avatartype" width="100" height="100">
+						</div>
+					</div>
+				</div>
+
+				<div class="people" id="pp">
+					<p>People connected</p>
+					<div class="user">
+							<div class="avatar"><img src="assets/avatar13.png"></div>
+							<p class="userme">Guest000</p>
+					</div>
+				</div>
+			
+				<div class="chat" id="chatBox">
+					<div class="msgs" id="log">
+						<div class="msg received">
+							<div class="avatar"><img src="assets/avatar13.png" class="profilebutton" onclick="showProfile()">
+								<div id="rprofile" class="profile" >
+									<div><img src="assets/avatar13.png" class="pravatar"></div>
+									<p>Guest000</p>
+								</div>
+							</div>
+							<p id="fmessage" class="message"></p>
+						</div>
+						<div class="msg received">
+							<div class="avatar"><img src="assets/avatar13.png" class="profilebutton" onclick="showProfile()">
+								<div id="rprofile" class="profile" >
+									<div><img src="assets/avatar13.png" class="pravatar"></div>
+									<p>Guest000</p>
+								</div>
+							</div>
+							<p id="fmessage" class="message">I'm Guest000!</p>
+						</div>
+					</div>
+				
+
+					<div class="chatinput">
+						<textarea placeholder="Write here..." id="textinput"></textarea>
+						<button id="sendbutton">SEND</button>
+					</div>
+
+					<div class="uppercase">
+						<p>First letter UpperCase</p>
+						<input type="checkbox" id="check1" class="ucselection" onclick="validateBox()">	
+					</div>
+				</div>
+				
+				<div id="contentpiano">
+					<div class="game" id="piano">
+						<div class="keys">
+							<div class="key"><p>A</p></div>
+							<div class="key black"><p>W</p></div>
+							<div class="key"><p>S</p></div>
+							<div class="key black"><p>E</p></div>
+							<div class="key"><p>D</p></div>
+							<div class="key"><p>F</p></div>
+							<div class="key black"><p>T</p></div>
+							<div class="key"><p>G</p></div>
+							<div class="key black"><p>Y</p></div>
+							<div class="key"><p>H</p></div>
+							<div class="key black"><p>U</p></div>
+							<div class="key"><p>J</p></div>
+							<div class="key"><p>K</p></div>
+							<div class="key black"><p>O</p></div>
+							<div class="key"><p>L</p></div>
+							<div class="key black"><p>P</p></div>
+							<div class="key"><p>Ñ</p></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript" src="scripts/script.js"></script>
