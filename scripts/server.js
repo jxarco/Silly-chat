@@ -23,9 +23,7 @@ server.on_message = function( user_id, message){
     "<p class='message'>" + objectReceived.message + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
 
-    notifyMe(objectReceived.message, pathBueno, 'U TALK says')
-
-    console.log(msg.innerHTML)
+    notifyMe(objectReceived.message, pathBueno, 'U TALK says');
 
     var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
     msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
