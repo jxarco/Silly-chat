@@ -1,6 +1,20 @@
 
 // SCRIPT FOR U TALK CHAT
 
+// ask for notifications permission
+
+// Determine the correct object to use
+var notification = window.Notification || window.mozNotification || window.webkitNotification;
+
+// The user needs to allow this
+if ('undefined' === typeof notification)
+    alert('Web notification not supported');
+else
+    notification.requestPermission(function(permission){});
+
+/*Notification.requestPermission().then(function(result) {
+  console.log(result);
+});*/
 
 // al entrar, asignar nombre de usuario aleatorio
 var random = Math.floor((Math.random() * 999) + 1);
@@ -274,6 +288,19 @@ window.onclick = function(event) {
     document.getElementById("avatarslist").style.display = "none";
   }
 }
+
+// NOTIFICACIONES *************************************************************
+
+  function notifyMe(theBody, theIcon, theTitle) {
+    
+    var options = {
+      body: theBody,
+      icon: theIcon
+    }
+    
+    var n = new Notification(theTitle, options);
+    setTimeout(n.close.bind(n), 4000);
+  }
 
 // ?????????????
 // PIANO **********************************************************************
