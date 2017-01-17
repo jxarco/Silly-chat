@@ -10,6 +10,45 @@ html, body{
 	background: #dce8f2;
 }
 
+/* Transition for initial info  */
+
+#hideMe {
+    -moz-animation: cssAnimation 0s ease-in 10s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 10s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 10s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 10s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    font-size: 2vw;
+    text-align: center;
+    background-color: #fbfbfb;
+	margin-bottom: 10px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 15px;
+}
+
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+        padding: 0;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+
+/* ***************************************************************************/
+/*  .trans -> style for the profile and the trans. background  */
 .trans
 {
 	position: fixed;

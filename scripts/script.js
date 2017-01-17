@@ -52,9 +52,6 @@ people.appendChild(conectados);
 // inicialmente desactivado
 var checked = false;
 
-alert("Hi!! You are using U Talk Chat from: " + url +". Now you can change your avatar and your name" +
-  " using profile options.");
-
 // activamos la mayúscula inicial
 function validateBox(){
   checked = document.getElementById("check1").checked;
