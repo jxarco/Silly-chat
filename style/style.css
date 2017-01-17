@@ -214,8 +214,7 @@ html, body{
     border-radius: 5px;
     margin-top: 20px;
     z-index: 3;
-    width: 30%;
-    position: relative;
+    max-width: 30%;
 }
 
 .dropdown img{
