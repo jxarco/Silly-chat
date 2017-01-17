@@ -77,14 +77,16 @@ html, body{
 	display: flex;
 	padding: 15px;
 	position: relative;
+	box-shadow: 5px 10px 50px 15px rgba(0,0,0,0.5); 
 }
 
 .heading .logo{
 	width: 60px;
 	height: 60px;
-	background: #eee;
+	background: #fffb9e;
 	border-radius: 50%;
 	display: flex;
+	border-style: inset;
 }
 .logo img{
 	width: 60%;
@@ -99,9 +101,6 @@ html, body{
 	padding: 10px;
 	width: 60%;
 	text-align: center;
-}
-
-.titlename img{
 }
 
 .personalInfo {
@@ -252,7 +251,7 @@ html, body{
 	padding: 10px;
 	width: 100%;
 	height: 450px;
-	background: #FFE995;
+	background: #fffb9e;
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
@@ -335,7 +334,7 @@ html, body{
 .chatinput button {
     position: relative;
     background-color: #670015;
-    border-radius: 10%;
+    border-style: inset;
     font-size: 1.5vw;
     color: #FFFFFF;
     width: 15%;
