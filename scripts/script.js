@@ -10,11 +10,7 @@ var notification = window.Notification || window.mozNotification || window.webki
 if ('undefined' === typeof notification)
     alert('Web notification not supported');
 else
-    //notification.requestPermission(function(permission){});
-
-/*Notification.requestPermission().then(function(result) {
-  console.log(result);
-});*/
+    notification.requestPermission(function(permission){});
 
 // al entrar, asignar nombre de usuario aleatorio
 var random = Math.floor((Math.random() * 999) + 1);
@@ -25,7 +21,6 @@ var avatarPath = "assets/avatar5.png";
 
 // actualizamos los datos en la página
 update();
-
 
 // estados inicials de ciertos elementos visuales
 document.getElementById("chatBox").style.display = "block";
@@ -75,13 +70,13 @@ function changeMyPic(path){
   document.getElementById("avatarslist").style.display = "none";
 }
 
-function changeSuPic(path, id){
+function changeSuPic(path, id, name){
 
   var img_usuarios = document.querySelectorAll(".avatar_" + id + " img");
   for(var i = 0; i < img_usuarios.length; ++i){
     img_usuarios[i].src = path;
     img_usuarios[i].addEventListener("click", function(){
-      showProfile(path);
+      showProfile(path, name);
     });
   }
 }
@@ -208,11 +203,14 @@ function deleteChat(){
 }
 
 // mostrar perfil del usuario
-function showProfile(path) {
+function showProfile(path, name) {
 
   // cambiar el zoom del perfil
-  var profile_zoom = document.querySelector("#image_avatar img");
-  profile_zoom.src = path;
+  var profile_zoom_img = document.querySelector("#image_avatar img");
+  profile_zoom_img.src = path;
+
+  var profile_zoom_name = document.querySelector("#contact_name");
+  profile_zoom_name.innerHTML = name;
 
   // show all
   document.getElementById("opacitypanel").style.display = "block";
