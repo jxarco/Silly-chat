@@ -102,7 +102,6 @@ html, body{
 }
 
 .titlename img{
-	content: url(../assets/styletitle.png);
 	height: 8vh;
 }
 
