@@ -10,7 +10,7 @@ var notification = window.Notification || window.mozNotification || window.webki
 if ('undefined' === typeof notification)
     alert('Web notification not supported');
 else
-    notification.requestPermission(function(permission){});
+    //notification.requestPermission(function(permission){});
 
 /*Notification.requestPermission().then(function(result) {
   console.log(result);
@@ -80,7 +80,9 @@ function changeSuPic(path, id){
   var img_usuarios = document.querySelectorAll(".avatar_" + id + " img");
   for(var i = 0; i < img_usuarios.length; ++i){
     img_usuarios[i].src = path;
-    //img_usuarios[i].addEventListener("click", showProfile(path)); // click zoom perfil
+    img_usuarios[i].addEventListener("click", function(){
+      showProfile(path);
+    });
   }
 }
 
@@ -153,6 +155,7 @@ function send(){
 
   var objectToSend = {}; // nuestro objeto a enviar
 
+  objectToSend.name = guestname;
   objectToSend.message = input.value;
   objectToSend.avatar = avatarPath;
 
@@ -208,11 +211,12 @@ function deleteChat(){
 function showProfile(path) {
 
   // cambiar el zoom del perfil
-  //var profile_zoom = document.querySelector("#image_avatar img");
-  //profile_zoom.src = path;
+  var profile_zoom = document.querySelector("#image_avatar img");
+  profile_zoom.src = path;
 
   // show all
   document.getElementById("opacitypanel").style.display = "block";
+  document.getElementById("opacitypanel").style.zIndex = "20";
 }
 
 //abrir o cerrar chat
@@ -259,6 +263,8 @@ function keyListener(event){
   var keyCode = event.keyCode;
   if(keyCode == 27){
     closeNav();
+    document.getElementById("opacitypanel").style.display = "none";
+    document.getElementById("opacitypanel").style.zIndex = "1";
   }
 }
 
@@ -270,6 +276,7 @@ window.onclick = function(event) {
   // si clicamos en cualquier sitio que no sea el perfil de la otra persona, se cerrará
   if (!event.target.matches('.profilebutton')) {
     document.getElementById("opacitypanel").style.display = "none";
+    document.getElementById("opacitypanel").style.zIndex = "1";
   }
 
   // si clicamos en hide profile, el perfil se esconderá

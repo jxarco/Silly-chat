@@ -12,9 +12,7 @@ html, body{
 
 .trans
 {
-	display: block;
 	position: fixed;
-	z-index: 20;
     padding: 30px;
     background-color: rgba(0,0,0,0.75);
     top: 0;
@@ -383,38 +381,21 @@ html, body{
 
 /* PROFILE BOX */
 
-/*.profile{
-    display: block;
-    
-    
-    
-	margin: 0 auto;
-
-}*/
-
-.profile
-{
-	border-style: outset;
-	border-radius: 50%;
-	border-width: 15px;
-    margin: 0 auto;
-    width: 25%; 
-    background-color: #f4ffe8;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    top: 50px;
+#image_avatar img{ /* zoom del avatar de la otra persona */
+	display: block;
+	margin: auto;
 }
 
-.profile p{
-	color: black;
+#contact_name{
     padding: 12px 16px;
     display: block;
     font-size: 2vw;
     text-align: center;
+    color: #818181;
 }
 
-#image_avatar img{ /* zoom del avatar de la otra persona */
-	display: block;
-	margin: auto;
+#contact_name:hover{
+    color: white;
 }
 
 /* *************************************** */

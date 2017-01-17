@@ -11,24 +11,25 @@ server.on_message = function( user_id, message){
 
 	var pathBueno = objectReceived.avatar.split("/");
 	pathBueno = "assets/" + pathBueno[pathBueno.length - 1];
-	var path = "'" + pathBueno + "'";
 
 	console.log( "User " + user_id + " said " + objectReceived.message );
 
 	var msg = document.createElement("div"); // creamos un div para el mensaje
-
+	console.log("pathBueno: "+pathBueno);
     msg.innerHTML = "<div class='msg received'>"+
-    "<div class='avatar avatar_"+user_id+"'><img class='profilebutton' src='" + pathBueno + "'>" +
+    "<div class='avatar avatar_"+user_id+"'>" +
+    "<img class='profilebutton' src='" + pathBueno + "'>" +
     "</div>"+
     "<p class='message'>" + objectReceived.message + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
 
-    notifyMe(objectReceived.message, pathBueno, 'U TALK says');
+    notifyMe(objectReceived.message, pathBueno, objectReceived.name +' says:');
 
     var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
     msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
 
-    changeSuPic(pathBueno, user_id);
+    changeSuPic(pathBueno, user_id); // esto cambiara la imagen en el chat de ese usuario
+    								// además de el zoom en caso de clicar
 
     msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
                                          // al enviar más mensajes
