@@ -242,8 +242,8 @@ html, body{
 }
 
 .msg .myavatar{
-	width: 15%;
-	height: 15%;
+	width: 11%;
+	height: 11%;
 	background: #FFE995;
 	border-radius: 50%;
 }
@@ -265,6 +265,7 @@ html, body{
 
 .received .message{
 	background: #670015;
+	max-width: 80%;
 }
 
 .sent .message{
@@ -369,9 +370,7 @@ html, body{
 .sidenav .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    font-size: 38px;
 }
 
 #main {

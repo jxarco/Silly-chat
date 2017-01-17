@@ -15,7 +15,7 @@ update();
 
 // estados inicials de ciertos elementos visuales
 document.getElementById("chatBox").style.display = "block";
-if(document.getElementById("rprofile")!= null) document.getElementById("rprofile").style.display = "none";
+document.getElementById("opacitypanel").style.display = "none";
 document.getElementById("contentpiano").style.display = "none";
 
 
@@ -64,8 +64,10 @@ function changeMyPic(path){
 function changeSuPic(path, id){
 
   var img_usuarios = document.querySelectorAll(".avatar_" + id + " img");
-  for(var i = 0; i < img_usuarios.length; ++i)
+  for(var i = 0; i < img_usuarios.length; ++i){
     img_usuarios[i].src = path;
+    //img_usuarios[i].addEventListener("click", showProfile(path)); // click zoom perfil
+  }
 }
 
 // cambia el nombre de usuario
@@ -189,8 +191,13 @@ function deleteChat(){
 }
 
 // mostrar perfil del usuario
-function showProfile() {
-  document.getElementById("rprofile").style.display = "block";
+function showProfile(path) {
+
+  // cambiar el zoom del perfil
+  //var profile_zoom = document.querySelector("#image_avatar img");
+  //profile_zoom.src = path;
+
+  // show all
   document.getElementById("opacitypanel").style.display = "block";
 }
 
@@ -248,10 +255,7 @@ window.onclick = function(event) {
 
   // si clicamos en cualquier sitio que no sea el perfil de la otra persona, se cerrará
   if (!event.target.matches('.profilebutton')) {
-    if(document.getElementById("rprofile") != null){
-      document.getElementById("rprofile").style.display = "none";
-      document.getElementById("opacitypanel").style.display = "none";
-    }
+    document.getElementById("opacitypanel").style.display = "none";
   }
 
   // si clicamos en hide profile, el perfil se esconderá
@@ -282,4 +286,3 @@ function openPiano() {
     document.getElementById("contentpiano").style.display = "none";
   }
 }
-

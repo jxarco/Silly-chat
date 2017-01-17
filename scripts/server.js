@@ -11,15 +11,19 @@ server.on_message = function( user_id, message){
 
 	var pathBueno = objectReceived.avatar.split("/");
 	pathBueno = "assets/" + pathBueno[pathBueno.length - 1];
+	var path = "'" + pathBueno + "'";
 
 	console.log( "User " + user_id + " said " + objectReceived.message );
 
 	var msg = document.createElement("div"); // creamos un div para el mensaje
 
     msg.innerHTML = "<div class='msg received'>"+
-    "<div class='avatar avatar_"+user_id+"'><img src='" + pathBueno + "'></div>"+
+    "<div class='avatar avatar_"+user_id+"'><img class='profilebutton' src='" + pathBueno + "'>" +
+    "</div>"+
     "<p class='message'>" + objectReceived.message + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
+
+    console.log(msg.innerHTML)
 
     var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
     msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
