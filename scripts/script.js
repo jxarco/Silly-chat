@@ -1,16 +1,26 @@
 
 // SCRIPT FOR U TALK CHAT
 
-// ask for notifications permission
 
+/* IMPORTANTE: *****************************************************************
+ * Necesitamos abrir el chat desde el host de github para hacer funcionar las  *
+ * notificaciones. Disponible aquí:  https://jxarco.github.io/ECV1/            *
+ * Si no es así, evitaremos preguntar por permisos.                            *
+ *******************************************************************************/
+
+var url = window.location.href;
+
+// ask for notifications permission
 // Determine the correct object to use
 var notification = window.Notification || window.mozNotification || window.webkitNotification;
 
 // The user needs to allow this
 if ('undefined' === typeof notification)
     alert('Web notification not supported');
-else
-    notification.requestPermission(function(permission){});
+else // en caso de estar en modo local y no usar el host
+    if(!url.includes("index.html")) notification.requestPermission(function(permission){});
+
+// INICIO
 
 // al entrar, asignar nombre de usuario aleatorio
 var random = Math.floor((Math.random() * 999) + 1);
@@ -27,10 +37,23 @@ document.getElementById("chatBox").style.display = "block";
 document.getElementById("opacitypanel").style.display = "none";
 document.getElementById("contentpiano").style.display = "none";
 
+// ****************************************************************************
+// PEOPLE ********
+// aparecer en la lista de conectados
+var conectados = document.createElement("div");
+conectados.innerHTML = "<div class='user'>" +
+              "<div class='avatar mycon'><img src='" + avatarPath + "''></div>" +
+              "<p class='userme mycon'>" + guestname + "</p>" +
+              "</div>";
+var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
+people.appendChild(conectados);
 
 // característica mayúsculas en el chat ***************************************
 // inicialmente desactivado
 var checked = false;
+
+alert("Hi!! You are using U Talk Chat from: " + url +". Now you can change your avatar and your name" +
+  " using profile options.");
 
 // activamos la mayúscula inicial
 function validateBox(){
@@ -137,7 +160,9 @@ function update(){
 function showAvatars() {
   document.getElementById("uaccept").style.display = "none"; 
   document.getElementById("uinput").style.display = "none";
-  document.getElementById("avatarslist").style.display = "block";
+  var avatar_list = document.getElementById("avatarslist");
+  avatar_list.style.display = "block";
+  document.body.scrollTop = document.body.scrollHeight;
 }
 
 
@@ -229,18 +254,6 @@ function openChat() {
 }
 
 // ****************************************************************************
-// PEOPLE ********
-// aparecer en la lista de conectados
-var conectados = document.createElement("div");
-conectados.innerHTML = "<div class='user'>" +
-              "<div class='avatar mycon'><img src='" + avatarPath + "''></div>" +
-              "<p class='userme mycon'>" + guestname + "</p>" +
-              "</div>";
-var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
-people.appendChild(conectados);
-
-
-// ****************************************************************************
 // **** MENU  ****
 
 
@@ -296,7 +309,7 @@ window.onclick = function(event) {
 
 // NOTIFICACIONES *************************************************************
 
-  function notifyMe(theBody, theIcon, theTitle) {
+function notifyMe(theBody, theIcon, theTitle) {
     
     var options = {
       body: theBody,
@@ -305,7 +318,7 @@ window.onclick = function(event) {
     
     var n = new Notification(theTitle, options);
     setTimeout(n.close.bind(n), 4000);
-  }
+}
 
 // ?????????????
 // PIANO **********************************************************************
