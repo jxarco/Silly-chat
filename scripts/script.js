@@ -73,6 +73,7 @@ function changeUsername(){
 function changeMyPic(path){
   avatarPath = path; // aqui solo damos valor a la variable 
   update(); // esta cambia el nombre y la foto
+  send_avatar_info(path);
 
   // -> coge las cosas que son de la clase myavatar
   var x = document.getElementsByClassName("myavatar");
@@ -88,6 +89,21 @@ function changeMyPic(path){
   }
 
   document.getElementById("avatarslist").style.display = "none";
+}
+
+// esta funcion notifica a los demas usuarios que me he cambiado
+// el avatar !!!!
+
+function send_avatar_info(newpath){
+
+  var objectToSend = {}; // nuestro objeto a enviar
+  var auto_message = "Auto-message: My avatar has changed!";
+
+  objectToSend.name = guestname;
+  objectToSend.message = auto_message;
+  objectToSend.avatar = newpath;
+
+  server.sendMessage(objectToSend);
 }
 
 function changeSuPic(path, id, name){
