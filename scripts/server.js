@@ -17,8 +17,6 @@ server.on_message = function( user_id, message){
 
 	var msg = document.createElement("div"); // creamos un div para el mensaje
 
-	// console.log("pathBueno: "+pathBueno);
-
     msg.innerHTML = "<div class='msg received'>"+
     "<div class='avatar avatar_"+user_id+"'>" +
     "<img class='profilebutton' src='" + pathBueno + "'>" +
@@ -42,9 +40,29 @@ server.on_message = function( user_id, message){
 server.on_user_connected = function(user_id){  
 	console.log("Somebody has connected to the room");
 
+	var path = "assets/connected.png";
+	var message = "Auto-message: User " + user_id + " has entered the conversation!";
+
+	var msg = document.createElement("div"); // creamos un div para el mensaje
+
+    msg.innerHTML = "<div class='msg received'>"+
+    "<div class='avatar avatar_connected'>" +
+    "<img class='profilebutton' src='" + path + "'>" +
+    "</div>"+
+    "<p class='message'>" + message + "</p>"+
+    "</div>"; // escribimos el codigo del mensaje a enviar en el div
+
+    var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
+    msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
+
+    msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
+                                         // al enviar más mensajes
+
+    // ********************************************************************************
 	// FALTA!!
 	// enviar al q se ha conectado mis datos para que sepa quien
 	// hay en la sala
+	// ********************************************************************************
 }
 
 server.on_user_disconnected = function(user_id){  
