@@ -13,6 +13,20 @@ server.on_message = function( user_id, message){
 	var pathBueno = objectReceived.avatar.split("/");
 	pathBueno = "assets/" + pathBueno[pathBueno.length - 1];
 
+	// si info=1 el mensaje solo sirve para indicar que
+	// esa persona esta conectada
+	
+	if(objectReceived.info == 1){
+		var conectados = document.createElement("div");
+		conectados.innerHTML = "<div class='user'>" +
+              "<div class='avatar'><img src='" + pathBueno + "''></div>" +
+              "<p class='userme'>" + guest_sending + "</p>" +
+              "</div>";
+		var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
+		people.appendChild(conectados);
+		return;
+	}
+
 	console.log( "User " + user_id + " said " + objectReceived.message );
 
 	var msg = document.createElement("div"); // creamos un div para el mensaje
@@ -63,6 +77,8 @@ server.on_user_connected = function(user_id){
 	// enviar al q se ha conectado mis datos para que sepa quien
 	// hay en la sala
 	// ********************************************************************************
+	new_connection(user_id);
+
 }
 
 server.on_user_disconnected = function(user_id){  
