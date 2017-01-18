@@ -283,6 +283,7 @@ function openNav() {
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
+  document.getElementById("stab").style.display = "none";
 }
 
 // tecla ESC cierra el menú
@@ -292,6 +293,7 @@ function keyListener(event){
   if(keyCode == 27){
     closeNav();
     document.getElementById("opacitypanel").style.display = "none";
+    document.getElementById("stab").style.display = "none";
     document.getElementById("opacitypanel").style.zIndex = "1";
   }
 }
@@ -322,6 +324,16 @@ window.onclick = function(event) {
   if ((!event.target.matches('.showAva')) && (!event.target.matches('.avatartype'))) {
     document.getElementById("avatarslist").style.display = "none";
   }
+}
+
+// SKINS *************************************************************
+
+function openSkinTab(){
+  document.getElementById("stab").style.display = "block";
+}
+
+function applySkin(){
+
 }
 
 // NOTIFICACIONES *************************************************************

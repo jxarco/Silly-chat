@@ -423,6 +423,34 @@ html, body{
   .sidenav a {font-size: 18px;}
 }
 
+/*******************************************************/
+/* SKINS */
+
+.skintab{
+	display: none;
+}
+
+.skin {
+    position: relative;
+    display: inline-block;
+
+}
+
+.skin_image {
+    display: none;
+    background-color: none;
+    width: 40%;
+    padding-top: 10px;
+    padding-bottom: 10px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.skin:hover .skin_image {
+    display: block;
+}
+
+/*******************************************************/
+
 
 /*******************************************************/
 
