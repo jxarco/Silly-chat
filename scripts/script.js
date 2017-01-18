@@ -133,7 +133,19 @@ function send_avatar_info(newpath){
   server.sendMessage(objectToSend);
 }
 
-function changeSuPic(path, id, name){
+function send_name_info(newname){
+
+  var objectToSend = {}; // nuestro objeto a enviar
+  var auto_message = "Auto-message: My nickname has changed!";
+
+  objectToSend.name = newname;
+  objectToSend.message = auto_message;
+  objectToSend.avatar = avatarPath;
+
+  server.sendMessage(objectToSend);
+}
+
+function changeSuInfo(path, id, name){
 
   var img_usuarios = document.querySelectorAll(".avatar_" + id + " img");
   for(var i = 0; i < img_usuarios.length; ++i){
@@ -142,6 +154,16 @@ function changeSuPic(path, id, name){
       showProfile(path, name);
     });
   }
+
+  var img_usuarios_people = document.querySelector(".avatar_c_" + id + " img");
+  img_usuarios_people.src = path;
+
+  var text_usuarios_people = document.querySelector(".userme_" + id);
+  text_usuarios_people.innerHTML = name;
+
+  console.log(text_usuarios_people)
+  console.log("name: " + name)
+  
 }
 
 // cambia el nombre de usuario
@@ -152,6 +174,7 @@ function modifyName(){
   document.getElementById("uaccept").style.display = "none";
   document.getElementById("uinput").style.display = "none";
   update();
+  send_name_info(guestname);
 }
 
 // añadir funcionalidad: boton USERNAME cambia el nombre de usuario
@@ -215,10 +238,6 @@ function send(){
 
   var objectToSend = {}; // nuestro objeto a enviar
 
-  objectToSend.name = guestname;
-  objectToSend.message = input.value;
-  objectToSend.avatar = avatarPath;
-
   // SOLO BORRAMOS ULTIMO CARACTER SI ES POR ENTER
   // PQ SE AÑADE EL "\n"
   if(input.value.includes("\n")) input.value = input.value.substring(0, input.value.length - 1);
@@ -232,6 +251,10 @@ function send(){
     if(checked){
       input.value = input.value.capitalize(); // si la casilla está marcada, se pone mayus
     }
+
+    objectToSend.name = guestname;
+    objectToSend.message = input.value;
+    objectToSend.avatar = avatarPath;
 
     server.sendMessage(objectToSend);
 

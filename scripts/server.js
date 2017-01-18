@@ -1,5 +1,5 @@
 var server = new SillyClient(); //create our class
-server.connect("84.89.136.194:9000","alexisroom");
+server.connect("84.89.136.194:9000","alexroom");
 
 server.on_connect = function(){  
 	console.log("Connected to server! :)");  
@@ -18,9 +18,9 @@ server.on_message = function( user_id, message){
 
 	if(objectReceived.info > 0){
 		var conectados = document.createElement("div");
-		conectados.innerHTML = "<div class='user'>" +
-              "<div class='avatar'><img src='" + pathBueno + "''></div>" +
-              "<p class='userme'>" + guest_sending + "</p>" +
+		conectados.innerHTML = "<div class='user user_conn_"+user_id+"'>" +
+              "<div class='avatar avatar_c_"+user_id+"'><img src='" + pathBueno + "''></div>" +
+              "<p class='userme userme_"+user_id+"'>" + guest_sending + "</p>" +
               "</div>";
 		var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
 		people.appendChild(conectados);
@@ -46,7 +46,7 @@ server.on_message = function( user_id, message){
 
     // esto cambiara la imagen en el chat de ese usuario
     // además de el zoom en caso de clicar y el nombre
-    changeSuPic(pathBueno, user_id, guest_sending);
+    changeSuInfo(pathBueno, user_id, guest_sending);
 
     msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
                                          // al enviar más mensajes
@@ -79,11 +79,18 @@ server.on_user_connected = function(user_id){
 	// hay en la sala
 	// ********************************************************************************
 	new_connection(user_id);
-
 }
 
 server.on_user_disconnected = function(user_id){  
 	console.log("Somebody has disconnected from the room");
+
+	var user_disc = document.querySelector(".user_conn_" + user_id);
+	var div_container = user_disc.parentNode;
+	var parent = div_container.parentNode;
+	console.log(parent)
+	console.log(user_disc)
+
+	parent.removeChild(div_container);
 }
 
 server.on_close = function(){  
