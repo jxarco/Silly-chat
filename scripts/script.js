@@ -341,6 +341,7 @@ function keyListener(event){
     document.getElementById("opacitypanel").style.display = "none";
     document.getElementById("stab").style.display = "none";
     document.getElementById("opacitypanel").style.zIndex = "1";
+    document.getElementById("avatarslist").style.display = "none";
   }
 }
 
