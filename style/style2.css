@@ -103,6 +103,10 @@ html, body{
 	text-align: center;
 }
 
+.heading .titlename img {
+	content:url("../assets/title_elegant.png");
+}
+
 .personalInfo {
 	display: block;
 	color: #FFE995;
