@@ -332,8 +332,16 @@ function openSkinTab(){
   document.getElementById("stab").style.display = "block";
 }
 
-function applySkin(){
+function applySkin(cssFile, cssLinkIndex) {
 
+    var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+    var newlink = document.createElement("link");
+    newlink.setAttribute("rel", "stylesheet");
+    newlink.setAttribute("type", "text/css");
+    newlink.setAttribute("href", cssFile);
+
+    document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
 }
 
 // NOTIFICACIONES *************************************************************
