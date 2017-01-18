@@ -25,9 +25,9 @@ html, body{
 
     font-size: 2vw;
     text-align: center;
-    background-color: #fbfbfb;
+    color: white;
+	background: linear-gradient(black, #670015);
 	margin-bottom: 10px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	padding: 15px;
 }
 
