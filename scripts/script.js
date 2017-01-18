@@ -27,7 +27,8 @@ var random = Math.floor((Math.random() * 999) + 1);
 var guestname = "Guest" + random;
 
 // asignamos también un avatar por defecto 
-var avatarPath = "assets/avatar5.png";
+var num_rand_avatar = Math.floor((Math.random() * 21) + 1);
+var avatarPath = "assets/avatar" + num_rand_avatar +".png";
 
 // actualizamos los datos en la página
 update();
@@ -73,6 +74,53 @@ function accept_handshaking(user_id){
   var send_to = user_id;
 
   server.sendMessage(objectToSend, send_to);
+}
+
+function sendTo(id){
+
+  var input = document.querySelector("#textinput");
+
+  var objectToSend = {}; // nuestro objeto a enviar
+
+  // SOLO BORRAMOS ULTIMO CARACTER SI ES POR ENTER
+  // PQ SE AÑADE EL "\n"
+  if(input.value.includes("\n")) input.value = input.value.substring(0, input.value.length - 1);
+
+  if(input.value != ""){
+
+    var msg = document.createElement("div"); // creamos un div para el mensaje
+
+    if(checked){
+      input.value = input.value.capitalize(); // si la casilla está marcada, se pone mayus
+    }
+
+    objectToSend.name = guestname;
+    objectToSend.message = input.value;
+    objectToSend.avatar = avatarPath;
+    objectToSend.private = "yes";
+
+    server.sendMessage(objectToSend, id);
+
+    msg.innerHTML = "<div class='msg sent'>"+
+    "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
+    "<p class='message_private'>" + input.value + "</p>"+
+    "</div>"; // escribimos el codigo del mensaje a enviar en el div
+
+    input.value = "" // reiniciamos el input 
+    var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
+    msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
+
+    msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
+                                         // al enviar más mensajes
+  }
+
+}
+
+function test(id){
+  var y = document.querySelector(".avatar_c_" + id + " img");
+  y.addEventListener("click", function(){
+      sendTo(id);
+  });
 }
 
 // característica mayúsculas en el chat ***************************************
@@ -238,8 +286,6 @@ function send(){
   // PQ SE AÑADE EL "\n"
   if(input.value.includes("\n")) input.value = input.value.substring(0, input.value.length - 1);
 
-  console.log("'" + input.value + "'");
-
   if(input.value != ""){
 
     var msg = document.createElement("div"); // creamos un div para el mensaje
@@ -339,7 +385,6 @@ function keyListener(event){
   if(keyCode == 27){
     closeNav();
     document.getElementById("opacitypanel").style.display = "none";
-    document.getElementById("stab").style.display = "none";
     document.getElementById("opacitypanel").style.zIndex = "1";
     document.getElementById("avatarslist").style.display = "none";
   }
@@ -389,6 +434,8 @@ function applySkin(cssFile, cssLinkIndex) {
     newlink.setAttribute("href", cssFile);
 
     document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+
+    closeNav();
 }
 
 // NOTIFICACIONES *************************************************************

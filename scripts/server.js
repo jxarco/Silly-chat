@@ -2,7 +2,7 @@ var server = new SillyClient(); //create our class
 server.connect("84.89.136.194:9000","alexroom");
 
 server.on_connect = function(){  
-	console.log("Connected to server! :)");  
+	console.log("Connected to server! :)");
 }
 
 server.on_message = function( user_id, message){
@@ -22,9 +22,14 @@ server.on_message = function( user_id, message){
               "<div class='avatar avatar_c_"+user_id+"'><img src='" + pathBueno + "''></div>" +
               "<p class='userme userme_"+user_id+"'>" + guest_sending + "</p>" +
               "</div>";
+        
 		var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
 		people.appendChild(conectados);
+		
 		if(objectReceived.info == 1) accept_handshaking(user_id);
+
+		test(user_id); // añadir posibilidad de chat privado
+
 		return;
 	}
 
@@ -32,7 +37,10 @@ server.on_message = function( user_id, message){
 
 	var msg = document.createElement("div"); // creamos un div para el mensaje
 
-    msg.innerHTML = "<div class='msg received'>"+
+	var msg_type = "msg received";
+	if(objectReceived.private == "yes") msg_type = "msg private"
+
+    msg.innerHTML = "<div class='" + msg_type + "'>"+
     "<p class='guest_console'>" + guest_sending + ": $</p>" +
     "<div class='avatar avatar_"+user_id+"'>" +
     "<img class='profilebutton' src='" + pathBueno + "'>" +
@@ -88,8 +96,6 @@ server.on_user_disconnected = function(user_id){
 	var user_disc = document.querySelector(".user_conn_" + user_id);
 	var div_container = user_disc.parentNode;
 	var parent = div_container.parentNode;
-	console.log(parent)
-	console.log(user_disc)
 
 	parent.removeChild(div_container);
 }
