@@ -186,8 +186,6 @@ function send(){
 
   var input = document.querySelector("#textinput");
 
-  console.log(input.value);
-
   var objectToSend = {}; // nuestro objeto a enviar
 
   objectToSend.name = guestname;
@@ -196,11 +194,11 @@ function send(){
 
   server.sendMessage(objectToSend);
 
-  // EL ERROR ESTÁ AQUI:
-  // EL ENTER AÑADE UN CARACTER MÁS, QUE ES EL QUE ELIMINAMOS.
-  // EL BOTON SEND NO LO AÑADE, POR ESO EL ULTIMO ÚTIL SE BORRA :)
-  // NI 2 MIN EN ENCONTRARLO XD
-  input.value = input.value.substring(0, input.value.length - 1);
+  // SOLO BORRAMOS ULTIMO CARACTER SI ES POR ENTER
+  // PQ SE AÑADE EL "\n"
+  if(input.value.includes("\n")) input.value = input.value.substring(0, input.value.length - 1);
+
+  console.log("'" + input.value + "'");
 
   if(input.value != ""){
 
