@@ -160,10 +160,6 @@ function changeSuInfo(path, id, name){
 
   var text_usuarios_people = document.querySelector(".userme_" + id);
   text_usuarios_people.innerHTML = name;
-
-  console.log(text_usuarios_people)
-  console.log("name: " + name)
-  
 }
 
 // cambia el nombre de usuario

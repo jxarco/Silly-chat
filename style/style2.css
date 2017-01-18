@@ -103,8 +103,9 @@ html, body{
 	text-align: center;
 }
 
-.heading .titlename img {
-	content:url("../assets/title_elegant.png");
+.heading .titlename img{
+	height: 8vh;
+	content: url("../assets/title_elegant.png");
 }
 
 .personalInfo {
@@ -310,6 +311,10 @@ html, body{
 .received .message{
 	background: #670015;
 	max-width: 80%;
+}
+
+.guest_console{
+	display: none;
 }
 
 .sent .message{

@@ -1,15 +1,15 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-family: tahoma, sans-serif;
+	font-family: monospace;
 	box-sizing: border-box;
 }
 
 html, body{
 	height: 100%;
-	background-image: url(../assets/pink_background.jpg);
+	background: black;
 }
-
+x
 /* Transition for initial info  */
 
 #hideMe {
@@ -25,11 +25,10 @@ html, body{
 
     font-size: 2vw;
     text-align: center;
-    background-color: #FF69B4;
+    background-color: #fbfbfb;
 	margin-bottom: 10px;
-	box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.2);
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	padding: 15px;
-	color: white;
 }
 
 @keyframes cssAnimation {
@@ -59,7 +58,6 @@ html, body{
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 10;
 }
 
 .content{
@@ -71,35 +69,36 @@ html, body{
 
 
 .heading{
-	background-image: url(../assets/pink_background.jpg);
+	background-color: black;
 	color: white;
 	font-size: 30px;
 	margin-bottom: 10px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	display: flex;
 	padding: 15px;
 	position: relative;
-	border-radius: 10px;
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
 }
 
 .heading .logo{
-	width: 70px;
-	height: 70px;
-	background:rgba(255,0,255,0.8); 
-	border-radius: 50%;
+	width: 75px;
+	height: 75px;
 	display: flex;
-	box-shadow: 0px 5px 15px 0px rgba(250,250,250,0.5);
 }
 .logo img{
 	width: 60%;
 	height: 60%;
 	margin: auto;
 	cursor: pointer;
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
 }
 
 .heading .titlename{
 	margin: auto;
-	color: white;
+	color: black;
 	padding: 10px;
 	width: 60%;
 	text-align: center;
@@ -107,27 +106,27 @@ html, body{
 
 .heading .titlename img{
 	height: 8vh;
-	content: url("../assets/title_fashion.png");
+	content: url("../assets/title_hack.png");
 }
 
 .personalInfo {
 	display: block;
 	float: left;
 	width: 25%;
-	min-height: 75vh;
-	background:rgba(255,20,147,0.5); 
+	background: black; 
 	padding: 25px;
 	margin: 0 auto;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	margin-left: 2%;
-	border-radius: 10px;
-
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
 }
 
 .personalInfo p{
-	font-size: 2.5vw;
+	font-size: 2vw;
 	text-align: center;
-	color: white;
+	color: #00e51a;
 }
 
 .personalInfo .pic{
@@ -140,20 +139,18 @@ html, body{
 	margin-top: 20px;
 	text-align: center;
 	font-size: 2vw;
-	color: white;
-	box-shadow: 0px 8px 16px 0px rgba(250,190,250,0.5);
 	height: 7%;
 	vertical-align: middle;
-	border-radius: 10px;
+	color: #00e51a;
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 .personalInfo .pic img{
-	width: 80%;
-	height: 80%;
-	margin: 20px;
-	position: static;
-	overflow: auto;
-	margin: auto;
+	display: none;
 }
 
 .personalInfo .profileOptions {
@@ -167,17 +164,27 @@ html, body{
 .personalInfo .profileOptions button {
 	width: 30%;
 	font-size: 100%;
-	box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.4);
-
 	position: relative;
-    background-color: #00BFFF;
-    border-radius: 10%;
+    background-color: black;
     color: #FFFFFF;
     padding: 5px 0px;
     margin: 3%;
     text-decoration: none;
     overflow: hidden;
     cursor: pointer;
+    color: #00e51a;
+    border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
+}
+
+.personalInfo .profileOptions button:focus {
+	outline: none;
+}
+
+.personalInfo .profileOptions button:active {
+	border-style: inset;
+	border-width: 3px;
 }
 
 .newname{
@@ -185,9 +192,13 @@ html, body{
 	padding: 15px;
 	margin: 10px 2%;
 	font-size: 15px;
-	color: white;
-	background: rgba(208,032,144,0.5);
+	background-color: black;
+	border: none;
+	color: #00e51a;
+}
 
+.newname:focus{
+	outline: none;
 }
 
 .accept{
@@ -197,19 +208,30 @@ html, body{
 	font-size: 15px;
 
 	position: relative;
-    background-color: #00BFFF;
-    border-radius: 10%;
-    color: #FFFFFF;
+    background-color: black;
+    color: #00e51a;
+
+    border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
     padding: 5px 15px;
     margin: 0 3%;
-    text-decoration: none;
     overflow: hidden;
     cursor: pointer;
 }
 
+.accept:active{
+	border-style: inset;
+	border-width: 3px;
+}
+
+.accept:focus{
+	outline: none;
+}
+
 .personalInfo .avatars{
 	display: none;
-    background: rgba(208,032,144,0.5);
+    background-color: black;
     margin-bottom: 50px;
     
     width: 100%;
@@ -217,8 +239,7 @@ html, body{
     
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 2;
-    border-radius: 10px;
-
+    
     overflow: scroll;
 }
 
@@ -238,7 +259,9 @@ html, body{
 }
 
 .dropdown img:hover{
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5); 
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
 }
 
 /* hasta aquí */
@@ -250,24 +273,23 @@ html, body{
 .chat{
 	display: block;
 	width: 40%;
-
-	background:rgba(255,20,147,0.5);  
+	background: black; 
 	padding: 25px;
 	margin: 0 auto;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	position: static;
-	border-radius: 10px;
-
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
 }
 
 .msgs{
 	padding: 10px;
 	width: 100%;
 	height: 450px;
-	background: rgba(208,032,144,0.5);
+	background: black;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	border-radius: 10px;
 }
 
 .msg{
@@ -278,15 +300,7 @@ html, body{
 }
 
 .msg .avatar{
-	width: 11%;
-	height: 11%;
-	border-radius: 50%;
-}
-
-.avatar img {
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
+	display: none;
 }
 
 .avatar:hover {
@@ -294,37 +308,27 @@ html, body{
 }
 
 .msg .myavatar{
-	width: 11%;
-	height: 11%;
-	border-radius: 50%;
-}
-
-.myavatar img {
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
+	display: none;
 }
 
 .msg .message{
-	padding: 15px 15px;
 	margin: 5px 10px 0;
-	border-radius: 10px;
-	color: white;
+	color: #00e51a;
 	font-size: 1.2vw;
 	word-wrap: break-word;
 }
 
 .received .message{
-	background: #1adda4;
 	max-width: 80%;
 }
 
 .guest_console{
-	display: none;
+	color: #00e51a;
+	font-size: 1.2vw;
+	margin: 5px 10px 0;
 }
 
 .sent .message{
-	background: #1ddced;
 	order: -1;
 	margin-left: auto;
 	max-width: 80%;
@@ -338,35 +342,31 @@ html, body{
 }
 
 .chatinput textarea{
-	width: 80%;
+	background: black;
+	width: 100%;
 	height: 50px;
 	resize: none;
 	padding: 2%;
 	font-size: 1.25vw;
-	background: rgba(208,032,144,0.5);
-	color: white;
+	color: #00e51a;
+	border: none;
+}
+
+.chatinput textarea:focus{
+	outline: none;
 }
 
 .chatinput button {
-    position: relative;
-    background-color: #00BFFF;
-    border-radius: 10%;
-    font-size: 1.5vw;
-    color: #FFFFFF;
-    width: 15%;
-    height: 100%;
-    text-align: center;
-    overflow: hidden;
-    cursor: pointer;
-    z-index: 1;
-    margin: auto;
-    padding-bottom: 5px;
-    padding-top: 5px; 
+	display: none;
 }
 
-.chatinput button:active {
+.chatinput button:active{
 	border-style: inset;
-    background-color: #ccc;
+	border-width: 3px;
+}
+
+.chatinput button:focus{
+	outline: none;
 }
 
 .uppercase{
@@ -389,11 +389,6 @@ html, body{
 /*******************************************************/
 
 /* MENU BOX */
-
-.logo:hover, .logo:focus {
-    background-color: #C71585;
-    box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.4);
-}
 
 .sidenav {
     height: 100%;
@@ -466,9 +461,6 @@ html, body{
 
 /*******************************************************/
 
-
-/*******************************************************/
-
 /* PROFILE BOX */
 
 #image_avatar img{ /* zoom del avatar de la otra persona */
@@ -497,20 +489,21 @@ html, body{
 	float: right;
 	width: 25%;
 	height: 100%;
-	background:rgba(255,20,147,0.5);  
+	background: black; 
 	padding: 25px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	margin-right: 2%;
 	top: 0px;
 	max-height: 75vh;
 	overflow-y: scroll;
-	border-radius: 10px;
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
 }
 
 .people p{
-	font-size: 2.5vw;
+	font-size: 2vw;
 	text-align: center;
-	color: white;
+	color: #00e51a;
 }
 
 .user {
@@ -519,23 +512,21 @@ html, body{
 	align-items: flex-start;
 	margin-bottom: 10px;
 	margin-top: 20px;
-	color: white;
 }
 
 .user .avatar{
-	width: 20%;
-	height: 20%;
-	border-radius: 50%;
+	display: none;
 }
 
 .user p{
 	padding: 10px 15px;
 	margin: 5px 10px 0;
-	border-radius: 10px;
-	border-color: #ff00ff;
-	border-style: outset;
+	border-color: #ccc;
 	font-size: 1.2vw;
 	word-wrap: break-word;
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
 }
 
 /* *************************************** */
@@ -636,14 +627,3 @@ html, body{
 .key.black:active:after {
     background-color: #222;
 }
-
-
-
-
-
-
-
-
-
-
-

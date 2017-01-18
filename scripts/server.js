@@ -33,6 +33,7 @@ server.on_message = function( user_id, message){
 	var msg = document.createElement("div"); // creamos un div para el mensaje
 
     msg.innerHTML = "<div class='msg received'>"+
+    "<p class='guest_console'>" + guest_sending + ": $</p>" +
     "<div class='avatar avatar_"+user_id+"'>" +
     "<img class='profilebutton' src='" + pathBueno + "'>" +
     "</div>"+

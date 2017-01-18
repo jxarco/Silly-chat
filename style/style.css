@@ -304,6 +304,10 @@ html, body{
 	max-width: 80%;
 }
 
+.guest_console{
+	display: none;
+}
+
 .sent .message{
 	background: #1ddced;
 	order: -1;
