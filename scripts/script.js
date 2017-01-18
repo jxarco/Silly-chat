@@ -219,8 +219,6 @@ function send(){
   objectToSend.message = input.value;
   objectToSend.avatar = avatarPath;
 
-  server.sendMessage(objectToSend);
-
   // SOLO BORRAMOS ULTIMO CARACTER SI ES POR ENTER
   // PQ SE AÑADE EL "\n"
   if(input.value.includes("\n")) input.value = input.value.substring(0, input.value.length - 1);
@@ -233,7 +231,9 @@ function send(){
 
     if(checked){
       input.value = input.value.capitalize(); // si la casilla está marcada, se pone mayus
-    } 
+    }
+
+    server.sendMessage(objectToSend);
 
     msg.innerHTML = "<div class='msg sent'>"+
     "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
