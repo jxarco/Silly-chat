@@ -25,10 +25,11 @@ html, body{
 
     font-size: 2vw;
     text-align: center;
-    background-color: #fbfbfb;
+    background-color: #FF69B4;
 	margin-bottom: 10px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.2);
 	padding: 15px;
+	color: white;
 }
 
 @keyframes cssAnimation {
@@ -58,6 +59,7 @@ html, body{
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 10;
 }
 
 .content{
@@ -77,31 +79,30 @@ html, body{
 	display: flex;
 	padding: 15px;
 	position: relative;
+	border-radius: 10px;
 }
 
 .heading .logo{
 	width: 70px;
 	height: 70px;
-	background:rgba(0,191, 255, 0.8); 
+	background:rgba(255,0,255,0.8); 
 	border-radius: 50%;
 	display: flex;
+	box-shadow: 0px 5px 15px 0px rgba(250,250,250,0.5);
 }
 .logo img{
-	width: 65%;
-	height: 65%;
+	width: 60%;
+	height: 60%;
 	margin: auto;
 	cursor: pointer;
 }
 
 .heading .titlename{
 	margin: auto;
-	color: black;
+	color: white;
 	padding: 10px;
 	width: 60%;
 	text-align: center;
-}
-
-.titlename img{
 }
 
 .personalInfo {
@@ -114,17 +115,14 @@ html, body{
 	margin: 0 auto;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	margin-left: 2%;
+	border-radius: 10px;
+
 }
 
 .personalInfo p{
 	font-size: 2.5vw;
 	text-align: center;
 	color: white;
-	border-style: outset;
-	border-radius: 10px;
-	border-width: 5px;
-	padding-bottom: 15px;
-	padding-top: 15px;
 }
 
 .personalInfo .pic{
@@ -138,9 +136,10 @@ html, body{
 	text-align: center;
 	font-size: 2vw;
 	color: white;
-	box-shadow: 0px 10px 15px 0px rgba(255,255,255,0.4);
+	box-shadow: 0px 8px 16px 0px rgba(250,190,250,0.5);
 	height: 7%;
 	vertical-align: middle;
+	border-radius: 10px;
 }
 
 .personalInfo .pic img{
@@ -163,7 +162,7 @@ html, body{
 .personalInfo .profileOptions button {
 	width: 30%;
 	font-size: 100%;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.4);
 
 	position: relative;
     background-color: #00BFFF;
@@ -181,6 +180,7 @@ html, body{
 	padding: 15px;
 	margin: 10px 2%;
 	font-size: 15px;
+	color: white;
 	background: rgba(208,032,144,0.5);
 
 }
@@ -212,7 +212,8 @@ html, body{
     
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 2;
-    
+    border-radius: 10px;
+
     overflow: scroll;
 }
 
@@ -250,6 +251,8 @@ html, body{
 	margin: 0 auto;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	position: static;
+	border-radius: 10px;
+
 }
 
 .msgs{
@@ -259,6 +262,7 @@ html, body{
 	background: rgba(208,032,144,0.5);
 	overflow-x: hidden;
 	overflow-y: scroll;
+	border-radius: 10px;
 }
 
 .msg{
@@ -331,6 +335,7 @@ html, body{
 	padding: 2%;
 	font-size: 1.25vw;
 	background: rgba(208,032,144,0.5);
+	color: white;
 }
 
 .chatinput button {
@@ -377,8 +382,8 @@ html, body{
 /* MENU BOX */
 
 .logo:hover, .logo:focus {
-    background-color: #eee;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: #C71585;
+    box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.4);
 }
 
 .sidenav {
@@ -461,16 +466,13 @@ html, body{
 	top: 0px;
 	max-height: 75vh;
 	overflow-y: scroll;
+	border-radius: 10px;
 }
 
 .people p{
 	font-size: 2.5vw;
 	text-align: center;
 	color: white;
-	border-radius: 10px;
-	border-style: outset;
-	padding-bottom: 15px;
-	padding-top: 15px; 
 }
 
 .user {
@@ -479,6 +481,7 @@ html, body{
 	align-items: flex-start;
 	margin-bottom: 10px;
 	margin-top: 20px;
+	color: white;
 }
 
 .user .avatar{
@@ -491,6 +494,7 @@ html, body{
 	padding: 10px 15px;
 	margin: 5px 10px 0;
 	border-radius: 10px;
+	border-color: #ff00ff;
 	border-style: outset;
 	font-size: 1.2vw;
 	word-wrap: break-word;
