@@ -15,8 +15,8 @@ server.on_message = function( user_id, message){
 
 	// si info=1 el mensaje solo sirve para indicar que
 	// esa persona esta conectada
-	
-	if(objectReceived.info == 1){
+
+	if(objectReceived.info > 0){
 		var conectados = document.createElement("div");
 		conectados.innerHTML = "<div class='user'>" +
               "<div class='avatar'><img src='" + pathBueno + "''></div>" +
@@ -24,6 +24,7 @@ server.on_message = function( user_id, message){
               "</div>";
 		var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
 		people.appendChild(conectados);
+		if(objectReceived.info == 1) accept_handshaking(user_id);
 		return;
 	}
 

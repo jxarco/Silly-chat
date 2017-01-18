@@ -48,18 +48,29 @@ conectados.innerHTML = "<div class='user'>" +
 var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
 people.appendChild(conectados);
 
-function new_connection(chat_id){
+function new_connection(user_id){
 
   var objectToSend = {}; // nuestro objeto a enviar
-  var auto_message = "Probando mensaje privado";
 
   objectToSend.name = guestname;
-  objectToSend.message = auto_message;
   objectToSend.avatar = avatarPath;
   objectToSend.info = 1;
 
   // esto podria ser un array
-  var send_to = chat_id;
+  var send_to = user_id;
+
+  server.sendMessage(objectToSend, send_to);
+}
+
+function accept_handshaking(user_id){
+  var objectToSend = {}; // nuestro objeto a enviar
+
+  objectToSend.name = guestname;
+  objectToSend.avatar = avatarPath;
+  objectToSend.info = 2;
+
+  // esto podria ser un array
+  var send_to = user_id;
 
   server.sendMessage(objectToSend, send_to);
 }
