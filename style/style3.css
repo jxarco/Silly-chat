@@ -281,6 +281,8 @@ html, body{
 .chat{
 	display: block;
 	width: 40%;
+	height: 75vh;
+
 	background: black; 
 	padding: 25px;
 	margin: 0 auto;
@@ -294,7 +296,7 @@ html, body{
 .msgs{
 	padding: 10px;
 	width: 100%;
-	height: 450px;
+	height: 55vh;
 	background: black;
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -369,11 +371,11 @@ html, body{
 	max-width: 80%;
 }
 
+/****  INPUT Y OPCIONES DE ENVIO *********************************************/
+
 .chatinput{
 	margin-top: 20px;
-	display: flex;
 	width: 100%;
-	height: 100%;
 }
 
 .chatinput textarea{
