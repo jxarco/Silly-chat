@@ -321,18 +321,26 @@ html, body{
 	max-width: 80%;
 }
 
-.message_private{
+/********* Enviados privado****************/
+
+/*.sent_private{
 	padding: 15px 15px;
 	margin: 5px 10px 0;
 	border-radius: 10px;
 	color: white;
 	font-size: 1.2vw;
-	word-wrap: break-word;
+	order: -1;
+	margin-left: auto;
+}*/
+
+.sent_private .message{
 	background: red;
 	order: -1;
 	margin-left: auto;
 	max-width: 80%;
+
 }
+
 
 /****  INPUT Y OPCIONES DE ENVIO *********************************************/
 
