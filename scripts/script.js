@@ -109,6 +109,7 @@ function sendTo(id){
     server.sendMessage(objectToSend, id);
 
     msg.innerHTML = "<div class='msg sent'>"+
+    "<p class='guest_console'>" + guestname + ": $</p>" +
     "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
     "<p class='message_private'>" + input.value + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
@@ -225,6 +226,11 @@ function modifyName(){
   document.getElementById("uinput").style.display = "none";
   update();
   send_name_info(guestname);
+
+  var my_messages = document.querySelectorAll(".mine");
+  for (var i = 0; i < my_messages.length; i++) {
+    my_messages[i].innerHTML = guestname + ": $";
+  }
 }
 
 // añadir funcionalidad: boton USERNAME cambia el nombre de usuario
@@ -307,6 +313,7 @@ function send(){
     server.sendMessage(objectToSend);
 
     msg.innerHTML = "<div class='msg sent'>"+
+    "<p class='guest_console mine'>" + guestname + ": $</p>" +
     "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
     "<p class='message'>" + input.value + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div

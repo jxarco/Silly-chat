@@ -133,6 +133,9 @@ x
 	align-items: center;
 	display: flex;
 	margin-top: 20px;
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
 }
 
 .personalInfo #gn{
@@ -150,7 +153,12 @@ x
 }
 
 .personalInfo .pic img{
-	display: none;
+	width: 80%;
+	height: 80%;
+	margin: 20px;
+	position: static;
+	overflow: auto;
+	margin: auto;
 }
 
 .personalInfo .profileOptions {
@@ -340,8 +348,6 @@ x
 }
 
 .sent .message{
-	order: -1;
-	margin-left: auto;
 	max-width: 80%;
 }
 
@@ -350,8 +356,6 @@ x
 	color: red;
 	font-size: 1.2vw;
 	word-wrap: break-word;
-	order: -1;
-	margin-left: auto;
 	max-width: 80%;
 }
 
