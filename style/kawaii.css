@@ -250,6 +250,7 @@ html, body{
 .chat{
 	display: block;
 	width: 40%;
+	height: 75vh;
 
 	background:rgba(255,20,147,0.5);  
 	padding: 25px;
@@ -263,7 +264,7 @@ html, body{
 .msgs{
 	padding: 10px;
 	width: 100%;
-	height: 450px;
+	height: 55vh;
 	background: rgba(208,032,144,0.5);
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -315,7 +316,7 @@ html, body{
 	margin: 5px 10px 0;
 	border-radius: 10px;
 	color: white;
-	font-size: 1.2vw;
+	font-size: 1vw;
 	word-wrap: break-word;
 }
 
@@ -350,9 +351,7 @@ html, body{
 
 .chatinput{
 	margin-top: 20px;
-	display: flex;
 	width: 100%;
-	height: 100%;
 }
 
 .chatinput textarea{
@@ -366,20 +365,18 @@ html, body{
 }
 
 .chatinput button {
-    position: relative;
+    position: absolute;
     background-color: #00BFFF;
     border-radius: 10%;
     font-size: 1.5vw;
     color: #FFFFFF;
-    width: 15%;
-    height: 100%;
+    width: 5%;
     text-align: center;
     overflow: hidden;
     cursor: pointer;
     z-index: 1;
-    margin: auto;
-    padding-bottom: 5px;
-    padding-top: 5px; 
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
 .chatinput button:active {

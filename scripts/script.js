@@ -37,6 +37,10 @@ update();
 document.getElementById("chatBox").style.display = "block";
 document.getElementById("opacitypanel").style.display = "none";
 
+function hideIntro(){
+  document.getElementById("hideMe").style.display = "none";  
+}
+
 // ****************************************************************************
 // PEOPLE ********
 // aparecer en la lista de conectados
