@@ -26,9 +26,15 @@ server.on_message = function( user_id, message){
 		var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
 		people.appendChild(conectados);
 		
+		// una vez el nuevo recibe la información de cada uno, 
+		// devuelve su información para que los demás completen
+		// su registro:
+
 		if(objectReceived.info == 1) accept_handshaking(user_id);
 
-		test(user_id); // añadir posibilidad de chat privado
+		// añadir posibilidad de chat privado para cada
+		// uno de los chats
+		add_privateChat_event(user_id); 
 
 		return;
 	}
@@ -37,8 +43,15 @@ server.on_message = function( user_id, message){
 
 	var msg = document.createElement("div"); // creamos un div para el mensaje
 
+	// habremos pasado un string "yes" si el mensaje proviene de la función
+	// sendTo. En ese caso, modificamos el mensaje para que lo contenga otra
+	// clase y se le pueda dar un estilo distinto
+
 	var msg_type = "msg received";
 	if(objectReceived.private == "yes") msg_type = "msg private"
+
+	// el resto es igual, la unica diferencia es la clase del div principal
+	// la clase que especifica "msg_type"
 
     msg.innerHTML = "<div class='" + msg_type + "'>"+
     "<p class='guest_console'>" + guest_sending + ": $</p>" +

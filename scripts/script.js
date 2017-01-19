@@ -60,7 +60,7 @@ function new_connection(user_id){
   // esto podria ser un array
   var send_to = user_id;
 
-  server.sendMessage(objectToSend, send_to);
+  server.sendMessage(objectToSend, send_to); // empezamos el handshaking
 }
 
 function accept_handshaking(user_id){
@@ -68,7 +68,7 @@ function accept_handshaking(user_id){
 
   objectToSend.name = guestname;
   objectToSend.avatar = avatarPath;
-  objectToSend.info = 2;
+  objectToSend.info = 2; // una vez se acaba el handshaking, no queremos volver a hacerlo
 
   // esto podria ser un array
   var send_to = user_id;
@@ -76,7 +76,14 @@ function accept_handshaking(user_id){
   server.sendMessage(objectToSend, send_to);
 }
 
+// funcion para los chats privados
 function sendTo(id){
+
+  // Es EXACTAMENTE igual que send()
+  // unica diferencia: clase del mensaje enviado:
+  // send: message
+  // sendTo: message_private
+  // solo para el css
 
   var input = document.querySelector("#textinput");
 
@@ -113,10 +120,9 @@ function sendTo(id){
     msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
                                          // al enviar más mensajes
   }
-
 }
 
-function test(id){
+function add_privateChat_event(id){
   var y = document.querySelector(".avatar_c_" + id + " img");
   y.addEventListener("click", function(){
       sendTo(id);
