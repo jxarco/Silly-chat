@@ -231,7 +231,6 @@ function changeSuInfo(path, id, name){
 
   // nombre de usuario de sus mensajes
   var text_usuarios_chats = document.querySelectorAll(".guest_console_rec_" + id);
-  console.log(text_usuarios_chats)
   for (var i = 0; i < text_usuarios_chats.length; i++) {
     text_usuarios_chats[i].innerHTML = "[" + name + "] whispers: $";
   }

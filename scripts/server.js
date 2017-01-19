@@ -49,17 +49,18 @@ server.on_message = function( user_id, message){
 	// clase y se le pueda dar un estilo distinto
 
 	var msg_type = "msg received";
-	var display_msg_type = guest_sending + ": $";
+	var display_msg_type = "<p class='guest_console'>" + guest_sending +": $</p>";
+	
 	if(objectReceived.private == "yes") {
 		msg_type = "msg private";
-		display_msg_type = "[" + guest_sending + "] whispers: $";
+		display_msg_type = "<p class='guest_console guest_console_rec_"+user_id+"'>[" + guest_sending +"] whispers: $</p>";
 	}
 
 	// el resto es igual, la unica diferencia es la clase del div principal
 	// la clase que especifica "msg_type"
 
-    msg.innerHTML = "<div class='" + msg_type + "'>"+
-    "<p class='guest_console guest_console_rec_"+user_id+"'>" + display_msg_type +"</p>" +
+    msg.innerHTML = "<div class='" + msg_type + "'>" +
+    display_msg_type + // eso indica si tiene q ser del tipo privado o público
     "<div class='avatar avatar_"+user_id+"'>" +
     "<img class='profilebutton' src='" + pathBueno + "'>" +
     "</div>"+

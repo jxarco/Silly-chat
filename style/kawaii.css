@@ -321,7 +321,7 @@ html, body{
 }
 
 .received .message{
-	background: #1adda4;
+	background: #b2109f;
 	max-width: 80%;
 }
 
@@ -330,24 +330,12 @@ html, body{
 }
 
 .sent .message{
-	background: #1ddced;
+	background: #f9ef7f;
 	order: -1;
 	margin-left: auto;
 	max-width: 80%;
+	color: black;
 }
-
-/*.sent_private{
-	padding: 15px 15px;
-	margin: 5px 10px 0;
-	border-radius: 10px;
-	color: white;
-	font-size: 1.2vw;
-	word-wrap: break-word;
-	background: red;
-	order: -1;
-	margin-left: auto;
-	max-width: 80%;
-}*/
 
 .sent_private .message{
 	background: red;
