@@ -244,6 +244,7 @@ html, body{
 .chat{
 	display: block;
 	width: 40%;
+	min-height: 75vh;
 	background: linear-gradient(black, #212120);
 	padding: 25px;
 	margin: 0 auto;
@@ -257,7 +258,7 @@ html, body{
 .msgs{
 	padding: 10px;
 	width: 100%;
-	height: 450px;
+	height: 55vh;
 	background: #fffb9e;
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -308,7 +309,7 @@ html, body{
 	margin: 5px 10px 0;
 	border-radius: 30px;
 	color: white;
-	font-size: 1.2vw;
+	font-size: 1vw;
 	word-wrap: break-word;
 }
 
@@ -341,11 +342,11 @@ html, body{
 	max-width: 80%;
 }
 
+/****  INPUT Y OPCIONES DE ENVIO *********************************************/
+
 .chatinput{
 	margin-top: 20px;
-	display: flex;
 	width: 100%;
-	height: 100%;
 }
 
 .chatinput textarea{
@@ -360,18 +361,18 @@ html, body{
 }
 
 .chatinput button {
-    position: relative;
+    position: absolute;
     background-color: #670015;
     border-style: inset;
     font-size: 1.5vw;
     color: #FFFFFF;
-    width: 15%;
-    height: 100%;
+    width: 5%;
     text-align: center;
     overflow: hidden;
     cursor: pointer;
     z-index: 1;
-    margin: auto;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
 .chatinput button:active {
@@ -381,7 +382,7 @@ html, body{
 
 .uppercase{
 	display: flex;
-	margin-top: 15px;
+	margin-top: 10px;
 	margin-left: 2px;
 }
 
