@@ -59,6 +59,8 @@ server.on_message = function( user_id, message){
 	// el resto es igual, la unica diferencia es la clase del div principal
 	// la clase que especifica "msg_type"
 
+	console.log(display_msg_type)
+
     msg.innerHTML = "<div class='" + msg_type + "'>"+
     "<p class='guest_console guest_console_rec_"+user_id+"'>" + display_msg_type +"</p>" +
     "<div class='avatar avatar_"+user_id+"'>" +
@@ -76,7 +78,7 @@ server.on_message = function( user_id, message){
     // además de el zoom en caso de clicar y el nombre
     changeSuInfo(pathBueno, user_id, guest_sending);
 
-    console.log("actualizando boton a " + guest_sending)
+    //console.log("actualizando boton a " + guest_sending)
     //update_privateChat_event(user_id, guest_sending);
 
     msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 

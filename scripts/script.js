@@ -111,10 +111,10 @@ function sendTo(id, sendto_name){
 
     server.sendMessage(objectToSend, id);
 
-    msg.innerHTML = "<div class='msg sent'>"+
+    msg.innerHTML = "<div class='msg sent_private'>"+
     "<p class='guest_console guest_console_"+id+"'>To[" + sendto_name + "] $</p>" +
     "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
-    "<p class='message_private'>" + input.value + "</p>"+
+    "<p class='message'>" + input.value + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
 
     input.value = "" // reiniciamos el input 
@@ -231,7 +231,7 @@ function changeSuInfo(path, id, name){
   var text_usuarios_chats = document.querySelectorAll(".guest_console_rec_" + id);
   console.log(text_usuarios_chats)
   for (var i = 0; i < text_usuarios_chats.length; i++) {
-    text_usuarios_chats[i].innerHTML = name + ": $";
+    text_usuarios_chats[i].innerHTML = "[" + name + "] whispers: $";
   }
 
   // avatar en people
