@@ -36,18 +36,21 @@ update();
 // estados inicials de ciertos elementos visuales
 document.getElementById("chatBox").style.display = "block";
 document.getElementById("opacitypanel").style.display = "none";
-document.getElementById("contentpiano").style.display = "none";
 
 // ****************************************************************************
 // PEOPLE ********
 // aparecer en la lista de conectados
-var conectados = document.createElement("div");
-conectados.innerHTML = "<div class='user'>" +
+// PD: Solo cuando estemos conectados al servidor
+
+function appear_connected(){
+  var conectados = document.createElement("div");
+  conectados.innerHTML = "<div class='user'>" +
               "<div class='avatar mycon'><img src='" + avatarPath + "''></div>" +
               "<p class='userme mycon'>" + guestname + "</p>" +
               "</div>";
-var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
-people.appendChild(conectados);
+  var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
+  people.appendChild(conectados);
+}
 
 function new_connection(user_id){
 
@@ -123,20 +126,33 @@ function sendTo(id, sendto_name){
   }
 }
 
+function update_privateChat_event(id, sendto_name){
+  var avatar_with_event = document.querySelector(".avatar_c_" + id + " img");
+  
+  avatar_with_event.removeEventListener("click", sendTo(id, sendto_name));
+
+  avatar_with_event.addEventListener("click", sendTo(id, sendto_name));
+}
+
 function add_privateChat_event(id, sendto_name){
   var avatar_with_event = document.querySelector(".avatar_c_" + id + " img");
+  //avatar_with_event.addEventListener("click", sendTo(id, sendto_name));
+
   avatar_with_event.addEventListener("click", function(){
-      sendTo(id, sendto_name);
+    sendTo(id, sendto_name);
   });
+
 }
 
 // característica mayúsculas en el chat ***************************************
-// inicialmente desactivado
-var checked = false;
+// inicialmente activado
+var checked = true;
+document.getElementById("check1").checked = true;
 
 // activamos la mayúscula inicial
 function validateBox(){
-  checked = document.getElementById("check1").checked;
+  if(checked) checked = false;
+  if(!checked) checked = true;
 }
 
 String.prototype.capitalize = function() {
@@ -417,6 +433,10 @@ function keyListener(event){
     document.getElementById("opacitypanel").style.zIndex = "1";
     document.getElementById("avatarslist").style.display = "none";
   }
+
+  if(keyCode == 17){
+    applySkin("style/style3.css", 0);
+  }
 }
 
 // ****************************************************************************
@@ -478,16 +498,4 @@ function notifyMe(theBody, theIcon, theTitle) {
     
     var n = new Notification(theTitle, options);
     setTimeout(n.close.bind(n), 4000);
-}
-
-// ?????????????
-// PIANO **********************************************************************
-
-//abrir piano
-function openPiano() {
-  if (document.getElementById("contentpiano").style.display == "none"){
-    document.getElementById("contentpiano").style.display = "block";
-  }else {
-    document.getElementById("contentpiano").style.display = "none";
-  }
 }

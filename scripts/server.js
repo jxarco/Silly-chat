@@ -3,6 +3,7 @@ server.connect("84.89.136.194:9000","alexroom");
 
 server.on_connect = function(){  
 	console.log("Connected to server! :)");
+	appear_connected(); // aparecer en People connected
 }
 
 server.on_message = function( user_id, message){
@@ -34,6 +35,7 @@ server.on_message = function( user_id, message){
 
 		// añadir posibilidad de chat privado para cada
 		// uno de los chats
+		console.log("actualizando boton a "+ guest_sending)
 		add_privateChat_event(user_id, guest_sending); 
 
 		return;
@@ -73,6 +75,9 @@ server.on_message = function( user_id, message){
     // esto cambiara la imagen en el chat de ese usuario
     // además de el zoom en caso de clicar y el nombre
     changeSuInfo(pathBueno, user_id, guest_sending);
+
+    console.log("actualizando boton a " + guest_sending)
+    //update_privateChat_event(user_id, guest_sending);
 
     msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
                                          // al enviar más mensajes

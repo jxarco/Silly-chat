@@ -9,7 +9,7 @@ html, body{
 	height: 100%;
 	background: black;
 }
-x
+
 /* Transition for initial info  */
 
 #hideMe {
@@ -559,100 +559,3 @@ x
 }
 
 /* *************************************** */
-
-/*  PIANO */
-
-#contentpiano {
-    min-height: 100%;
-    text-align: left;
-    overflow: hidden;
-    display: none;
-}
-
-#piano {
-
-	width: 60%;
-	position: absolute;
-	height: 40%;
-	background-color: #4CAF50; 
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	top: 40%;
-	left: 20%;
-	z-index: 5;
-	border-style: outset;
-	border-radius: 10px;
-	border-color: #ccc;
-	overflow: hidden;
-}
-
-/** keys */
-
-#piano .keys {
-
-	width: 100%;
-	position: absolute;
-	background-color: #ccc;
-	height: 80%;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 5;
-	border-style: outset;
-	border-color: #ccc;
-	bottom: 0;
-	display: flex;
-
-    overflow: hidden;
-}
-
-.key {
-
-	width: 10%;
-	height: 100%;
-    float: left;
-    position: relative;
-    margin: 0 2px 2px 0;
-    background: #fff;
-    border-radius: 0 0 4px 4px;
-}
-
-.key p{
-	text-align: center;
-    font-size: 1.5vw;
-    color: #9b9fa0;
-    padding-top: 200%;
-}
-
-.key.pressed,
-.key:active {
-    background: #f4f3f3;
-    box-shadow: inset 3px 2px 3px #999, inset -3px 2px 3px #999;
-}
-
-.key.black {
-    width: 0;
-    margin: 0;
-    z-index: 2;
-}
-
-.key.black:after p{
-    text-align: center;
-    font-size: 1.5vw;
-    color: white;
-}
-
-.key.black:after {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -16px;
-    display: block;
-    width: 32px;
-    height: 117px;
-    background: #000;
-    border-radius: 0 0 4px 4px;
-    box-shadow: 1px 1px 0 #555, 2px 2px 0 #555;
-}
-
-.key.black.pressed:after,
-.key.black:active:after {
-    background-color: #222;
-}
