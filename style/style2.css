@@ -244,7 +244,7 @@ html, body{
 .chat{
 	display: block;
 	width: 40%;
-	min-height: 75vh;
+	height: 75vh;
 	background: linear-gradient(black, #212120);
 	padding: 25px;
 	margin: 0 auto;

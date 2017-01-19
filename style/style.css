@@ -236,7 +236,7 @@ html, body{
 .chat{
 	display: block;
 	width: 40%;
-	min-height: 75vh;
+	height: 75vh;
 	background: #ffffff; 
 	padding: 25px;
 	margin: 0 auto;
