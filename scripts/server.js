@@ -34,7 +34,7 @@ server.on_message = function( user_id, message){
 
 		// añadir posibilidad de chat privado para cada
 		// uno de los chats
-		add_privateChat_event(user_id); 
+		add_privateChat_event(user_id, guest_sending); 
 
 		return;
 	}
@@ -48,13 +48,17 @@ server.on_message = function( user_id, message){
 	// clase y se le pueda dar un estilo distinto
 
 	var msg_type = "msg received";
-	if(objectReceived.private == "yes") msg_type = "msg private"
+	var display_msg_type = guest_sending + ": $";
+	if(objectReceived.private == "yes") {
+		msg_type = "msg private";
+		display_msg_type = "[" + guest_sending + "] whispers: $";
+	}
 
 	// el resto es igual, la unica diferencia es la clase del div principal
 	// la clase que especifica "msg_type"
 
     msg.innerHTML = "<div class='" + msg_type + "'>"+
-    "<p class='guest_console'>" + guest_sending + ": $</p>" +
+    "<p class='guest_console guest_console_rec_"+user_id+"'>" + display_msg_type +"</p>" +
     "<div class='avatar avatar_"+user_id+"'>" +
     "<img class='profilebutton' src='" + pathBueno + "'>" +
     "</div>"+

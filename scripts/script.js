@@ -77,7 +77,7 @@ function accept_handshaking(user_id){
 }
 
 // funcion para los chats privados
-function sendTo(id){
+function sendTo(id, sendto_name){
 
   // Es EXACTAMENTE igual que send()
   // unica diferencia: clase del mensaje enviado:
@@ -109,7 +109,7 @@ function sendTo(id){
     server.sendMessage(objectToSend, id);
 
     msg.innerHTML = "<div class='msg sent'>"+
-    "<p class='guest_console'>" + guestname + ": $</p>" +
+    "<p class='guest_console guest_console_"+id+"'>To[" + sendto_name + "] $</p>" +
     "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
     "<p class='message_private'>" + input.value + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
@@ -123,10 +123,10 @@ function sendTo(id){
   }
 }
 
-function add_privateChat_event(id){
+function add_privateChat_event(id, sendto_name){
   var avatar_with_event = document.querySelector(".avatar_c_" + id + " img");
   avatar_with_event.addEventListener("click", function(){
-      sendTo(id);
+      sendTo(id, sendto_name);
   });
 }
 
@@ -202,6 +202,7 @@ function send_name_info(newname){
 
 function changeSuInfo(path, id, name){
 
+  // avatares de todos sus mensajes
   var img_usuarios = document.querySelectorAll(".avatar_" + id + " img");
   for(var i = 0; i < img_usuarios.length; ++i){
     img_usuarios[i].src = path;
@@ -210,11 +211,26 @@ function changeSuInfo(path, id, name){
     });
   }
 
+  // nombre de usuario de sus mensajes
+  var text_usuarios_chats = document.querySelectorAll(".guest_console_rec_" + id);
+  console.log(text_usuarios_chats)
+  for (var i = 0; i < text_usuarios_chats.length; i++) {
+    text_usuarios_chats[i].innerHTML = name + ": $";
+  }
+
+  // avatar en people
   var img_usuarios_people = document.querySelector(".avatar_c_" + id + " img");
   img_usuarios_people.src = path;
 
+  // nombre de usuario en people
   var text_usuarios_people = document.querySelector(".userme_" + id);
   text_usuarios_people.innerHTML = name;
+
+  // cambiar el nombre del privado 
+  var my_priv_message_to = document.querySelectorAll(".guest_console_" + id);
+  for (var i = 0; i < my_priv_message_to.length; i++) {
+    my_priv_message_to[i].innerHTML = "To[" + name + "] $";
+  }
 }
 
 // cambia el nombre de usuario
