@@ -21,7 +21,7 @@ server.on_message = function( user_id, message){
 		var conectados = document.createElement("div");
 		conectados.innerHTML = "<div class='user user_conn_"+user_id+"'>" +
               "<div class='avatar avatar_c_"+user_id+"'><img src='" + pathBueno + "''></div>" +
-              "<p class='userme userme_"+user_id+"'>" + guest_sending + "</p>" +
+              "<p id='console_change_"+user_id+"' data-newname=" + guest_sending + " class='userme userme_"+user_id+"'>" + guest_sending + "</p>" +
               "</div>";
         
 		var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
@@ -35,7 +35,6 @@ server.on_message = function( user_id, message){
 
 		// añadir posibilidad de chat privado para cada
 		// uno de los chats
-		console.log("actualizando boton a "+ guest_sending)
 		add_privateChat_event(user_id, guest_sending); 
 
 		return;
@@ -59,8 +58,6 @@ server.on_message = function( user_id, message){
 	// el resto es igual, la unica diferencia es la clase del div principal
 	// la clase que especifica "msg_type"
 
-	console.log(display_msg_type)
-
     msg.innerHTML = "<div class='" + msg_type + "'>"+
     "<p class='guest_console guest_console_rec_"+user_id+"'>" + display_msg_type +"</p>" +
     "<div class='avatar avatar_"+user_id+"'>" +
@@ -78,8 +75,7 @@ server.on_message = function( user_id, message){
     // además de el zoom en caso de clicar y el nombre
     changeSuInfo(pathBueno, user_id, guest_sending);
 
-    //console.log("actualizando boton a " + guest_sending)
-    //update_privateChat_event(user_id, guest_sending);
+    update_privateChat_event(user_id, guest_sending);
 
     msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
                                          // al enviar más mensajes

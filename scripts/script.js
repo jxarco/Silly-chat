@@ -127,11 +127,8 @@ function sendTo(id, sendto_name){
 }
 
 function update_privateChat_event(id, sendto_name){
-  var avatar_with_event = document.querySelector(".avatar_c_" + id + " img");
-  
-  avatar_with_event.removeEventListener("click", sendTo(id, sendto_name));
-
-  avatar_with_event.addEventListener("click", sendTo(id, sendto_name));
+  var p_connected_id = document.getElementById("console_change_" + id);
+  p_connected_id.dataset['newname'] = sendto_name;
 }
 
 function add_privateChat_event(id, sendto_name){
@@ -139,7 +136,8 @@ function add_privateChat_event(id, sendto_name){
   //avatar_with_event.addEventListener("click", sendTo(id, sendto_name));
 
   avatar_with_event.addEventListener("click", function(){
-    sendTo(id, sendto_name);
+    var p_connected_id = document.getElementById("console_change_"+ id);
+    sendTo(id, p_connected_id.dataset['newname']);
   });
 
 }
