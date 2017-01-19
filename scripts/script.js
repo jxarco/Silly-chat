@@ -124,8 +124,8 @@ function sendTo(id){
 }
 
 function add_privateChat_event(id){
-  var y = document.querySelector(".avatar_c_" + id + " img");
-  y.addEventListener("click", function(){
+  var avatar_with_event = document.querySelector(".avatar_c_" + id + " img");
+  avatar_with_event.addEventListener("click", function(){
       sendTo(id);
   });
 }
@@ -158,15 +158,15 @@ function changeMyPic(path){
   send_avatar_info(path);
 
   // -> coge las cosas que son de la clase myavatar
-  var x = document.getElementsByClassName("myavatar");
+  var all_my_avatars = document.getElementsByClassName("myavatar");
 
   // este for cambia nuestros avatares n el chat 
   // coge los hijos de cada cosa que tenia clase avatar
   // despues cambia el src de todos los hijos (en este caso solo hay una imagen en cada hijo)
-  for (var i = 0; i < x.length; i++) {
-    var y = x[i].childNodes;
-    for (var j = 0; j < y.length; j++) {
-      y[j].src = avatarPath;
+  for (var i = 0; i < all_my_avatars.length; i++) {
+    var div_myavatar = all_my_avatars[i].childNodes;
+    for (var j = 0; j < div_myavatar.length; j++) {
+      div_myavatar[j].src = avatarPath;
     }
   }
 
