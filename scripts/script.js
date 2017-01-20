@@ -116,7 +116,7 @@ function sendTo(id, sendto_name){
     server.sendMessage(objectToSend, id);
 
     msg.innerHTML = "<div class='msg sent_private'>"+
-    "<p class='guest_console guest_console_"+id+"'>To[" + sendto_name + "] $</p>" +
+    "<p class='guest_console guest_console_"+id+"'>To [" + sendto_name + "]: $</p>" +
     "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
     "<p class='message'>" + input.value + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
@@ -246,7 +246,7 @@ function changeSuInfo(path, id, name){
   // cambiar el nombre del privado 
   var my_priv_message_to = document.querySelectorAll(".guest_console_" + id);
   for (var i = 0; i < my_priv_message_to.length; i++) {
-    my_priv_message_to[i].innerHTML = "To[" + name + "] $";
+    my_priv_message_to[i].innerHTML = "To [" + name + "]: $";
   }
 }
 
