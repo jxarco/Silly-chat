@@ -25,9 +25,10 @@ html, body{
 
     font-size: 2vw;
     text-align: center;
-    background-color: #fbfbfb;
+    background-color: black;
+    color: white;
 	margin-bottom: 10px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	border-bottom: 2px solid #00e51a;
 	padding: 15px;
 }
 
@@ -58,6 +59,27 @@ html, body{
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+#roominput{
+	background: black;
+	color: #00e51a;
+	width: 20%;
+	height: 50px;
+	border-style: inset;
+	border-color: #00e51a;
+	border-width: 1px;
+	resize: none;
+	font-size: 1.5vw;
+	padding-top: 10px;
+	padding-left: 10px;
+	display: block;
+	margin: auto;
+	text-align: center;
+}
+
+#roominput:focus{
+	outline: none;
 }
 
 .content{

@@ -22,20 +22,52 @@ else // en caso de estar en modo local y no usar el host
 
 // INICIO
 
-// al entrar, asignar nombre de usuario aleatorio
-var random = Math.floor((Math.random() * 999) + 1);
-var guestname = "Guest" + random;
+var random, guestname, avatarPath, num_rand_avatar;
+var room_bool = false;
 
-// asignamos también un avatar por defecto 
-var num_rand_avatar = Math.floor((Math.random() * 21) + 1);
-var avatarPath = "assets/avatar" + num_rand_avatar +".png";
+init();
 
-// actualizamos los datos en la página
-update();
+function init(){
 
-// estados inicials de ciertos elementos visuales
-document.getElementById("chatBox").style.display = "block";
-document.getElementById("opacitypanel").style.display = "none";
+  // cambiar el zoom del perfil
+  var intro_logo = document.querySelector("#image_avatar img");
+  intro_logo.src = "assets/favicon.png";
+
+  var label_name = document.querySelector("#contact_name");
+  label_name.innerHTML = "Create or join a room to begin chatting:";
+
+  var roominput = document.querySelector("#roominput");
+  roominput.focus();
+
+  // show all
+  document.getElementById("opacitypanel").style.display = "block";
+  document.getElementById("opacitypanel").style.zIndex = "20";
+
+  // tecla ENTER modifica el nombre de usuario
+  document.getElementById("roominput").addEventListener("keyup", function(event){
+  event.preventDefault();
+    if(event.keyCode == 13)
+    {
+      init_server();
+    }
+  });
+
+  // al entrar, asignar nombre de usuario aleatorio
+  random = Math.floor((Math.random() * 999) + 1);
+  guestname = "Guest" + random;
+
+  // asignamos también un avatar por defecto 
+  num_rand_avatar = Math.floor((Math.random() * 21) + 1);
+  avatarPath = "assets/avatar" + num_rand_avatar +".png";
+
+  // actualizamos los datos en la página
+  update();
+
+  // estados inicials de ciertos elementos visuales
+  document.getElementById("chatBox").style.display = "block";
+  document.getElementById("opacitypanel").style.display = "block";
+  document.getElementById("opacitypanel").style.zIndex = "20";
+}
 
 function hideIntro(){
   document.getElementById("hideMe").style.display = "none";  
@@ -54,6 +86,9 @@ function appear_connected(){
               "</div>";
   var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
   people.appendChild(conectados);
+
+  // una vez haya conexión
+  document.getElementById("textinput").focus();
 }
 
 function new_connection(user_id){
@@ -154,7 +189,7 @@ document.getElementById("check1").checked = true;
 // activamos la mayúscula inicial
 function validateBox(){
   if(checked) checked = false;
-  if(!checked) checked = true;
+  else if(!checked) checked = true;
 }
 
 String.prototype.capitalize = function() {
@@ -162,12 +197,6 @@ String.prototype.capitalize = function() {
 }
 
 // My profile *****************************************************************
-
-// cambiar nombre de usuario
-function changeUsername(){
-  document.getElementById("uaccept").style.display = "block"; // el input y el boton de aceptar se quitan cuando damos a aceptar
-  document.getElementById("uinput").style.display = "block";
-}
 
 // esta funcion cambia el avatar en el perfil y en el chat
 function changeMyPic(path){
@@ -253,13 +282,16 @@ function changeSuInfo(path, id, name){
 // cambia el nombre de usuario
 function modifyName(){
   var input = document.querySelector("#uinput");
-  if(input.value != "") guestname = input.value;
-  input.value = "";
+  if(input.value != ""){
+    guestname = input.value;
+    input.value = "";
+    send_name_info(guestname); // Si esta vacio, no tenemos que avisar
+  }
+  
   document.getElementById("uaccept").style.display = "none";
   document.getElementById("uinput").style.display = "none";
   update();
-  send_name_info(guestname);
-
+  
   var my_messages = document.querySelectorAll(".mine");
   for (var i = 0; i < my_messages.length; i++) {
     my_messages[i].innerHTML = guestname + ": $";
@@ -268,7 +300,19 @@ function modifyName(){
 
 // añadir funcionalidad: boton USERNAME cambia el nombre de usuario
 var ubutton = document.querySelector("#ubutton");
-ubutton.addEventListener("click", changeUsername);
+ubutton.addEventListener("click", function(){
+
+  // input and accept button have to appear
+  document.getElementById("uaccept").style.display = "block";
+  document.getElementById("uinput").style.display = "block";
+  
+  // scroll to view complete panel
+  document.body.scrollTop = document.body.scrollHeight;
+
+  // set focus to text area to write directly
+  document.getElementById("uinput").focus();
+
+});
 
 // añadir funcionalidad: boton accept modifica el nombre de usuario
 var accept = document.querySelector("#uaccept");
@@ -362,7 +406,10 @@ function send(){
 
 // boton SEND "envia" el mensaje que hay en el input
 var button = document.querySelector("#sendbutton");
-button.addEventListener("click", send);
+button.addEventListener("click", function(){
+  send();
+  document.getElementById("textinput").focus();
+});
 
 // tecla ENTER hace que boton SEND se active
 document.getElementById("textinput").addEventListener("keyup", function(event){
@@ -430,13 +477,13 @@ function keyListener(event){
   var keyCode = event.keyCode;
   if(keyCode == 27){
     closeNav();
-    document.getElementById("opacitypanel").style.display = "none";
-    document.getElementById("opacitypanel").style.zIndex = "1";
     document.getElementById("avatarslist").style.display = "none";
-  }
 
-  if(keyCode == 17){
-    applySkin("style/style3.css", 0);
+    document.getElementById("uaccept").style.display = "none";
+    document.getElementById("uinput").style.display = "none";
+
+    var op_panel = document.getElementById("opacitypanel");
+    if(op_panel.dataset['boolean'] == "true") hideOpPanel();
   }
 }
 
@@ -446,9 +493,9 @@ function keyListener(event){
 window.onclick = function(event) {
 
   // si clicamos en cualquier sitio que no sea el perfil de la otra persona, se cerrará
-  if (!event.target.matches('.profilebutton')) {
-    document.getElementById("opacitypanel").style.display = "none";
-    document.getElementById("opacitypanel").style.zIndex = "1";
+  if (!event.target.matches('.profilebutton') && !event.target.matches('.room')) {
+    var op_panel = document.getElementById("opacitypanel");
+    if(op_panel.dataset['boolean'] == "true") hideOpPanel();
   }
 
   // si clicamos en hide profile, el perfil se esconderá
@@ -466,6 +513,11 @@ window.onclick = function(event) {
   if ((!event.target.matches('.showAva')) && (!event.target.matches('.avatartype'))) {
     document.getElementById("avatarslist").style.display = "none";
   }
+}
+
+function hideOpPanel(){
+  document.getElementById("opacitypanel").style.display = "none";
+  document.getElementById("opacitypanel").style.zIndex = "1";
 }
 
 // SKINS *************************************************************
