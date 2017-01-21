@@ -11,8 +11,7 @@ server.on_message = function( user_id, message){
 	var objectReceived = JSON.parse(message);
 
 	var guest_sending = objectReceived.name;
-	var pathBueno = objectReceived.avatar.split("/");
-	pathBueno = "assets/" + pathBueno[pathBueno.length - 1];
+	var pathBueno = objectReceived.avatar;
 
 	// si info=1 el mensaje solo sirve para indicar que
 	// esa persona esta conectada
