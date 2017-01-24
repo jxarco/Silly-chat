@@ -191,6 +191,37 @@ html, body{
     cursor: pointer;
 }
 
+.personalInfo .profileOptions button:active{
+	outline: none;
+	border: 2px solid #670015;
+}
+
+#uaccept{
+	width: 30%;
+	font-size: 100%;
+	color: #670015;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+	position: relative;
+    background-color: #FFE995;
+    border-radius: 10%;
+    padding: 5px 0px;
+    margin: 3%;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#uaccept:active{
+	outline: none;
+	border: 2px solid #670015;
+}
+
+#uinput:focus{
+	outline: none;
+	border: 3px solid #670015;
+}
+
 .newname{
 	display: none;
 	padding: 15px;
@@ -342,18 +373,6 @@ html, body{
 	max-width: 80%;
 }
 
-/*.sent_private{
-	padding: 15px 15px;
-	margin: 5px 10px 0;
-	border-radius: 30px;
-	color: white;
-	font-size: 1.2vw;
-	word-wrap: break-word;
-	background: red;
-	order: -1;
-	margin-left: auto;
-	max-width: 80%;
-}*/
 .sent_private .message{
 	background: red;
 	order: -1;
@@ -380,6 +399,11 @@ html, body{
 	color: black;
 }
 
+.chatinput textarea:focus{
+	outline: none;
+	border: 3px solid #670015;
+}
+
 .chatinput button {
     position: absolute;
     background-color: #670015;
@@ -397,6 +421,7 @@ html, body{
 
 .chatinput button:active {
 	border-style: inset;
+	outline: none;
     background-color: #ccc;
 }
 
