@@ -113,9 +113,7 @@ html, body{
 	height: 60%;
 	margin: auto;
 	cursor: pointer;
-	border-style: inset;
-	border-color: #00e51a;
-	border-width: 1px;
+	content: url("../assets/console_logo.png");
 }
 
 .heading .titlename{

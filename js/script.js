@@ -151,7 +151,7 @@ function sendTo(id, sendto_name){
     server.sendMessage(objectToSend, id);
 
     msg.innerHTML = "<div class='msg sent_private'>"+
-    "<p class='guest_console guest_console_"+id+"'>To [" + sendto_name + "]: $</p>" +
+    "<p class='guest_console guest_console_"+id+"'>To [" + sendto_name + "]: </p>" +
     "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
     "<p class='message'>" + input.value + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
@@ -261,7 +261,7 @@ function changeSuInfo(path, id, name){
   // nombre de usuario de sus mensajes
   var text_usuarios_chats = document.querySelectorAll(".guest_console_rec_" + id);
   for (var i = 0; i < text_usuarios_chats.length; i++) {
-    text_usuarios_chats[i].innerHTML = "[" + name + "] whispers: $";
+    text_usuarios_chats[i].innerHTML = "[" + name + "] whispers: ";
   }
 
   // avatar en people
@@ -275,7 +275,7 @@ function changeSuInfo(path, id, name){
   // cambiar el nombre del privado 
   var my_priv_message_to = document.querySelectorAll(".guest_console_" + id);
   for (var i = 0; i < my_priv_message_to.length; i++) {
-    my_priv_message_to[i].innerHTML = "To [" + name + "]: $";
+    my_priv_message_to[i].innerHTML = "To [" + name + "]: ";
   }
 }
 
@@ -294,7 +294,7 @@ function modifyName(){
   
   var my_messages = document.querySelectorAll(".mine");
   for (var i = 0; i < my_messages.length; i++) {
-    my_messages[i].innerHTML = guestname + ": $";
+    my_messages[i].innerHTML = guestname + ": ";
   }
 }
 
@@ -390,7 +390,7 @@ function send(){
     server.sendMessage(objectToSend);
 
     msg.innerHTML = "<div class='msg sent'>"+
-    "<p class='guest_console mine'>" + guestname + ": $</p>" +
+    "<p class='guest_console mine'>" + guestname + ": </p>" +
     "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
     "<p class='message'>" + input.value + "</p>"+
     "</div>"; // escribimos el codigo del mensaje a enviar en el div
