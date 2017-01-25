@@ -61,13 +61,13 @@ html, body{
 }
 
 #roominput{
-	background: #fbfbfb;
+	background: none;
 	width: 20%;
 	height: 50px;
 	border: 3px solid #000000;
 	resize: none;
 	font-size: 1.5vw;
-	color: #999;
+	color: #FFFFFF;
 	padding-top: 10px;
 	padding-left: 10px;
 	display: block;
