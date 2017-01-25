@@ -282,8 +282,13 @@ function changeSuInfo(path, id, name){
 // cambia el nombre de usuario
 function modifyName(){
   var input = document.querySelector("#uinput");
+  var aux = guestname;
   if(input.value != ""){
     guestname = input.value;
+    if(guestname.length > 15){
+      guestname = aux;
+      alert("Choose shorter nickname! (<15)")
+    }
     input.value = "";
     send_name_info(guestname); // Si esta vacio, no tenemos que avisar
   }
