@@ -33,7 +33,7 @@ function init(){
   var intro_logo = document.querySelector("#image_avatar img");
   intro_logo.src = "assets/favicon.png";
 
-  var label_name = document.querySelector("#contact_name");
+  /*var label_name = document.querySelector("#contact_name");
   label_name.innerHTML = "Create or join a room to begin chatting:";
 
   var roominput = document.querySelector("#roominput");
@@ -43,14 +43,13 @@ function init(){
   document.getElementById("opacitypanel").style.display = "block";
   document.getElementById("opacitypanel").style.zIndex = "20";
 
-  // tecla ENTER modifica el nombre de usuario
   document.getElementById("roominput").addEventListener("keyup", function(event){
   event.preventDefault();
     if(event.keyCode == 13)
     {
       init_server();
     }
-  });
+  });*/
 
   // al entrar, asignar nombre de usuario aleatorio
   random = Math.floor((Math.random() * 999) + 1);
@@ -65,8 +64,8 @@ function init(){
 
   // estados inicials de ciertos elementos visuales
   document.getElementById("chatBox").style.display = "block";
-  document.getElementById("opacitypanel").style.display = "block";
-  document.getElementById("opacitypanel").style.zIndex = "20";
+  /*document.getElementById("opacitypanel").style.display = "block";
+  document.getElementById("opacitypanel").style.zIndex = "20";*/
 }
 
 function hideIntro(){
@@ -293,8 +292,7 @@ function modifyName(){
     send_name_info(guestname); // Si esta vacio, no tenemos que avisar
   }
   
-  document.getElementById("uaccept").style.display = "none";
-  document.getElementById("uinput").style.display = "none";
+  hideDivs();
   update();
   
   var my_messages = document.querySelectorAll(".mine");
@@ -303,6 +301,13 @@ function modifyName(){
   }
 }
 
+function hideDivs(){
+  document.getElementById("uaccept").style.display = "none"; 
+  document.getElementById("uinput").style.display = "none";
+  document.getElementById("change_id").style.display = "none";
+}
+  
+
 // añadir funcionalidad: boton USERNAME cambia el nombre de usuario
 var ubutton = document.querySelector("#ubutton");
 ubutton.addEventListener("click", function(){
@@ -310,6 +315,7 @@ ubutton.addEventListener("click", function(){
   // input and accept button have to appear
   document.getElementById("uaccept").style.display = "block";
   document.getElementById("uinput").style.display = "block";
+  document.getElementById("change_id").style.display = "block";
   
   // scroll to view complete panel
   document.body.scrollTop = document.body.scrollHeight;
@@ -359,8 +365,7 @@ function update(){
 
 // mostrar coleccion de avatares
 function showAvatars() {
-  document.getElementById("uaccept").style.display = "none"; 
-  document.getElementById("uinput").style.display = "none";
+  hideDivs();
   var avatar_list = document.getElementById("avatarslist");
   avatar_list.style.display = "block";
   document.body.scrollTop = document.body.scrollHeight;
@@ -468,6 +473,7 @@ function openChat() {
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("main").style.marginLeft = "250px";
+    hideDivs();
 }
 
 function closeNav() {
@@ -484,8 +490,7 @@ function keyListener(event){
     closeNav();
     document.getElementById("avatarslist").style.display = "none";
 
-    document.getElementById("uaccept").style.display = "none";
-    document.getElementById("uinput").style.display = "none";
+    hideDivs();
 
     var op_panel = document.getElementById("opacitypanel");
     if(op_panel.dataset['boolean'] == "true") hideOpPanel();
@@ -506,12 +511,12 @@ window.onclick = function(event) {
   // si clicamos en hide profile, el perfil se esconderá
   if (event.target.matches('.hideProfile')) {
     document.getElementById("persInfoBox").style.display = "none";
+    hideDivs();
   }
 
   // si clicamos en aceptar, el boton y el input desapareceran
   if(event.target.matches('.accept')) {
-    document.getElementById("uaccept").style.display = "none";
-    document.getElementById("uinput").style.display = "none";
+    hideDivs();
   }
 
   // si clicamos fuera de los avatares, la lista se esconderá

@@ -51,6 +51,7 @@ html, body{
 /*  .trans -> style for the profile and the trans. background  */
 .trans
 {
+	display: none;
 	position: fixed;
     padding: 30px;
     background-color: rgba(0,0,0,0.75);
@@ -94,8 +95,8 @@ html, body{
 }
 
 .heading .logo{
-	width: 75px;
-	height: 75px;
+	width: 70px;
+	height: 70px;
 	background: #eee;
 	border-radius: 50%;
 	display: flex;
@@ -116,27 +117,24 @@ html, body{
 }
 
 .titlename img{
-	height: 8vh;
+	height: 5vh;
 }
 
 .personalInfo {
 	display: block;
-	float: left;
-	width: 25%;
+	height: 37vh;
 	background: #ffffff; 
 	padding: 25px;
-	margin: 0 auto;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	margin-left: 2%;
+	width: 100%;
 }
 
 .personalInfo p{
-	font-size: 2.5vw;
+	font-size: 1.5vw;
 	text-align: center;
 }
 
 .personalInfo .pic{
-	align-items: center;
 	display: flex;
 	margin-top: 20px;
 }
@@ -144,36 +142,43 @@ html, body{
 .personalInfo #gn{
 	margin-top: 20px;
 	text-align: center;
-	font-size: 2vw;
+	font-size: 1vw;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-	height: 7%;
 	vertical-align: middle;
+	padding: 5px;
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 10px;
 }
 
 .personalInfo .pic img{
-	width: 80%;
-	height: 80%;
+	width: 55%;
+	height: 55%;
 	margin: 20px;
 	position: static;
 	overflow: auto;
 	margin: auto;
 }
 
+.personalInfo .pic img:hover{
+	border-radius: 50%;
+	background-color: rgba(100, 100, 100, 0.25);
+}
+
 .personalInfo .profileOptions {
 	display: flex;
-	margin-top: 50px;
+	margin-top: 20px;
 	position: relative;
 	width: 100%;
-	font-size: 1.2vw;
+	font-size: 1vw;
 }
 
 .personalInfo .profileOptions button {
 	width: 30%;
 	font-size: 100%;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
 	position: relative;
-    background-color: #4CAF50;
+    background-color: #707eb2;
     border-radius: 10%;
     color: #FFFFFF;
     padding: 5px 0px;
@@ -188,6 +193,7 @@ html, body{
 	padding: 15px;
 	margin: 10px 2%;
 	font-size: 15px;
+	z-index: 20;
 }
 
 .accept{
@@ -197,7 +203,7 @@ html, body{
 	font-size: 15px;
 
 	position: relative;
-    background-color: #4CAF50;
+    background-color: #707eb2;
     border-radius: 10%;
     color: #FFFFFF;
     padding: 5px 15px;
@@ -207,17 +213,23 @@ html, body{
     cursor: pointer;
 }
 
+.change_name
+{
+	display: none;
+	position: fixed;
+    padding: 30px;
+    background-color: rgba(0,0,0,0.8);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+}
+
 .personalInfo .avatars{
 	display: none;
-    background-color: #f9f9f9;
+    background-color: rgba(0,0,0,0.8);
     margin-bottom: 50px;
-    
-    width: 100%;
-	height: 450px;
-    
+    width: 16%;
+	height: 350px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 2;
-    
+    position: fixed;
     overflow: scroll;
 }
 
@@ -227,7 +239,8 @@ html, body{
     border-radius: 5px;
     margin-top: 20px;
     z-index: 3;
-    max-width: 30%;
+    max-width: 27%;
+    margin-left: 9px;
 }
 
 .dropdown img{
@@ -237,6 +250,8 @@ html, body{
 }
 
 .dropdown img:hover{
+	background-color: #fbfbfb;
+	border-radius: 50%;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5); 
 }
 
@@ -248,19 +263,19 @@ html, body{
 
 .chat{
 	display: block;
-	width: 40%;
+	width: 25%;
 	height: 75vh;
 	background: #ffffff; 
-	padding: 25px;
-	margin: 0 auto;
+	padding: 15px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	position: static;
+	float: left;
+	margin-left: 1%;
 }
 
 .msgs{
 	padding: 10px;
 	width: 100%;
-	height: 55vh;
+	height: 60vh;
 	background: #eee;
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -280,9 +295,8 @@ html, body{
 }
 
 .msg .avatar{
-	width: 11%;
-	height: 11%;
-	background: #ccc;
+	width: 17%;
+	height: 17%;
 	border-radius: 50%;
 }
 
@@ -297,9 +311,8 @@ html, body{
 }
 
 .msg .myavatar{
-	width: 11%;
-	height: 11%;
-	background: #ccc;
+	width: 17%;
+	height: 17%;
 	border-radius: 50%;
 }
 
@@ -310,11 +323,11 @@ html, body{
 }
 
 .msg .message{
-	padding: 15px 15px;
-	margin: 5px 10px 0;
+	padding: 8px 8px;
+	margin: 5px 5px 0;
 	border-radius: 10px;
 	color: white;
-	font-size: 1vw;
+	font-size: 0.9vw;
 	word-wrap: break-word;
 }
 
@@ -329,9 +342,9 @@ html, body{
 
 .sent .message{
 	background: #1ddced;
+	max-width: 80%;
 	order: -1;
 	margin-left: auto;
-	max-width: 80%;
 }
 
 /********* Enviados privado****************/
@@ -350,11 +363,11 @@ html, body{
 	max-width: 80%;
 	display: block;
 
-	padding: 15px 15px;
+	padding: 8px 8px;
 	margin: 5px 10px 0;
 	border-radius: 10px;
 	color: white;
-	font-size: 1vw;
+	font-size: 0.9vw;
 	word-wrap: break-word;
 }
 
@@ -364,35 +377,31 @@ html, body{
 .chatinput{
 	margin-top: 20px;
 	width: 100%;
+	display: flex;
 }
 
 .chatinput textarea{
 	background: #fbfbfb;
 	width: 80%;
-	height: 50px;
+	height: 30px;
 	border: 2px solid #eee;
 	resize: none;
 	padding: 2%;
-	font-size: 1.25vw;
+	font-size: 1vw;
 	color: #999;
+	margin-right: 15px;
 }
 
-.chatinput button {
-    background-color: #4CAF50;
-    position: absolute;
-    border-radius: 10%;
-    font-size: 1.5vw;
-    color: #FFFFFF;
-    width: 5%;
-    text-align: center;
+.chatinput img {
+    width: 13%;
+    height: 13%;
     overflow: hidden;
     cursor: pointer;
     z-index: 1;
-    margin-top: 10px;
-    margin-left: 20px;
+    float: right;
 }
 
-.chatinput button:active {
+.chatinput img:active {
 	border-style: inset;
     background-color: #ccc;
 }
@@ -404,13 +413,12 @@ html, body{
 }
 
 .uppercase p{
-	font-size: 1.1vw;
+	font-size: 1vw;
 	color: #9ca4af;
 }
 
 .uppercase .ucselection{
 	margin: auto; 
-	transform: scale(1.15);
 }
 
 
@@ -518,23 +526,18 @@ html, body{
 /*  CONTACTS   */
 
 .people {
-	display: block;
-	float: right;
-	width: 25%;
-	height: 100%;
+	height: 37vh;
 	background: #ffffff; 
 	padding: 25px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	margin-right: 2%;
-	top: 0px;
-	max-height: 75vh;
+	width: 100%;
+	margin-top: 1vh;
 	overflow-y: scroll;
 }
 
 .people p{
-	font-size: 2.5vw;
+	font-size: 1.5vw;
 	text-align: center;
-	
 }
 
 .user {
@@ -548,7 +551,6 @@ html, body{
 .user .avatar{
 	width: 20%;
 	height: 20%;
-	background: #ccc;
 	border-radius: 50%;
 }
 
@@ -558,8 +560,61 @@ html, body{
 	border-radius: 10px;
 	border-color: #ccc;
 	border-style: inset;
-	font-size: 1.2vw;
+	font-size: 1vw;
 	word-wrap: break-word;
 }
 
 /* *************************************** */
+
+/* PRACTICA 2 */
+
+.screen{
+	display: flex;
+}
+
+.rest_org{
+	display: block;
+	float: right;
+	width: 20%;
+	height: 75vh;
+	margin-right: 1%;
+	top: 0px;
+	max-height: 75vh;
+}
+
+.canvas{
+	display: block;
+	width: 50%;
+	height: 75vh;
+	background: #ffffff; 
+	padding: 25px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
