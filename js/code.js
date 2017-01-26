@@ -20,29 +20,21 @@ function loadCubes(){
 			var mouse, raycaster, isShiftDown = false;
 			var cubeGeometry = new THREE.BoxGeometry( 50, 50, 50 );
 			var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x00ff80, overdraw: 0.5 } );
-			var objects = [];			
+			var objects = [];
+			
 
-			container = document.createElement( 'div' );
-			var canvas_con = document.querySelector(".canvas_container");
-			canvas_con.appendChild( container );
+			container = document.querySelector(".canvas_container");
+			var tam = container.getBoundingClientRect();
 
-			/*var canvas = document.querySelector("#painter");
-			var parent = canvas.parentNode;
-			var rect = parent.getBoundingClientRect();
+			console.log(tam.width)
+			console.log(tam.height)
 
-			canvas.width = rect.width - 50; // -50 por el padding
-			canvas.height = rect.height - 50;*/
+			tam.width -= 50;
 
-			var rect = canvas_con.getBoundingClientRect();
-
-			rect.width -= 50;
-			rect.height -= 50;
-
-			camera = new THREE.PerspectiveCamera( 40, rect.width / rect.height, 1, 10000 );
+			camera = new THREE.PerspectiveCamera( 40, tam.width / tam.height, 1, 10000 );
 			camera.position.set( 500, 800, 1300 );
 			camera.lookAt( new THREE.Vector3() );
 			scene = new THREE.Scene();
-
 			// Grid
 			var size = 500, step = 50;
 			var geometry = new THREE.Geometry();
@@ -56,7 +48,6 @@ function loadCubes(){
 			var line = new THREE.LineSegments( geometry, material );
 			scene.add( line );
 			//
-
 			raycaster = new THREE.Raycaster();
 			mouse = new THREE.Vector2();
 			var geometry = new THREE.PlaneBufferGeometry( 1000, 1000 );
@@ -83,26 +74,27 @@ function loadCubes(){
 			renderer = new THREE.CanvasRenderer();
 			renderer.setClearColor( 0xf0f0f0 );
 			renderer.setPixelRatio( window.devicePixelRatio );
-			renderer.setSize( rect.width, rect.height );
+			renderer.setSize( tam.width, tam.height );
 			container.appendChild(renderer.domElement);
-			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-			document.addEventListener( 'keydown', onDocumentKeyDown, false );
-			document.addEventListener( 'keyup', onDocumentKeyUp, false );
+			container.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			container.addEventListener( 'keydown', onDocumentKeyDown, false );
+			container.addEventListener( 'keyup', onDocumentKeyUp, false );
+			//
 			window.addEventListener( 'resize', onWindowResize, false );
 
 			render();
-			
+
 			function onWindowResize() {
-				camera.aspect = rect.width / rect.height;
+				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
-				renderer.setSize( rect.width, rect.height );
+				renderer.setSize( window.innerWidth, window.innerHeight );
 				render();
 			}
-
 			function onDocumentMouseDown( event ) {
+				console.log(event)
 				event.preventDefault();
-				mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-				mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+				mouse.x = ( event.offSetX / renderer.domElement.clientWidth ) * 2 - 1;
+				mouse.y = - ( event.offSetY / renderer.domElement.clientHeight ) * 2 + 1;
 				raycaster.setFromCamera( mouse, camera );
 				var intersects = raycaster.intersectObjects( objects );
 				if ( intersects.length > 0 ) {
@@ -132,9 +124,13 @@ function loadCubes(){
 					case 16: isShiftDown = false; break;
 				}
 			}
-
+			function save() {
+				window.open( renderer.domElement.toDataURL('image/png'), 'mywindow' );
+				return false;
+			}
 			function render() {
 				renderer.render( scene, camera );
 			}
+
 
 }
