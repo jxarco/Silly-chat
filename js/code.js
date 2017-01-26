@@ -72,29 +72,30 @@ function loadCubes(){
 			directionalLight.position.normalize();
 			scene.add( directionalLight );
 			renderer = new THREE.CanvasRenderer();
+
 			renderer.setClearColor( 0xf0f0f0 );
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( tam.width, tam.height );
 			container.appendChild(renderer.domElement);
-			container.addEventListener( 'mousedown', onDocumentMouseDown, false );
-			container.addEventListener( 'keydown', onDocumentKeyDown, false );
-			container.addEventListener( 'keyup', onDocumentKeyUp, false );
+
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			document.addEventListener( 'keydown', onDocumentKeyDown, false );
+			document.addEventListener( 'keyup', onDocumentKeyUp, false );
 			//
 			window.addEventListener( 'resize', onWindowResize, false );
 
 			render();
 
 			function onWindowResize() {
-				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.aspect = tam.width / tam.height;
 				camera.updateProjectionMatrix();
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize( tam.width, tam.height );
 				render();
 			}
 			function onDocumentMouseDown( event ) {
-				console.log(event)
 				event.preventDefault();
-				mouse.x = ( event.offSetX / renderer.domElement.clientWidth ) * 2 - 1;
-				mouse.y = - ( event.offSetY / renderer.domElement.clientHeight ) * 2 + 1;
+				mouse.x = ( event.offsetX / renderer.domElement.clientWidth ) * 2 - 1;
+				mouse.y = - ( event.offsetY / renderer.domElement.clientHeight ) * 2 + 1;
 				raycaster.setFromCamera( mouse, camera );
 				var intersects = raycaster.intersectObjects( objects );
 				if ( intersects.length > 0 ) {
@@ -124,10 +125,7 @@ function loadCubes(){
 					case 16: isShiftDown = false; break;
 				}
 			}
-			function save() {
-				window.open( renderer.domElement.toDataURL('image/png'), 'mywindow' );
-				return false;
-			}
+
 			function render() {
 				renderer.render( scene, camera );
 			}
