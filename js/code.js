@@ -14,22 +14,35 @@ var app = {
 
 function loadCubes(){
 
-			var container;
 			var camera, scene, renderer;
 			var plane;
 			var mouse, raycaster, isShiftDown = false;
+			var cubeColor = "green";
+			var cubeMaterial = new THREE.MeshLambertMaterial( { color: cubeColor, overdraw: 0.5 });
 			var cubeGeometry = new THREE.BoxGeometry( 50, 50, 50 );
-			var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x00ff80, overdraw: 0.5 } );
+
+			function modColorCube(color){
+				cubeColor = color;
+			}
+
 			var objects = [];
 			
 
-			container = document.querySelector(".canvas_container");
+			var container = document.querySelector(".canvas_container");
 			var tam = container.getBoundingClientRect();
 
-			console.log(tam.width)
-			console.log(tam.height)
+			var info = document.createElement( 'div' );
+			info.style.position = 'absolute';
+			info.style.textAlign = 'center';
+			info.innerHTML = '<button id="modColor_button"></button>';
+			container.appendChild( info );
 
-			tam.width -= 50;
+			var but = document.querySelector("#modColor_button");
+			but.innerHTML = "PUSH ME TO CHANGE COLOR";
+
+			but.addEventListener("click", function(){
+				cubeColor = "red";
+			});
 
 			camera = new THREE.PerspectiveCamera( 40, tam.width / tam.height, 1, 10000 );
 			camera.position.set( 500, 800, 1300 );
@@ -56,27 +69,31 @@ function loadCubes(){
 			scene.add( plane );
 			objects.push( plane );
 			var material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+
 			// Lights
 			var ambientLight = new THREE.AmbientLight( 0x606060 );
 			scene.add( ambientLight );
-			var directionalLight = new THREE.DirectionalLight( 0xffffff );
-			directionalLight.position.x = Math.random() - 0.5;
-			directionalLight.position.y = Math.random() - 0.5;
-			directionalLight.position.z = Math.random() - 0.5;
-			directionalLight.position.normalize();
-			scene.add( directionalLight );
-			var directionalLight = new THREE.DirectionalLight( 0x808080 );
-			directionalLight.position.x = Math.random() - 0.5;
-			directionalLight.position.y = Math.random() - 0.5;
-			directionalLight.position.z = Math.random() - 0.5;
-			directionalLight.position.normalize();
-			scene.add( directionalLight );
-			renderer = new THREE.CanvasRenderer();
 
-			renderer.setClearColor( 0xf0f0f0 );
+			var directionalLight = new THREE.DirectionalLight( 0xffffff );
+			directionalLight.position.x = 0.15;
+			directionalLight.position.y = 0.75;
+			directionalLight.position.z = 0.60;
+			directionalLight.position.normalize();
+			scene.add( directionalLight );
+
+			var directionalLight = new THREE.DirectionalLight( 0xbfbfbf );
+			directionalLight.position.x = -0.25;
+			directionalLight.position.y = 0.80;
+			directionalLight.position.z = -0.50;
+			directionalLight.position.normalize();
+			scene.add( directionalLight );
+
+			renderer = new THREE.CanvasRenderer();
+			renderer.setClearColor( 0xffffff );
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( tam.width, tam.height );
 			container.appendChild(renderer.domElement);
+
 
 			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 			document.addEventListener( 'keydown', onDocumentKeyDown, false );
@@ -106,7 +123,7 @@ function loadCubes(){
 							objects.splice( objects.indexOf( intersect.object ), 1 );
 						}
 					} else {
-						var voxel = new THREE.Mesh( cubeGeometry, cubeMaterial );
+						var voxel = new THREE.Mesh( cubeGeometry, new THREE.MeshLambertMaterial( { color: cubeColor, overdraw: 0.5 }) );
 						voxel.position.copy( intersect.point ).add( intersect.face.normal );
 						voxel.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).addScalar( 25 );
 						scene.add( voxel );
