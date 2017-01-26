@@ -57,6 +57,7 @@ function init(){
 
   // asignamos también un avatar por defecto 
   num_rand_avatar = Math.floor((Math.random() * 21) + 1);
+  num_rand_avatar = 19;
   avatarPath = "assets/avatar" + num_rand_avatar +".png";
 
   // actualizamos los datos en la página

@@ -136,7 +136,7 @@ html, body{
 
 .personalInfo .pic{
 	display: flex;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .personalInfo #gn{
@@ -152,8 +152,8 @@ html, body{
 }
 
 .personalInfo .pic img{
-	width: 55%;
-	height: 55%;
+	width: 40%;
+	height: 40%;
 	margin: 20px;
 	position: static;
 	overflow: auto;
@@ -175,14 +175,13 @@ html, body{
 
 .personalInfo .profileOptions button {
 	width: 30%;
-	font-size: 100%;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	position: relative;
     background-color: #707eb2;
     border-radius: 10%;
     color: #FFFFFF;
     padding: 5px 0px;
-    margin: 3%;
+    margin: 2%;
     text-decoration: none;
     overflow: hidden;
     cursor: pointer;
@@ -190,18 +189,15 @@ html, body{
 
 .newname{
 	display: none;
-	padding: 15px;
+	padding: 10px;
 	margin: 10px 2%;
-	font-size: 15px;
 	z-index: 20;
 }
 
 .accept{
 	display: none;
-	padding: 15px;
+	padding: 10px;
 	margin: 10px 2%;
-	font-size: 15px;
-
 	position: relative;
     background-color: #707eb2;
     border-radius: 10%;
@@ -217,6 +213,7 @@ html, body{
 {
 	display: none;
 	position: fixed;
+	width: 16%;
     padding: 30px;
     background-color: rgba(0,0,0,0.8);
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
