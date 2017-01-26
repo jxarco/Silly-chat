@@ -72,8 +72,8 @@
 					</div>
 				</div>
 
-				<div class="canvas">
-					<canvas></canvas>
+				<div class="canvas_container" width=500 height="500" >
+					<canvas id="painter" class="c_painter">Your browser does not support canvas.</canvas>
 				</div>
 
 				<div class="rest_org">				
@@ -171,4 +171,9 @@
 	</body>
 </html>
 
+<script type="text/javascript" src="js/three.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/canvasPainter.js"></script>
+<script type="text/javascript" src="js/code.js"></script>
+
+<script> app.init() </script>
