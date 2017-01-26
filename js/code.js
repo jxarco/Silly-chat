@@ -8,7 +8,7 @@ var app = {
 
 	start3D: function(){
 		console.log("loading cubes");
-		loadCubes();
+		loadCube();
 	}
 }
 
@@ -170,23 +170,23 @@ function loadCube(){
 	var camera, scene, renderer, controls;
 	var plane;
 	var mouse, raycaster;
+	var objects = [];
 
-	init();
+	var tam, container;
+
+	initCube();
 	animate();
 
-	function init(){
+	function initCube(){
 
+		// Cube
 		var cubeColor = "red";
 		var cubeMaterial = new THREE.MeshLambertMaterial( { color: cubeColor, overdraw: 0.5 });
 		var cubeGeometry = new THREE.BoxGeometry( 300, 300, 300 );
-
-
 		var voxel = new THREE.Mesh( cubeGeometry, cubeMaterial );
 
-		var objects = [];
-
-		var container = document.querySelector(".canvas_container");
-		var tam = container.getBoundingClientRect();
+		container = document.querySelector(".canvas_container");
+		tam = container.getBoundingClientRect();
 
 		var info = document.createElement( 'div' );
 		info.style.position = 'absolute';
