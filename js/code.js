@@ -8,7 +8,8 @@ var app = {
 
 	start3D: function(){
 		console.log("loading cubes");
-		loadCube();
+		//loadCube();
+		loadTubes();
 	}
 }
 
@@ -173,6 +174,9 @@ function loadCube(){
 	var objects = [];
 
 	var tam, container;
+	var voxel;
+	var light_sphere;
+	var animation = true;
 
 	initCube();
 	animate();
@@ -181,9 +185,11 @@ function loadCube(){
 
 		// Cube
 		var cubeColor = "red";
-		var cubeMaterial = new THREE.MeshLambertMaterial( { color: cubeColor, overdraw: 0.5 });
-		var cubeGeometry = new THREE.BoxGeometry( 300, 300, 300 );
-		var voxel = new THREE.Mesh( cubeGeometry, cubeMaterial );
+		var cubeMaterial = new THREE.MeshLambertMaterial( { color: cubeColor, overdraw: false, transparent: true, opacity: 0.75 });
+		var cubeGeometry = new THREE.BoxGeometry( 30, 30, 30 );
+		voxel = new THREE.Mesh( cubeGeometry, cubeMaterial );
+		voxel.castShadow = true;
+		voxel.receiveShadow = false;
 
 		container = document.querySelector(".canvas_container");
 		tam = container.getBoundingClientRect();
@@ -198,15 +204,19 @@ function loadCube(){
 		but.innerHTML = "PUSH ME TO CHANGE COLOR";
 
 		but.addEventListener("click", function(){
-			voxel.rotation.x += Math.PI * (1/4);
-			voxel.rotation.y += Math.PI / 3;
-			render();
+			if(animation) animation = false;
+			else{
+				animation = true;
+				animate();
+			}
+
+			console.log(animation)
 		});
 
 		// Camera
 
 		camera = new THREE.PerspectiveCamera( 40, tam.width / tam.height, 1, 10000 );
-		camera.position.set( 500, 800, 1300 );
+		camera.position.set( 50, 80, 130 );
 		camera.lookAt( new THREE.Vector3() );
 		scene = new THREE.Scene();
 
@@ -216,14 +226,37 @@ function loadCube(){
 		var ambientLight = new THREE.AmbientLight( 0x606060 );
 		scene.add( ambientLight );
 
+		var light_x = 50;
+		var light_y = 80;
+		var light_z = 130;
+
 		var directionalLight = new THREE.DirectionalLight( 0xffffff );
-		directionalLight.position.x = 1;
-		directionalLight.position.y = 0.25;
-		directionalLight.position.z = 0.50;
+		directionalLight.position.x = light_x;
+		directionalLight.position.y = light_y;
+		directionalLight.position.z = light_z;
 		directionalLight.position.normalize();
+
+		directionalLight.castShadow = true;
+		directionalLight.shadowDarkness = 0.5;
+		directionalLight.shadowCameraVisible = true;
+
+		directionalLight.shadowCameraRight    =  5;
+		directionalLight.shadowCameraLeft     = -5;
+		directionalLight.shadowCameraTop      =  5;
+		directionalLight.shadowCameraBottom   = -5;
+
 		scene.add( directionalLight );
 
+		var lightGeometry = new THREE.SphereGeometry( 5, 32, 32 );
+		var lightMat = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+		light_sphere = new THREE.Mesh( lightGeometry, lightMat );
+		light_sphere.position.set( light_x, light_y, light_z );
+
+		scene.add( light_sphere );
+
 		renderer = new THREE.CanvasRenderer();
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapType = THREE.PCFSoftShadowMap;
 		renderer.setClearColor( 0xffffff );
 		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( tam.width, tam.height );
@@ -247,14 +280,132 @@ function loadCube(){
 
 	function animate() {
 
-  		requestAnimationFrame( animate );
-  		controls.update();
+		if(animation){
+			//voxel.rotation.y += Math.PI * 0.005;
+  			controls.update();
+  			requestAnimationFrame( animate );
+  			render();
+		}
 	}
 
 	function render() {
-	  renderer.render( scene, camera );
+	  	
+	  	var time = Date.now() * 0.0005;
+		light_sphere.position.y += Math.cos( time ) * 0.75;
+		renderer.render( scene, camera );
 	}
+}
 
+function loadTubes(){
+	
+	var camera, scene, renderer, startTime, object, light_sphere;
+	var container = document.querySelector(".canvas_container");
+	var tam = container.getBoundingClientRect();
+
+	var spotLight;
+	var spotLightSpherePosX = 2;
+	var spotLightSpherePosY = 4;
+	var spotLightSpherePosZ = 3;
+	
+	function init() {
+		camera = new THREE.PerspectiveCamera(36, tam.width / tam.height, 1, 1000 );
+		camera.position.set( 0, 1.3, 3 );
+		scene = new THREE.Scene();
+		// Lights
+		scene.add( new THREE.AmbientLight( 0x505050 ) );
+		spotLight = new THREE.SpotLight( 0xffffff );
+		spotLight.angle = Math.PI / 5;
+		spotLight.penumbra = 0.2;
+		spotLight.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
+		spotLight.castShadow = true;
+		spotLight.shadow.camera.near = 3;
+		spotLight.shadow.camera.far = 10;
+		spotLight.shadow.mapSize.width = 1024;
+		spotLight.shadow.mapSize.height = 1024;
+		scene.add( spotLight );
+
+		var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
+		var lightMat = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+		light_sphere = new THREE.Mesh( lightGeometry, lightMat );
+		light_sphere.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
+
+		scene.add( light_sphere );
+
+		var dirLight = new THREE.DirectionalLight( 0x55505a, 1 );
+		dirLight.position.set( 0, 3, 0 );
+		dirLight.castShadow = true;
+		dirLight.shadow.camera.near = 1;
+		dirLight.shadow.camera.far = 10;
+		dirLight.shadow.camera.right = 1;
+		dirLight.shadow.camera.left = - 1;
+		dirLight.shadow.camera.top	= 1;
+		dirLight.shadow.camera.bottom = - 1;
+		dirLight.shadow.mapSize.width = 1024;
+		dirLight.shadow.mapSize.height = 1024;
+		scene.add( dirLight );
+
+		// Plane
+		var localPlane = new THREE.Plane( new THREE.Vector3( 0, - 1, 0 ), 0.8 );
+
+		// Geometry
+		var material = new THREE.MeshPhongMaterial( {
+				color: 0x80ee10,
+				shininess: 100,
+				side: THREE.DoubleSide,
+				// ***** Clipping setup (material): *****
+				clippingPlanes: [ localPlane ],
+				clipShadows: true
+			} );
+		var geometry = new THREE.TorusKnotGeometry( 0.4, 0.08, 95, 20 );
+		object = new THREE.Mesh( geometry, material );
+		object.castShadow = true;
+		scene.add( object );
+
+		var ground = new THREE.Mesh(
+				new THREE.PlaneBufferGeometry( 9, 9, 1, 1 ),
+				new THREE.MeshPhongMaterial( {
+					color: 0xa0adaf, shininess: 150 } ) );
+		ground.rotation.x = - Math.PI / 2; // rotates X/Y to X/Z
+		ground.receiveShadow = true;
+		scene.add( ground );
+
+		// Renderer
+		renderer = new THREE.WebGLRenderer();
+		renderer.shadowMap.enabled = true;
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( tam.width, tam.height );
+		window.addEventListener( 'resize', onWindowResize, false );
+		container.appendChild( renderer.domElement );
+
+		// Controls
+		var controls = new THREE.OrbitControls( camera, renderer.domElement );
+		controls.target.set( 0, 1, 0 );
+		controls.update();
+
+		// Start
+		startTime = Date.now();
+	}
+	function onWindowResize() {
+		camera.aspect = tam.width / tam.height;
+		camera.updateProjectionMatrix();
+		renderer.setSize( tam.width, tam.height );
+	}
+	function animate() {
+		var currentTime = Date.now();
+		var time = ( currentTime - startTime ) / 1000;
+		requestAnimationFrame( animate );
+		object.position.y = 0.8;
+		object.rotation.x = time * 0.5;
+		object.rotation.y = time * 0.2;
+		object.scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );
+
+		light_sphere.position.y += Math.cos( time ) * 0.05;
+		spotLight.position.y += Math.cos( time ) * 0.05;
+
+		renderer.render( scene, camera );
+	}
+	init();
+	animate();
 }
 
 
