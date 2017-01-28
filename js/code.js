@@ -311,8 +311,10 @@ function loadTubes(){
 		camera = new THREE.PerspectiveCamera(36, tam.width / tam.height, 1, 1000 );
 		camera.position.set( 0, 1.3, 3 );
 		scene = new THREE.Scene();
+		scene.background = new THREE.Color( 0xa7f1ff );
 		// Lights
 		scene.add( new THREE.AmbientLight( 0x505050 ) );
+
 		spotLight = new THREE.SpotLight( 0xffffff );
 		spotLight.angle = Math.PI / 5;
 		spotLight.penumbra = 0.2;
@@ -331,40 +333,43 @@ function loadTubes(){
 
 		scene.add( light_sphere );
 
-		var dirLight = new THREE.DirectionalLight( 0x55505a, 1 );
-		dirLight.position.set( 0, 3, 0 );
-		dirLight.castShadow = true;
-		dirLight.shadow.camera.near = 1;
-		dirLight.shadow.camera.far = 10;
-		dirLight.shadow.camera.right = 1;
-		dirLight.shadow.camera.left = - 1;
-		dirLight.shadow.camera.top	= 1;
-		dirLight.shadow.camera.bottom = - 1;
-		dirLight.shadow.mapSize.width = 1024;
-		dirLight.shadow.mapSize.height = 1024;
-		scene.add( dirLight );
+		var directionalLight = new THREE.DirectionalLight( 0x55505a, 1 );
+		directionalLight.position.set( 0, 3, 0 );
+		directionalLight.castShadow = true;
+		directionalLight.shadow.camera.near = 1;
+		directionalLight.shadow.camera.far = 10;
+		directionalLight.shadow.camera.right = 1;
+		directionalLight.shadow.camera.left = - 1;
+		directionalLight.shadow.camera.top	= 1;
+		directionalLight.shadow.camera.bottom = - 1;
+		directionalLight.shadow.mapSize.width = 1024;
+		directionalLight.shadow.mapSize.height = 1024;
+		scene.add( directionalLight );
 
 		// Plane
 		var localPlane = new THREE.Plane( new THREE.Vector3( 0, - 1, 0 ), 0.8 );
 
 		// Geometry
-		var material = new THREE.MeshPhongMaterial( {
-				color: 0x80ee10,
+		var objectMat = new THREE.MeshPhongMaterial( {
+				color: 0xffffff,
 				shininess: 100,
-				side: THREE.DoubleSide,
-				// ***** Clipping setup (material): *****
-				clippingPlanes: [ localPlane ],
-				clipShadows: true
+				side: THREE.DoubleSide
 			} );
-		var geometry = new THREE.TorusKnotGeometry( 0.4, 0.08, 95, 20 );
-		object = new THREE.Mesh( geometry, material );
+		//var objectGeo = new THREE.TorusKnotGeometry( 0.4, 0.08, 95, 20 );
+		var objectGeo = new THREE.BoxGeometry( 0.75, 0.75, 0.75 );
+
+		// Object
+		object = new THREE.Mesh( objectGeo, objectMat );
 		object.castShadow = true;
 		scene.add( object );
 
-		var ground = new THREE.Mesh(
-				new THREE.PlaneBufferGeometry( 9, 9, 1, 1 ),
-				new THREE.MeshPhongMaterial( {
-					color: 0xa0adaf, shininess: 150 } ) );
+
+		var floorTexture = new THREE.TextureLoader().load( 'assets/grass_texture.png' );
+		var floorGeo = new THREE.PlaneBufferGeometry( 100, 100, 1, 1 )
+		var flootMat = new THREE.MeshPhongMaterial( { map: floorTexture, shininess: 150 } );
+
+		// Ground
+		var ground = new THREE.Mesh(floorGeo, flootMat );
 		ground.rotation.x = - Math.PI / 2; // rotates X/Y to X/Z
 		ground.receiveShadow = true;
 		scene.add( ground );
