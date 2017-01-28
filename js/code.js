@@ -366,7 +366,7 @@ function loadTubes(){
 
 		var floorTexture = new THREE.TextureLoader().load( 'assets/grass_texture.png' );
 		var floorGeo = new THREE.PlaneBufferGeometry( 100, 100, 1, 1 )
-		var flootMat = new THREE.MeshPhongMaterial( { map: floorTexture, shininess: 150 } );
+		var flootMat = new THREE.MeshPhongMaterial( { /*map: floorTexture*/color: 0xf9f9f9, shininess: 150 } );
 
 		// Ground
 		var ground = new THREE.Mesh(floorGeo, flootMat );
