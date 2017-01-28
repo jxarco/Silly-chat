@@ -167,18 +167,18 @@ function loadCubes(){
 
 function loadCube(){
 	
-	var camera, scene, renderer, startTime, object, light_sphere;
+	var camera, scene, renderer, startTime, object, light_sphere, light_sphere2;
 	var container = document.querySelector(".canvas_container");
 	var tam = container.getBoundingClientRect();
 
 	var spotLight;
 	var spotLightSpherePosX = 2;
 	var spotLightSpherePosY = 4;
-	var spotLightSpherePosZ = 3;
+	var spotLightSpherePosZ = 10;
 	
 	function init() {
 		camera = new THREE.PerspectiveCamera(36, tam.width / tam.height, 1, 1000 );
-		camera.position.set( 0, 1.3, 3 );
+		camera.position.set( 1.5, 2.5, 5 );
 		scene = new THREE.Scene();
 		scene.background = new THREE.Color( 0xa7f1ff );
 		// Lights
@@ -195,12 +195,26 @@ function loadCube(){
 		spotLight.shadow.mapSize.height = 1024;
 		scene.add( spotLight );
 
+		spotLight2 = new THREE.SpotLight( 0xffffff );
+		spotLight2.angle = Math.PI / 5;
+		spotLight2.penumbra = 0.2;
+		spotLight2.position.set( spotLightSpherePosX - 10, spotLightSpherePosY , spotLightSpherePosZ + 5 );
+		spotLight2.castShadow = true;
+		spotLight2.shadow.camera.near = 3;
+		spotLight2.shadow.camera.far = 10;
+		spotLight2.shadow.mapSize.width = 1024;
+		spotLight2.shadow.mapSize.height = 1024;
+		scene.add( spotLight2 );
+
 		var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
 		var lightMat = new THREE.MeshBasicMaterial( {color: 0xffff00} );
 		light_sphere = new THREE.Mesh( lightGeometry, lightMat );
 		light_sphere.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
-
 		scene.add( light_sphere );
+
+		light_sphere2 = new THREE.Mesh( lightGeometry, lightMat );
+		light_sphere2.position.set( spotLightSpherePosX - 10, spotLightSpherePosY , spotLightSpherePosZ + 5);
+		scene.add( light_sphere2 );
 
 		var directionalLight = new THREE.DirectionalLight( 0x55505a, 1 );
 		directionalLight.position.set( 0, 3, 0 );
@@ -215,19 +229,14 @@ function loadCube(){
 		directionalLight.shadow.mapSize.height = 1024;
 		scene.add( directionalLight );
 
-		// Plane
-		var localPlane = new THREE.Plane( new THREE.Vector3( 0, - 1, 0 ), 0.8 );
-
-		// Geometry
+		// Object
 		var objectMat = new THREE.MeshPhongMaterial( {
 				color: 0xffffff,
 				shininess: 100,
 				side: THREE.DoubleSide
 			} );
-		//var objectGeo = new THREE.TorusKnotGeometry( 0.4, 0.08, 95, 20 );
-		var objectGeo = new THREE.BoxGeometry( 0.75, 0.75, 0.75 );
+		var objectGeo = new THREE.BoxGeometry( 1, 1, 1 );
 
-		// Object
 		object = new THREE.Mesh( objectGeo, objectMat );
 		object.castShadow = true;
 		scene.add( object );
@@ -235,7 +244,7 @@ function loadCube(){
 
 		var floorTexture = new THREE.TextureLoader().load( 'assets/grass_texture.png' );
 		var floorGeo = new THREE.PlaneBufferGeometry( 100, 100, 1, 1 )
-		var flootMat = new THREE.MeshPhongMaterial( { map: floorTexture, shininess: 150 } );
+		var flootMat = new THREE.MeshPhongMaterial( { map: floorTexture, shininess: 5 } );
 
 		// Ground
 		var ground = new THREE.Mesh(floorGeo, flootMat );
@@ -275,6 +284,8 @@ function loadCube(){
 
 		light_sphere.position.y += Math.cos( time ) * 0.05;
 		spotLight.position.y += Math.cos( time ) * 0.05;
+		light_sphere2.position.y += Math.sin ( time ) * 0.05;
+		spotLight2.position.y += Math.sin( time * 0.5 ) * 0.05;
 
 		renderer.render( scene, camera );
 	}
