@@ -8,8 +8,7 @@ var app = {
 
 	start3D: function(){
 		console.log("loading cubes");
-		//loadCube();
-		loadTubes();
+		loadCube();
 	}
 }
 
@@ -167,136 +166,6 @@ function loadCubes(){
 }
 
 function loadCube(){
-
-	var camera, scene, renderer, controls;
-	var plane;
-	var mouse, raycaster;
-	var objects = [];
-
-	var tam, container;
-	var voxel;
-	var light_sphere;
-	var animation = true;
-
-	initCube();
-	animate();
-
-	function initCube(){
-
-		// Cube
-		var cubeColor = "red";
-		var cubeMaterial = new THREE.MeshLambertMaterial( { color: cubeColor, overdraw: false, transparent: true, opacity: 0.75 });
-		var cubeGeometry = new THREE.BoxGeometry( 30, 30, 30 );
-		voxel = new THREE.Mesh( cubeGeometry, cubeMaterial );
-		voxel.castShadow = true;
-		voxel.receiveShadow = false;
-
-		container = document.querySelector(".canvas_container");
-		tam = container.getBoundingClientRect();
-
-		var info = document.createElement( 'div' );
-		info.style.position = 'absolute';
-		info.style.textAlign = 'center';
-		info.innerHTML = '<button id="modColor_button"></button>';
-		container.appendChild( info );
-
-		var but = document.querySelector("#modColor_button");
-		but.innerHTML = "PUSH ME TO CHANGE COLOR";
-
-		but.addEventListener("click", function(){
-			if(animation) animation = false;
-			else{
-				animation = true;
-				animate();
-			}
-
-			console.log(animation)
-		});
-
-		// Camera
-
-		camera = new THREE.PerspectiveCamera( 40, tam.width / tam.height, 1, 10000 );
-		camera.position.set( 50, 80, 130 );
-		camera.lookAt( new THREE.Vector3() );
-		scene = new THREE.Scene();
-
-		scene.add( voxel );
-
-		// Lights
-		var ambientLight = new THREE.AmbientLight( 0x606060 );
-		scene.add( ambientLight );
-
-		var light_x = 50;
-		var light_y = 80;
-		var light_z = 130;
-
-		var directionalLight = new THREE.DirectionalLight( 0xffffff );
-		directionalLight.position.x = light_x;
-		directionalLight.position.y = light_y;
-		directionalLight.position.z = light_z;
-		directionalLight.position.normalize();
-
-		directionalLight.castShadow = true;
-		directionalLight.shadowDarkness = 0.5;
-		directionalLight.shadowCameraVisible = true;
-
-		directionalLight.shadowCameraRight    =  5;
-		directionalLight.shadowCameraLeft     = -5;
-		directionalLight.shadowCameraTop      =  5;
-		directionalLight.shadowCameraBottom   = -5;
-
-		scene.add( directionalLight );
-
-		var lightGeometry = new THREE.SphereGeometry( 5, 32, 32 );
-		var lightMat = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-		light_sphere = new THREE.Mesh( lightGeometry, lightMat );
-		light_sphere.position.set( light_x, light_y, light_z );
-
-		scene.add( light_sphere );
-
-		renderer = new THREE.CanvasRenderer();
-		renderer.shadowMapEnabled = true;
-		renderer.shadowMapType = THREE.PCFSoftShadowMap;
-		renderer.setClearColor( 0xffffff );
-		renderer.setPixelRatio( window.devicePixelRatio );
-		renderer.setSize( tam.width, tam.height );
-		container.appendChild(renderer.domElement);
-		//
-
-		controls = new THREE.OrbitControls( camera, renderer.domElement );
-		controls.addEventListener( 'change', render );
-	}
-
-	window.addEventListener( 'resize', onWindowResize, false );
-
-	render();
-
-	function onWindowResize() {
-		camera.aspect = tam.width / tam.height;
-		camera.updateProjectionMatrix();
-		renderer.setSize( tam.width, tam.height );
-		render();
-	}
-
-	function animate() {
-
-		if(animation){
-			//voxel.rotation.y += Math.PI * 0.005;
-  			controls.update();
-  			requestAnimationFrame( animate );
-  			render();
-		}
-	}
-
-	function render() {
-	  	
-	  	var time = Date.now() * 0.0005;
-		light_sphere.position.y += Math.cos( time ) * 0.75;
-		renderer.render( scene, camera );
-	}
-}
-
-function loadTubes(){
 	
 	var camera, scene, renderer, startTime, object, light_sphere;
 	var container = document.querySelector(".canvas_container");
@@ -366,7 +235,7 @@ function loadTubes(){
 
 		var floorTexture = new THREE.TextureLoader().load( 'assets/grass_texture.png' );
 		var floorGeo = new THREE.PlaneBufferGeometry( 100, 100, 1, 1 )
-		var flootMat = new THREE.MeshPhongMaterial( { /*map: floorTexture*/color: 0xf9f9f9, shininess: 150 } );
+		var flootMat = new THREE.MeshPhongMaterial( { map: floorTexture, shininess: 150 } );
 
 		// Ground
 		var ground = new THREE.Mesh(floorGeo, flootMat );
