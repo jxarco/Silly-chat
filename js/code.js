@@ -15,9 +15,11 @@ var app = {
 function loadCube(){
 	
 	var camera, scene, renderer, startTime, light_sphere, light_sphere2;
+	var baseRing;
 	var container = document.querySelector(".canvas_container");
 	var tam = container.getBoundingClientRect();
 	var list = []
+	var collidableMeshList = [];
 
 	var spotLight;
 	var spotLightSpherePosX = 2;
@@ -81,6 +83,7 @@ function loadCube(){
 		var ground = new THREE.Mesh(floorGeo, flootMat );
 		ground.rotation.x = - Math.PI / 2;
 		ground.receiveShadow = true;
+		collidableMeshList.push(ground);
 		scene.add( ground );
 
 		// BaseRing
@@ -91,11 +94,12 @@ function loadCube(){
 			} );
 		var baseRingGeo = new THREE.BoxGeometry( 5, 1, 5 );
 
-		var baseRing = new THREE.Mesh( baseRingGeo, RingMat );
+		baseRing = new THREE.Mesh( baseRingGeo, RingMat );
 		baseRing.castShadow = true;
 		baseRing.position.x = 0;
 		baseRing.position.y = 1;
 		scene.add( baseRing );
+		collidableMeshList.push(baseRing);
 
 		var cornerRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 64, 64, false);
 
@@ -164,12 +168,20 @@ function loadCube(){
 		}
 	}
 
-	function onRing(x, z){
-		if(x < 2.5 && x > -2.5){
-			if(z < 2.5 && z > -2.5){
-				return true;
+	function collides(mesh){
+
+		var originPoint = mesh.position.clone();
+		for (var vertexIndex = 0; vertexIndex < mesh.geometry.vertices.length; vertexIndex++)
+			{		
+				var localVertex = mesh.geometry.vertices[vertexIndex].clone();
+				var globalVertex = localVertex.applyMatrix4( mesh.matrix );
+				var directionVector = globalVertex.sub( mesh.position );
+				
+				var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
+				var collisionResults = ray.intersectObjects( collidableMeshList );
+				if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
+					return true;
 			}
-		}
 	}
 
 	function onWindowResize() {
@@ -201,9 +213,9 @@ function loadCube(){
 
     	for(var i = 0; i < list.length; i++)
     	{
-    		
-    		if(list[i].position.y > 0.25)
+    		if(!collides(list[i])){
     			list[i].position.y -= 0.05;
+    		}
     	}
 
 		renderer.render( scene, camera );
