@@ -16,9 +16,11 @@ var notification = window.Notification || window.mozNotification || window.webki
 
 // The user needs to allow this
 if ('undefined' === typeof notification)
-    alert('Web notification not supported');
-else // en caso de estar en modo local y no usar el host
-    if(!url.includes("index.html")) notification.requestPermission(function(permission){});
+  alert('Web notification not supported');
+else{ // en caso de estar en modo local y no usar el host
+  if(!url.includes("index.html")) notification.requestPermission(function(permission){});
+  if(url.includes("localhost")) notification.requestPermission(function(permission){});
+}
 
 // INICIO
 
