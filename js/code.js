@@ -167,7 +167,7 @@ function loadCubes(){
 
 function loadCube(){
 	
-	var camera, scene, renderer, startTime, object, light_sphere, light_sphere2;
+	var camera, scene, renderer, startTime, light_sphere, light_sphere2;
 	var container = document.querySelector(".canvas_container");
 	var tam = container.getBoundingClientRect();
 
@@ -178,13 +178,13 @@ function loadCube(){
 	
 	function init() {
 		camera = new THREE.PerspectiveCamera(36, tam.width / tam.height, 1, 1000 );
-		camera.position.set( 1.5, 2.5, 5 );
+		camera.position.set( 5, 5, 15 );
 		scene = new THREE.Scene();
-		scene.background = new THREE.Color( 0xa7f1ff );
+		scene.background = new THREE.Color( 0x00032 );
 		// Lights
 		scene.add( new THREE.AmbientLight( 0x505050 ) );
 
-		spotLight = new THREE.SpotLight( 0xffffff );
+		spotLight = new THREE.SpotLight( "red" );
 		spotLight.angle = Math.PI / 5;
 		spotLight.penumbra = 0.2;
 		spotLight.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
@@ -195,7 +195,7 @@ function loadCube(){
 		spotLight.shadow.mapSize.height = 1024;
 		scene.add( spotLight );
 
-		spotLight2 = new THREE.SpotLight( 0xffffff );
+		spotLight2 = new THREE.SpotLight( "blue" );
 		spotLight2.angle = Math.PI / 5;
 		spotLight2.penumbra = 0.2;
 		spotLight2.position.set( spotLightSpherePosX - 10, spotLightSpherePosY , spotLightSpherePosZ + 5 );
@@ -221,36 +221,50 @@ function loadCube(){
 		directionalLight.castShadow = true;
 		directionalLight.shadow.camera.near = 1;
 		directionalLight.shadow.camera.far = 10;
-		directionalLight.shadow.camera.right = 1;
-		directionalLight.shadow.camera.left = - 1;
-		directionalLight.shadow.camera.top	= 1;
-		directionalLight.shadow.camera.bottom = - 1;
-		directionalLight.shadow.mapSize.width = 1024;
-		directionalLight.shadow.mapSize.height = 1024;
 		scene.add( directionalLight );
 
-		// Object
-		var objectMat = new THREE.MeshPhongMaterial( {
+		// Objects
+
+		//var floorTexture = new THREE.TextureLoader().load( 'assets/grass_texture.png' );
+		var floorGeo = new THREE.PlaneBufferGeometry( 100, 100, 1, 1 )
+		var flootMat = new THREE.MeshPhongMaterial( { color: 0xf1f4f1, shininess: 5 } );
+
+		// Ground
+		var ground = new THREE.Mesh(floorGeo, flootMat );
+		ground.rotation.x = - Math.PI / 2;
+		ground.receiveShadow = true;
+		scene.add( ground );
+
+		// BaseRing
+		var RingMat = new THREE.MeshPhongMaterial( {
 				color: 0xffffff,
 				shininess: 100,
 				side: THREE.DoubleSide
 			} );
-		var objectGeo = new THREE.BoxGeometry( 1, 1, 1 );
+		var baseRingGeo = new THREE.BoxGeometry( 5, 1, 5 );
 
-		object = new THREE.Mesh( objectGeo, objectMat );
-		object.castShadow = true;
-		scene.add( object );
+		var baseRing = new THREE.Mesh( baseRingGeo, RingMat );
+		baseRing.castShadow = true;
+		baseRing.position.y = 1;
+		scene.add( baseRing );
 
+		baseRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 64, 64, false);
+		var cornerRing  = new THREE.Mesh( baseRingGeo, RingMat );
+		baseRing.castShadow = true;
+		baseRing.position.x = 2.5;
+		baseRing.position.y = 2;
+		baseRing.position.z = 2.5;
+		scene.add( baseRing );
 
-		var floorTexture = new THREE.TextureLoader().load( 'assets/grass_texture.png' );
-		var floorGeo = new THREE.PlaneBufferGeometry( 100, 100, 1, 1 )
-		var flootMat = new THREE.MeshPhongMaterial( { map: floorTexture, shininess: 5 } );
+		cornerRing = new THREE.Mesh( baseRingGeo, RingMat );
+		baseRing.position.x = -2.5;
+		baseRing.position.y = 2;
+		baseRing.position.z = 2.5;
+		scene.add( baseRing );
 
-		// Ground
-		var ground = new THREE.Mesh(floorGeo, flootMat );
-		ground.rotation.x = - Math.PI / 2; // rotates X/Y to X/Z
-		ground.receiveShadow = true;
-		scene.add( ground );
+		/*baseRing = new THREE.Mesh( baseRingGeo, RingMat );
+		baseRing.castShadow = true;
+		scene.add( baseRing );*/
 
 		// Renderer
 		renderer = new THREE.WebGLRenderer();
@@ -277,15 +291,23 @@ function loadCube(){
 		var currentTime = Date.now();
 		var time = ( currentTime - startTime ) / 1000;
 		requestAnimationFrame( animate );
-		object.position.y = 0.8;
+		
+		/*object.position.y = 0.8;
 		object.rotation.x = time * 0.5;
 		object.rotation.y = time * 0.2;
-		object.scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );
+		object.scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );*/
 
-		light_sphere.position.y += Math.cos( time ) * 0.05;
-		spotLight.position.y += Math.cos( time ) * 0.05;
-		light_sphere2.position.y += Math.sin ( time ) * 0.05;
-		spotLight2.position.y += Math.sin( time * 0.5 ) * 0.05;
+    	light_sphere2.position.x = 10*Math.cos(time * 0.5) + 0;
+    	light_sphere2.position.z = 10*Math.sin(time * 0.5) + 0;
+
+    	spotLight2.position.x = 10*Math.cos(time * 0.5) + 0;
+    	spotLight2.position.z = 10*Math.sin(time * 0.5) + 0;
+
+    	light_sphere.position.x = -10*Math.cos(time * 0.5) + 0;
+    	light_sphere.position.z = 10*Math.sin(time * 0.5) + 0;
+
+    	spotLight.position.x = -10*Math.cos(time * 0.5) + 0;
+    	spotLight.position.z = 10*Math.sin(time * 0.5) + 0;
 
 		renderer.render( scene, camera );
 	}
