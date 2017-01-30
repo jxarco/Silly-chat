@@ -248,19 +248,19 @@ function loadCube(){
 		baseRing.position.y = 1;
 		scene.add( baseRing );
 
-		baseRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 64, 64, false);
-		var cornerRing  = new THREE.Mesh( baseRingGeo, RingMat );
-		baseRing.castShadow = true;
-		baseRing.position.x = 2.5;
-		baseRing.position.y = 2;
-		baseRing.position.z = 2.5;
-		scene.add( baseRing );
+		var cornerRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 64, 64, false);
+		var cornerRing  = new THREE.Mesh( cornerRingGeo, RingMat );
+		cornerRing.castShadow = true;
+		cornerRing.position.x = 2.5;
+		cornerRing.position.y = 2;
+		cornerRing.position.z = 2.5;
+		scene.add( cornerRing );
 
-		cornerRing = new THREE.Mesh( baseRingGeo, RingMat );
-		baseRing.position.x = -2.5;
-		baseRing.position.y = 2;
-		baseRing.position.z = 2.5;
-		scene.add( baseRing );
+		cornerRing = new THREE.Mesh( cornerRingGeo, RingMat );
+		cornerRing.position.x = -2.5;
+		cornerRing.position.y = 2;
+		cornerRing.position.z = 2.5;
+		scene.add( cornerRing );
 
 		/*baseRing = new THREE.Mesh( baseRingGeo, RingMat );
 		baseRing.castShadow = true;
