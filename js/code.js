@@ -12,164 +12,12 @@ var app = {
 	}
 }
 
-function loadCubes(){
-
-	var camera, scene, renderer, controls;
-	var plane;
-	var mouse, raycaster, isShiftDown = false;
-
-	var cubeColor, cubeMaterial, cubeGeometry;
-
-	var objects = [];
-
-	initCubes();
-	animate();
-
-	function initCubes(){
-
-		cubeColor = "green";
-		cubeMaterial = new THREE.MeshLambertMaterial( { color: cubeColor, overdraw: 0.5 });
-		cubeGeometry = new THREE.BoxGeometry( 50, 50, 50 );
-
-		var container = document.querySelector(".canvas_container");
-		var tam = container.getBoundingClientRect();
-
-		var info = document.createElement( 'div' );
-		info.style.position = 'absolute';
-		info.style.textAlign = 'center';
-		info.innerHTML = '<button id="modColor_button"></button>';
-		container.appendChild( info );
-
-		var but = document.querySelector("#modColor_button");
-		but.innerHTML = "PUSH ME TO CHANGE COLOR";
-
-		but.addEventListener("click", function(){
-			cubeColor = "red";
-		});
-
-		camera = new THREE.PerspectiveCamera( 40, tam.width / tam.height, 1, 10000 );
-		camera.position.set( 500, 800, 1300 );
-		camera.lookAt( new THREE.Vector3() );
-		scene = new THREE.Scene();
-		// Grid
-		var size = 500, step = 50;
-		var geometry = new THREE.Geometry();
-		for ( var i = - size; i <= size; i += step ) {
-			geometry.vertices.push( new THREE.Vector3( - size, 0, i ) );
-			geometry.vertices.push( new THREE.Vector3(   size, 0, i ) );
-			geometry.vertices.push( new THREE.Vector3( i, 0, - size ) );
-			geometry.vertices.push( new THREE.Vector3( i, 0,   size ) );
-		}
-		var material = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.2 } );
-		var line = new THREE.LineSegments( geometry, material );
-		scene.add( line );
-		//
-		raycaster = new THREE.Raycaster();
-		mouse = new THREE.Vector2();
-		var geometry = new THREE.PlaneBufferGeometry( 1000, 1000 );
-		geometry.rotateX( - Math.PI / 2 );
-		plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { visible: false } ) );
-		scene.add( plane );
-		objects.push( plane );
-		var material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-
-		// Lights
-		var ambientLight = new THREE.AmbientLight( 0x606060 );
-		scene.add( ambientLight );
-
-		var directionalLight = new THREE.DirectionalLight( 0xffffff );
-		directionalLight.position.x = 0.15;
-		directionalLight.position.y = 0.75;
-		directionalLight.position.z = 0.60;
-		directionalLight.position.normalize();
-		scene.add( directionalLight );
-
-		var directionalLight = new THREE.DirectionalLight( 0xbfbfbf );
-		directionalLight.position.x = -0.25;
-		directionalLight.position.y = 0.80;
-		directionalLight.position.z = -0.50;
-		directionalLight.position.normalize();
-		scene.add( directionalLight );
-
-		renderer = new THREE.CanvasRenderer();
-		renderer.setClearColor( 0xffffff );
-		renderer.setPixelRatio( window.devicePixelRatio );
-		renderer.setSize( tam.width, tam.height );
-		container.appendChild(renderer.domElement);
-
-		controls = new THREE.OrbitControls( camera, renderer.domElement );
-		controls.addEventListener( 'change', render );
-
-
-		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-		document.addEventListener( 'keydown', onDocumentKeyDown, false );
-		document.addEventListener( 'keyup', onDocumentKeyUp, false );
-		//
-		window.addEventListener( 'resize', onWindowResize, false );
-
-		render();
-
-	}
-
-	function onDocumentMouseDown( event ) {
-		event.preventDefault();
-		mouse.x = ( event.offsetX / renderer.domElement.clientWidth ) * 2 - 1;
-		mouse.y = - ( event.offsetY / renderer.domElement.clientHeight ) * 2 + 1;
-		raycaster.setFromCamera( mouse, camera );
-		var intersects = raycaster.intersectObjects( objects );
-		if ( intersects.length > 0 ) {
-			var intersect = intersects[ 0 ];
-			if ( isShiftDown ) {
-				if ( intersect.object != plane ) {
-					scene.remove( intersect.object );
-					objects.splice( objects.indexOf( intersect.object ), 1 );
-				}
-			} else {
-				var voxel = new THREE.Mesh( cubeGeometry, new THREE.MeshLambertMaterial( { color: cubeColor, overdraw: 0.5 }) );
-				voxel.position.copy( intersect.point ).add( intersect.face.normal );
-				voxel.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).addScalar( 25 );
-				scene.add( voxel );
-				objects.push( voxel );
-			}
-			render();
-		}
-	}
-
-	function onDocumentKeyDown( event ) {
-		switch( event.keyCode ) {
-			case 16: isShiftDown = true; break;
-		}
-	}
-
-	function onDocumentKeyUp( event ) {
-		switch( event.keyCode ) {
-			case 16: isShiftDown = false; break;
-		}
-	}
-
-	function onWindowResize() {
-		camera.aspect = tam.width / tam.height;
-		camera.updateProjectionMatrix();
-		renderer.setSize( tam.width, tam.height );
-		render();
-	}
-
-	function animate() {
-
-  		requestAnimationFrame( animate );
-  		controls.update();
-	}
-
-	function render() {
-	  renderer.render( scene, camera );
-	}
-}
-
 function loadCube(){
 	
 	var camera, scene, renderer, startTime, light_sphere, light_sphere2;
 	var container = document.querySelector(".canvas_container");
 	var tam = container.getBoundingClientRect();
+	var list = []
 
 	var spotLight;
 	var spotLightSpherePosX = 2;
@@ -245,6 +93,7 @@ function loadCube(){
 
 		var baseRing = new THREE.Mesh( baseRingGeo, RingMat );
 		baseRing.castShadow = true;
+		baseRing.position.x = 0;
 		baseRing.position.y = 1;
 		scene.add( baseRing );
 
@@ -263,6 +112,8 @@ function loadCube(){
 			}
 		}
 
+		confetiExplosion();
+
 		// Renderer
 		renderer = new THREE.WebGLRenderer();
 		renderer.shadowMap.enabled = true;
@@ -279,6 +130,48 @@ function loadCube(){
 		// Start
 		startTime = Date.now();
 	}
+
+	function confetiExplosion(){
+		
+		var confetiMat = new THREE.MeshPhongMaterial( {
+				color: Math.random() * 0x808008 + 0x808080,
+				shininess: 100,
+				side: THREE.DoubleSide
+			} );
+
+		var confetiGeo = new THREE.BoxGeometry(0.12, 0.01, 0.07);
+
+		for(var i = 0; i < 2000; i++){
+
+			confetiMat = new THREE.MeshPhongMaterial( {
+				color: Math.random() * 0x808008 + 0x808080,
+				shininess: 100,
+				side: THREE.DoubleSide
+			} );
+
+			var y = (Math.random() * 30) + 1;
+			var x = (Math.random() * 30) + 1;
+			var z = (Math.random() * 30) + 1;
+
+			confetiMesh  = new THREE.Mesh( confetiGeo, confetiMat );
+			confetiMesh.castShadow = true;
+			confetiMesh.rotation.x = (Math.random() * 2 * Math.PI) + 1;
+			confetiMesh.position.x = x - 15;
+			confetiMesh.position.y = y;
+			confetiMesh.position.z = z - 15;
+			list.push(confetiMesh);
+			scene.add( confetiMesh );
+		}
+	}
+
+	function onRing(x, z){
+		if(x < 2.5 && x > -2.5){
+			if(z < 2.5 && z > -2.5){
+				return true;
+			}
+		}
+	}
+
 	function onWindowResize() {
 		camera.aspect = tam.width / tam.height;
 		camera.updateProjectionMatrix();
@@ -305,6 +198,13 @@ function loadCube(){
 
     	spotLight.position.x = -10*Math.cos(time * 0.5) + 0;
     	spotLight.position.z = 10*Math.sin(time * 0.5) + 0;
+
+    	for(var i = 0; i < list.length; i++)
+    	{
+    		
+    		if(list[i].position.y > 0.25)
+    			list[i].position.y -= 0.05;
+    	}
 
 		renderer.render( scene, camera );
 	}
