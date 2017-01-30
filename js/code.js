@@ -178,7 +178,7 @@ function loadCube(){
 	
 	function init() {
 		camera = new THREE.PerspectiveCamera(36, tam.width / tam.height, 1, 1000 );
-		camera.position.set( 5, 5, 15 );
+		camera.position.set( 5, 10, 18 );
 		scene = new THREE.Scene();
 		scene.background = new THREE.Color( 0x00032 );
 		// Lights
@@ -249,22 +249,19 @@ function loadCube(){
 		scene.add( baseRing );
 
 		var cornerRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 64, 64, false);
-		var cornerRing  = new THREE.Mesh( cornerRingGeo, RingMat );
-		cornerRing.castShadow = true;
-		cornerRing.position.x = 2.5;
-		cornerRing.position.y = 2;
-		cornerRing.position.z = 2.5;
-		scene.add( cornerRing );
 
-		cornerRing = new THREE.Mesh( cornerRingGeo, RingMat );
-		cornerRing.position.x = -2.5;
-		cornerRing.position.y = 2;
-		cornerRing.position.z = 2.5;
-		scene.add( cornerRing );
-
-		/*baseRing = new THREE.Mesh( baseRingGeo, RingMat );
-		baseRing.castShadow = true;
-		scene.add( baseRing );*/
+		// 4 corners
+		var cornerRing;
+		for(var i = -2.5; i <= 2.5; i += 5){
+			for(var j = -2.5; j <= 2.5; j += 5){
+				cornerRing  = new THREE.Mesh( cornerRingGeo, RingMat );
+				cornerRing.castShadow = true;
+				cornerRing.position.x = i;
+				cornerRing.position.y = 2;
+				cornerRing.position.z = j;
+				scene.add( cornerRing );
+			}
+		}
 
 		// Renderer
 		renderer = new THREE.WebGLRenderer();
