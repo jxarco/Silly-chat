@@ -13,6 +13,8 @@ var app = {
 }
 
 function loadCube(){
+
+	var count = 0;
 	
 	var camera, scene, renderer, startTime, light_sphere, light_sphere2;
 	var baseRing;
@@ -41,8 +43,6 @@ function loadCube(){
 		spotLight.castShadow = true;
 		spotLight.shadow.camera.near = 3;
 		spotLight.shadow.camera.far = 10;
-		spotLight.shadow.mapSize.width = 1024;
-		spotLight.shadow.mapSize.height = 1024;
 		scene.add( spotLight );
 
 		spotLight2 = new THREE.SpotLight( "blue" );
@@ -52,17 +52,16 @@ function loadCube(){
 		spotLight2.castShadow = true;
 		spotLight2.shadow.camera.near = 3;
 		spotLight2.shadow.camera.far = 10;
-		spotLight2.shadow.mapSize.width = 1024;
-		spotLight2.shadow.mapSize.height = 1024;
 		scene.add( spotLight2 );
 
 		var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
-		var lightMat = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-		light_sphere = new THREE.Mesh( lightGeometry, lightMat );
+		var lightMat1 = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+		light_sphere = new THREE.Mesh( lightGeometry, lightMat1 );
 		light_sphere.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
 		scene.add( light_sphere );
 
-		light_sphere2 = new THREE.Mesh( lightGeometry, lightMat );
+		var lightMat2 = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+		light_sphere2 = new THREE.Mesh( lightGeometry, lightMat2 );
 		light_sphere2.position.set( spotLightSpherePosX - 10, spotLightSpherePosY , spotLightSpherePosZ + 5);
 		scene.add( light_sphere2 );
 
@@ -76,7 +75,7 @@ function loadCube(){
 		// Objects
 
 		//var floorTexture = new THREE.TextureLoader().load( 'assets/grass_texture.png' );
-		var floorGeo = new THREE.PlaneBufferGeometry( 100, 100, 1, 1 )
+		var floorGeo = new THREE.PlaneBufferGeometry( 40, 40, 1, 1 )
 		var flootMat = new THREE.MeshPhongMaterial( { color: 0xf1f4f1, shininess: 5 } );
 
 		// Ground
@@ -101,7 +100,9 @@ function loadCube(){
 		scene.add( baseRing );
 		collidableMeshList.push(baseRing);
 
-		var cornerRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 64, 64, false);
+		console.log(baseRing.geometry.vertices)
+
+		var cornerRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 32, 32, false);
 
 		// 4 corners
 		var cornerRing;
@@ -115,8 +116,6 @@ function loadCube(){
 				scene.add( cornerRing );
 			}
 		}
-
-		confetiExplosion();
 
 		// Renderer
 		renderer = new THREE.WebGLRenderer();
@@ -133,6 +132,7 @@ function loadCube(){
 
 		// Start
 		startTime = Date.now();
+		confetiExplosion();
 	}
 
 	function confetiExplosion(){
@@ -171,17 +171,15 @@ function loadCube(){
 	function collides(mesh){
 
 		var originPoint = mesh.position.clone();
-		for (var vertexIndex = 0; vertexIndex < mesh.geometry.vertices.length; vertexIndex++)
-			{		
-				var localVertex = mesh.geometry.vertices[vertexIndex].clone();
-				var globalVertex = localVertex.applyMatrix4( mesh.matrix );
-				var directionVector = globalVertex.sub( mesh.position );
-				
-				var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
-				var collisionResults = ray.intersectObjects( collidableMeshList );
-				if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
-					return true;
-			}
+		var localVertex = mesh.geometry.vertices[0].clone(); // solo utilizamos el primer vertex para la colision
+		var globalVertex = localVertex.applyMatrix4( mesh.matrix );
+		var directionVector = globalVertex.sub( mesh.position );
+		
+		var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
+		var collisionResults = ray.intersectObjects( collidableMeshList );
+		if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ){
+			return true;
+		}
 	}
 
 	function onWindowResize() {
@@ -193,11 +191,6 @@ function loadCube(){
 		var currentTime = Date.now();
 		var time = ( currentTime - startTime ) / 1000;
 		requestAnimationFrame( animate );
-		
-		/*object.position.y = 0.8;
-		object.rotation.x = time * 0.5;
-		object.rotation.y = time * 0.2;
-		object.scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );*/
 
     	light_sphere2.position.x = 10*Math.cos(time * 0.5) + 0;
     	light_sphere2.position.z = 10*Math.sin(time * 0.5) + 0;
@@ -213,9 +206,23 @@ function loadCube(){
 
     	for(var i = 0; i < list.length; i++)
     	{
-    		if(!collides(list[i])){
-    			list[i].position.y -= 0.05;
-    		}
+			if(list[i].position.y < 1.5){
+    			if(!collides(list[i])){
+    				list[i].position.y -= 0.03;
+					list[i].rotation.x = time * 0.5;
+					list[i].rotation.y = time * 0.2;
+					list[i].scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );
+    			}
+			}else{
+				list[i].position.y -= 0.03;
+				list[i].rotation.x = time;
+				list[i].rotation.y = time;
+				list[i].scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );
+			}
+
+			if(list[i].position.y < 0){
+				scene.remove(list[i])
+			}
     	}
 
 		renderer.render( scene, camera );
