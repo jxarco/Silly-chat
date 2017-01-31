@@ -138,7 +138,7 @@ function loadCube(){
 			//b: 200, // numeric slider
 			//c: "Hello, GUI!", // string
 			//d: false, // boolean (checkbox)
-			//e: "#ff8800", // color (hex)
+			e: "#ff8800", // color (hex)
 			//w: "...", // dummy value, only type is important
 			//x: 0, y: 0, z: 0
 		};
@@ -148,9 +148,17 @@ function loadCube(){
 		//gui.add( parameters, 'c' ).name('String');
 		//gui.add( parameters, 'd' ).name('Boolean');
 		
-		/*gui.addColor( parameters, 'e' ).name('Color');
+		var change_color = gui.addColor( parameters, 'e' ).name('Color');
+		change_color.onChange( function( colorValue  )
+	    {
+	      //the return value by the chooser is like as: #ffff so
+	      //remove the # and replace by 0x
+	      colorValue = colorValue.replace( '#','0x' );
+	      //set the color in the object
+	      baseRing.material.color.setHex(colorValue);
+	    });
 		
-		var stringList = ["One", "Two", "Three"];
+		/*var stringList = ["One", "Two", "Three"];
 		gui.add( parameters, 'w', stringList ).name('List');*/
 		
 		// manera de hacer un grupo de parametros
@@ -204,6 +212,7 @@ function loadCube(){
 
     	for(var i = 0; i < list.length; i++)
     	{
+    		console.log("Comparando")
 			if(list[i].position.y < 1.5){
     			if(!collides(list[i])){
     				list[i].position.y -= 0.03;
