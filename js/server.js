@@ -37,10 +37,15 @@ server.on_message = function( user_id, message){
 	var guest_sending = objectReceived.name;
 	var pathBueno = objectReceived.avatar;
 
-	// si info=1 el mensaje solo sirve para indicar que
-	// esa persona esta conectada
+	if(objectReceived.info == 5){
+		confetiExplosion();
+		return;
+	}
 
-	if(objectReceived.info > 0){
+	// si info=1 el mensaje solo sirve para indicar que
+	// esa persona esta conectada 
+
+	if(objectReceived.info == 1 || objectReceived.info == 2){
 		var conectados = document.createElement("div");
 		conectados.innerHTML = "<div class='user user_conn_"+user_id+"'>" +
               "<div class='avatar avatar_c_"+user_id+"'><img src='" + pathBueno + "''></div>" +

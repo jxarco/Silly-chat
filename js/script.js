@@ -174,7 +174,6 @@ function update_privateChat_event(id, sendto_name){
 
 function add_privateChat_event(id, sendto_name){
   var avatar_with_event = document.querySelector(".avatar_c_" + id + " img");
-  //avatar_with_event.addEventListener("click", sendTo(id, sendto_name));
 
   avatar_with_event.addEventListener("click", function(){
     var p_connected_id = document.getElementById("console_change_"+ id);
@@ -377,20 +376,49 @@ function showAvatars() {
 
 // CHAT BOX *******************************************************************
 
-// enviar nuestros mensajes al chat
-function send(){
+function createMsg(guestname, avatarPath, argument){
 
-  var input = document.querySelector("#textinput");
+  var msg = document.createElement("div"); // creamos un div para el mensaje
+
+  msg.innerHTML = "<div class='msg sent'>"+
+  "<p class='guest_console mine'>" + guestname + ": </p>" +
+  "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
+  "<p class='message'>" + argument + "</p>"+
+  "</div>"; // escribimos el codigo del mensaje a enviar en el div
+
+  var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
+  msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
+
+  msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
+                                       // al enviar más mensajes
+}
+
+// enviar nuestros mensajes al chat
+function send(argument){
 
   var objectToSend = {}; // nuestro objeto a enviar
 
+  if(argument){ // EXPLOSION DE CONFETI
+    objectToSend.name = guestname;
+    objectToSend.message = argument;
+    objectToSend.avatar = avatarPath;
+    objectToSend.info = 5;
+
+    server.sendMessage(objectToSend);
+
+    //createMsg(guestname, avatarPath, argument);
+    
+    return;
+  }
+
+  var input = document.querySelector("#textinput");
+
   // SOLO BORRAMOS ULTIMO CARACTER SI ES POR ENTER
   // PQ SE AÑADE EL "\n"
-  if(input.value.includes("\n")) input.value = input.value.substring(0, input.value.length - 1);
+  if(input.value.includes("\n"))
+    input.value = input.value.substring(0, input.value.length - 1);
 
   if(input.value != ""){
-
-    var msg = document.createElement("div"); // creamos un div para el mensaje
 
     if(checked){
       input.value = input.value.capitalize(); // si la casilla está marcada, se pone mayus
@@ -402,18 +430,9 @@ function send(){
 
     server.sendMessage(objectToSend);
 
-    msg.innerHTML = "<div class='msg sent'>"+
-    "<p class='guest_console mine'>" + guestname + ": </p>" +
-    "<div class='myavatar'><img src='" + avatarPath + "'></div>"+
-    "<p class='message'>" + input.value + "</p>"+
-    "</div>"; // escribimos el codigo del mensaje a enviar en el div
+    createMsg(guestname, avatarPath, input.value);
 
     input.value = "" // reiniciamos el input 
-    var msgs = document.querySelector("#log"); // cogemos el sitio donde iran los mensajes
-    msgs.appendChild(msg); // añadir el parrafo MSG al div de los mensajes
-
-    msgs.scrollTop = msgs.scrollHeight; // conseguimos que se haga scroll automatico 
-                                         // al enviar más mensajes
   }
 }
 
@@ -565,3 +584,5 @@ function notifyMe(theBody, theIcon, theTitle) {
     var n = new Notification(theTitle, options);
     setTimeout(n.close.bind(n), 4000);
 }
+
+

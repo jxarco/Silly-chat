@@ -591,6 +591,12 @@ html, body{
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
 }
 
+#gui_id{
+	position: absolute;
+	min-height: 50vh;
+	right: 15px;
+	top: 100px;
+}
 
 
 
