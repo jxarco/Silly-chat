@@ -138,25 +138,30 @@ function loadCube(){
 			//b: 200, // numeric slider
 			//c: "Hello, GUI!", // string
 			//d: false, // boolean (checkbox)
-			e: "#ff8800", // color (hex)
+			e: "#555555", // color (hex)
+			f: function(){ changeRingColor(change_color); send("changeColor") },
 			//w: "...", // dummy value, only type is important
 			//x: 0, y: 0, z: 0
 		};
 		// gui.add( parameters )
 		gui.add( parameters, 'a' ).name('Confeti explosion');
+
+		
 		//gui.add( parameters, 'b' ).min(128).max(256).step(16).name('Slider');
 		//gui.add( parameters, 'c' ).name('String');
 		//gui.add( parameters, 'd' ).name('Boolean');
 		
 		var change_color = gui.addColor( parameters, 'e' ).name('Color');
-		change_color.onChange( function( colorValue  )
+		gui.add( parameters, 'f' ).name('Save color');
+
+		/*change_color.onChange( function( colorValue  )
 	    {
 	      //the return value by the chooser is like as: #ffff so
 	      //remove the # and replace by 0x
 	      colorValue = colorValue.replace( '#','0x' );
 	      //set the color in the object
 	      baseRing.material.color.setHex(colorValue);
-	    });
+	    });*/
 		
 		/*var stringList = ["One", "Two", "Three"];
 		gui.add( parameters, 'w', stringList ).name('List');*/
@@ -240,40 +245,51 @@ function loadCube(){
 
 function confetiExplosion(){
 
-		// quitar el confeti anterior
-		for( var i = list.length - 1; i >= 0; i--){
-			scene.remove(list[i]);
-		}
-		
-		var confetiMat = new THREE.MeshPhongMaterial( {
-				color: Math.random() * 0x808008 + 0x808080,
-				shininess: 100,
-				side: THREE.DoubleSide
-			} );
-
-		var confetiGeo = new THREE.BoxGeometry(0.12, 0.01, 0.07);
-
-		for(var i = 0; i < 2000; i++){
-
-			confetiMat = new THREE.MeshPhongMaterial( {
-				color: Math.random() * 0x808008 + 0x808080,
-				shininess: 100,
-				side: THREE.DoubleSide
-			} );
-
-			var y = (Math.random() * 30) + 1;
-			var x = (Math.random() * 30) + 1;
-			var z = (Math.random() * 30) + 1;
-
-			confetiMesh  = new THREE.Mesh( confetiGeo, confetiMat );
-			confetiMesh.castShadow = true;
-			confetiMesh.rotation.x = (Math.random() * 2 * Math.PI) + 1;
-			confetiMesh.position.x = x - 15;
-			confetiMesh.position.y = y + 7;
-			confetiMesh.position.z = z - 15;
-			list.push(confetiMesh);
-			scene.add( confetiMesh );
-		}
+	// quitar el confeti anterior
+	for( var i = list.length - 1; i >= 0; i--){
+		scene.remove(list[i]);
 	}
+	
+	var confetiMat = new THREE.MeshPhongMaterial( {
+			color: Math.random() * 0x808008 + 0x808080,
+			shininess: 100,
+			side: THREE.DoubleSide
+		} );
+
+	var confetiGeo = new THREE.BoxGeometry(0.12, 0.01, 0.07);
+
+	for(var i = 0; i < 2000; i++){
+
+		confetiMat = new THREE.MeshPhongMaterial( {
+			color: Math.random() * 0x808008 + 0x808080,
+			shininess: 100,
+			side: THREE.DoubleSide
+		} );
+
+		var y = (Math.random() * 30) + 1;
+		var x = (Math.random() * 30) + 1;
+		var z = (Math.random() * 30) + 1;
+
+		confetiMesh  = new THREE.Mesh( confetiGeo, confetiMat );
+		confetiMesh.castShadow = true;
+		confetiMesh.rotation.x = (Math.random() * 2 * Math.PI) + 1;
+		confetiMesh.position.x = x - 15;
+		confetiMesh.position.y = y + 7;
+		confetiMesh.position.z = z - 15;
+		list.push(confetiMesh);
+		scene.add( confetiMesh );
+		}
+}
+
+function changeRingColor(change) {
+		change.onChange( function( colorValue  )
+	    {
+	      //the return value by the chooser is like as: #ffff so
+	      //remove the # and replace by 0x
+	      colorValue = colorValue.replace( '#','0x' );
+	      //set the color in the object
+	      baseRing.material.color.setHex(colorValue);
+	    });
+}
 
 
