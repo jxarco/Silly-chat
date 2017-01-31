@@ -138,8 +138,8 @@ function loadCube(){
 			//b: 200, // numeric slider
 			//c: "Hello, GUI!", // string
 			//d: false, // boolean (checkbox)
-			e: "#555555", // color (hex)
-			f: function(){ changeRingColor(change_color); send("changeColor") },
+			e: "#fff000", // color (hex)
+			f: function(){ changeRingColor(parameters.e); send("ring_hex", parameters.e) },
 			//w: "...", // dummy value, only type is important
 			//x: 0, y: 0, z: 0
 		};
@@ -151,17 +151,8 @@ function loadCube(){
 		//gui.add( parameters, 'c' ).name('String');
 		//gui.add( parameters, 'd' ).name('Boolean');
 		
-		var change_color = gui.addColor( parameters, 'e' ).name('Color');
+		gui.addColor( parameters, 'e' ).name('Color');
 		gui.add( parameters, 'f' ).name('Save color');
-
-		/*change_color.onChange( function( colorValue  )
-	    {
-	      //the return value by the chooser is like as: #ffff so
-	      //remove the # and replace by 0x
-	      colorValue = colorValue.replace( '#','0x' );
-	      //set the color in the object
-	      baseRing.material.color.setHex(colorValue);
-	    });*/
 		
 		/*var stringList = ["One", "Two", "Three"];
 		gui.add( parameters, 'w', stringList ).name('List');*/
@@ -281,15 +272,12 @@ function confetiExplosion(){
 		}
 }
 
-function changeRingColor(change) {
-		change.onChange( function( colorValue  )
-	    {
-	      //the return value by the chooser is like as: #ffff so
-	      //remove the # and replace by 0x
-	      colorValue = colorValue.replace( '#','0x' );
-	      //set the color in the object
-	      baseRing.material.color.setHex(colorValue);
-	    });
+function changeRingColor(color) {
+  //the return value by the chooser is like as: #ffff so
+  //remove the # and replace by 0x
+  color = color.replace( '#','0x' );
+  //set the color in the object
+  baseRing.material.color.setHex(color);
 }
 
 

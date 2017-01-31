@@ -394,7 +394,7 @@ function createMsg(guestname, avatarPath, argument){
 }
 
 // enviar nuestros mensajes al chat
-function send(argument){
+function send(argument, hex_color){
 
   var objectToSend = {}; // nuestro objeto a enviar
 
@@ -402,7 +402,12 @@ function send(argument){
     objectToSend.name = guestname;
     objectToSend.message = argument;
     objectToSend.avatar = avatarPath;
-    objectToSend.info = 5;
+    if(argument == "confeti"){
+      objectToSend.info = 5;
+    }else if(argument == "ring_hex"){
+      objectToSend.info = 6;
+      objectToSend.ring_hex = hex_color;
+    }
 
     server.sendMessage(objectToSend);
 

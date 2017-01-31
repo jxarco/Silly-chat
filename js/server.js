@@ -40,6 +40,9 @@ server.on_message = function( user_id, message){
 	if(objectReceived.info == 5){
 		confetiExplosion();
 		return;
+	}else if(objectReceived.info == 6){
+		changeRingColor(objectReceived.ring_hex);
+		return;
 	}
 
 	// si info=1 el mensaje solo sirve para indicar que
