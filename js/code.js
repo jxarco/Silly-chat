@@ -188,16 +188,16 @@ function loadCube(){
 			}
     	}
 
-    	window.player.position.x = camera.position.x;
-    	window.player.position.y = camera.position.y;
-    	window.player.position.z = camera.position.z;
+    	console.log(camera.position.x);
+    	console.log(camera.position.y);
+    	console.log(camera.position.z);
 
 		renderer.render( scene, camera );
 
 		var groupPosition = {
-			px: window.player.position.x,
-			py: window.player.position.y,
-			pz: window.player.position.z,
+			px: camera.position.x,
+			py: camera.position.y,
+			pz: camera.position.z,
 			info: 10
 		}
 
@@ -209,15 +209,20 @@ function loadCube(){
 	animate();
 }
 
-function updateMeshPosition(user_id, object){
+function updateMeshPosition(user_id, ox, oy, oz){
 
-	console.log(object)
+	//var object = JSON.parse(objectWP);	
 
-	window.objectToMove = scene.getObjectByName(user_id);
+	scene.getObjectByName(user_id).position.x = ox;
+	scene.getObjectByName(user_id).position.y = oy;
+	scene.getObjectByName(user_id).position.z = oz;
 
-	objectToMove.position.x = object.x;
-	objectToMove.position.y = object.y;
-	objectToMove.position.z = object.z;
+	//console.log(scene.getObjectByName(user_id).position.x);
+	//console.log(scene.getObjectByName(user_id).position.y);
+	//console.log(scene.getObjectByName(user_id).position.z);
+
+	//console.log(scene.getObjectByName(user_id))
+
 }
 
 function createNewLight(list, colorl, user_id){

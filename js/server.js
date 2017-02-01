@@ -45,7 +45,7 @@ server.on_message = function( user_id, message){
 		changeRingColor(objectReceived.ring_hex);
 		return;
 	}else if(objectReceived.info == 10){
-		updateMeshPosition(user_id, objectReceived);
+		updateMeshPosition(user_id, objectReceived.px, objectReceived.py, objectReceived.pz);
 		return;
 	}
 
