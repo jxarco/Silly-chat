@@ -521,20 +521,28 @@ html, body{
 /* *************************************** */
 
 /*  CONTACTS   */
-
-.people {
+#connected{
 	height: 37vh;
 	background: #ffffff; 
 	padding: 25px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	width: 100%;
 	margin-top: 1vh;
-	overflow-y: scroll;
 }
 
-.people p{
-	font-size: 1.5vw;
+#connected p{
 	text-align: center;
+}
+
+#con_title{
+	font-size: 1.5vw;
+}
+
+.people{
+	height: 100%;
+	background: #ffffff; 
+	width: 100%;
+	overflow-y: scroll;
 }
 
 .user {
@@ -594,8 +602,8 @@ html, body{
 #gui_id{
 	position: absolute;
 	min-height: 50vh;
-	right: 15px;
-	top: 100px;
+	left: 22%;
+	top: 17.5%;
 }
 
 

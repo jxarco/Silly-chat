@@ -131,6 +131,8 @@ function loadCube(){
 		// GUI
 
 		var gui = new dat.GUI();
+		var canvas_container = document.querySelector(".canvas_container");
+		canvas_container.appendChild(gui.domElement);
 		gui.domElement.id = "gui_id";
 	
 		var parameters = 
@@ -161,15 +163,15 @@ function loadCube(){
 
 		gui.add( parameters, 'f' ).name('Send color');
 		
-		/*var stringList = ["One", "Two", "Three"];
-		gui.add( parameters, 'w', stringList ).name('List');*/
-		
 		// manera de hacer un grupo de parametros
 		var folder = gui.addFolder('Camera position');
 		folder.add( camera.position , 'x', -10, 50 ).step(1);
 		folder.add( camera.position , 'y', -10, 50 ).step(1);
 		folder.add( camera.position , 'z', -10, 50 ).step(1);
 		folder.close();
+
+		// inicialmente los controles cerrados
+		gui.close();
 
 		// Start
 		startTime = Date.now();
