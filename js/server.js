@@ -43,6 +43,9 @@ server.on_message = function( user_id, message){
 	}else if(objectReceived.info == 6){
 		changeRingColor(objectReceived.ring_hex);
 		return;
+	}else if(objectReceived.info == 10){
+		console.log("me he cambiado la posicion")
+		return;
 	}
 
 	// si info=1 el mensaje solo sirve para indicar que

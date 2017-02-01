@@ -28,6 +28,7 @@ var random, guestname, avatarPath, num_rand_avatar;
 var room_bool = false;
 var list;
 var color;
+window.player = new THREE.Group();
 
 init();
 

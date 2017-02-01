@@ -33,38 +33,9 @@ function loadCube(){
 		scene = new THREE.Scene();
 		scene.background = new THREE.Color( 0x00032 );
 		// Lights
-		scene.add( new THREE.AmbientLight( 0x505050 ) );
+		scene.add( new THREE.AmbientLight( 0x505050, 0.2 ) );
 
-		/*spotLight = new THREE.SpotLight( "red" );
-		spotLight.angle = Math.PI / 5;
-		spotLight.penumbra = 0.2;
-		spotLight.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
-		spotLight.castShadow = true;
-		spotLight.shadow.camera.near = 3;
-		spotLight.shadow.camera.far = 10;
-		scene.add( spotLight );
-
-		spotLight2 = new THREE.SpotLight( "blue" );
-		spotLight2.angle = Math.PI / 5;
-		spotLight2.penumbra = 0.2;
-		spotLight2.position.set( spotLightSpherePosX - 10, spotLightSpherePosY , spotLightSpherePosZ + 5 );
-		spotLight2.castShadow = true;
-		spotLight2.shadow.camera.near = 3;
-		spotLight2.shadow.camera.far = 10;
-		scene.add( spotLight2 );*/
-
-		/*var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
-		var lightMat1 = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-		light_sphere = new THREE.Mesh( lightGeometry, lightMat1 );
-		light_sphere.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
-		scene.add( light_sphere );
-
-		var lightMat2 = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
-		light_sphere2 = new THREE.Mesh( lightGeometry, lightMat2 );
-		light_sphere2.position.set( spotLightSpherePosX - 10, spotLightSpherePosY , spotLightSpherePosZ + 5);
-		scene.add( light_sphere2 );*/
-
-		var directionalLight = new THREE.DirectionalLight( 0x55505a, 1 );
+		var directionalLight = new THREE.DirectionalLight( 0x55505a, 0.5 );
 		directionalLight.position.set( 0, 3, 0 );
 		directionalLight.castShadow = true;
 		directionalLight.shadow.camera.near = 1;
@@ -217,8 +188,23 @@ function loadCube(){
 			}
     	}
 
+    	window.player.position.x = camera.position.x;
+    	window.player.position.y = camera.position.y;
+    	window.player.position.z = camera.position.z;
+
 		renderer.render( scene, camera );
+
+		var groupPosition = {
+			px: window.player.position.x,
+			py: window.player.position.y,
+			pz: window.player.position.z,
+			info: 10
+		}
+
+		send(groupPosition);
+
 	}
+
 	init();
 	animate();
 }
@@ -228,7 +214,7 @@ function createNewLight(list, colorl, user_id){
 	var group = new THREE.Group();
 	group.name = user_id;
 
-	var spotLight = new THREE.SpotLight( colorl );
+	var spotLight = new THREE.SpotLight( colorl, 0.75 );
 	spotLight.angle = Math.PI / 5;
 	spotLight.penumbra = 0.2;
 	spotLight.castShadow = true;
@@ -242,6 +228,13 @@ function createNewLight(list, colorl, user_id){
 	var light_sphere = new THREE.Mesh( lightGeometry, lightMat );
 
 	group.add( light_sphere );
+
+	group.position.x = list[0];
+	group.position.y = list[1];
+	group.position.z = list[2];
+
+	// cada uno guarda su propia luz
+	window.player = group;
 
 	scene.add(group);
 }
