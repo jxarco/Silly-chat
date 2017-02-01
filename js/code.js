@@ -201,7 +201,7 @@ function loadCube(){
 			info: 10
 		}
 
-		send(groupPosition);
+		server.sendMessage(groupPosition);
 
 	}
 

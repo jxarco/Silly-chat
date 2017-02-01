@@ -44,9 +44,11 @@ server.on_message = function( user_id, message){
 		changeRingColor(objectReceived.ring_hex);
 		return;
 	}else if(objectReceived.info == 10){
-		console.log("me he cambiado la posicion")
+		console.log("me he cambiado la posicion");
 		return;
 	}
+
+	console.log("hola")
 
 	// si info=1 el mensaje solo sirve para indicar que
 	// esa persona esta conectada 
