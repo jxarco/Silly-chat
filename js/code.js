@@ -211,17 +211,9 @@ function loadCube(){
 
 function updateMeshPosition(user_id, ox, oy, oz){
 
-	//var object = JSON.parse(objectWP);	
-
 	scene.getObjectByName(user_id).position.x = ox;
 	scene.getObjectByName(user_id).position.y = oy;
 	scene.getObjectByName(user_id).position.z = oz;
-
-	//console.log(scene.getObjectByName(user_id).position.x);
-	//console.log(scene.getObjectByName(user_id).position.y);
-	//console.log(scene.getObjectByName(user_id).position.z);
-
-	//console.log(scene.getObjectByName(user_id))
 
 }
 
