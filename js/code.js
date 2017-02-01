@@ -140,11 +140,8 @@ function loadCube(){
 			a: function(){ confetiExplosion(); send("confeti") },
 			b: function(){ removeConfeti(); },
 			c: 100, // numeric slider
-			//g: "Hello, GUI!", // string
-			//d: false, // boolean (checkbox)
 			e: "#fff000", // color (hex)
 			f: function(){ changeRingColor(parameters.e); send("ring_hex", parameters.e) },
-			//w: "...", // dummy value, only type is important
 		};
 		// gui.add( parameters )
 		gui.add( parameters, 'a' ).name('Confeti explosion');
@@ -157,9 +154,6 @@ function loadCube(){
  	    {
  	      changeRingColor(colorValue);
  	    });
-		
-		//gui.add( parameters, 'd' ).name('Boolean');
-		//gui.add( parameters, 'g' ).name('String');
 
 		gui.add( parameters, 'f' ).name('Send color');
 		
@@ -237,7 +231,6 @@ function createNewLight(list, colorl, user_id){
 	var spotLight = new THREE.SpotLight( colorl );
 	spotLight.angle = Math.PI / 5;
 	spotLight.penumbra = 0.2;
-	spotLight.position.set( list[0], list[1], list[2] );
 	spotLight.castShadow = true;
 	spotLight.shadow.camera.near = 3;
 	spotLight.shadow.camera.far = 10;
@@ -247,7 +240,6 @@ function createNewLight(list, colorl, user_id){
 	var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
 	var lightMat = new THREE.MeshBasicMaterial( {color: colorl } );
 	var light_sphere = new THREE.Mesh( lightGeometry, lightMat );
-	light_sphere.position.set( list[0], list[1], list[2] );
 
 	group.add( light_sphere );
 
