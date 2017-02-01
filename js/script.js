@@ -95,7 +95,7 @@ function appear_connected(){
   var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
   people.appendChild(conectados);
 
-  createNewLight(list, color);
+  createNewLight(list, color, "player");
 
   // una vez haya conexión
   document.getElementById("textinput").focus();

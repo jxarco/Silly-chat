@@ -188,10 +188,6 @@ function loadCube(){
 			}
     	}
 
-    	console.log(camera.position.x);
-    	console.log(camera.position.y);
-    	console.log(camera.position.z);
-
 		renderer.render( scene, camera );
 
 		var groupPosition = {
@@ -200,6 +196,10 @@ function loadCube(){
 			pz: camera.position.z,
 			info: 10
 		}
+
+		scene.getObjectByName("player").position.x = camera.position.x;
+		scene.getObjectByName("player").position.y = camera.position.y;
+		scene.getObjectByName("player").position.z = camera.position.z;
 
 		if(window.server_on) server.sendMessage(groupPosition);
 
