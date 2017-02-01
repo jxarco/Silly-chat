@@ -135,7 +135,8 @@ function loadCube(){
 		var parameters = 
 		{
 			a: function(){ confetiExplosion(); send("confeti") },
-			//b: 200, // numeric slider
+			b: function(){ removeConfeti(); },
+			//g: 200, // numeric slider
 			//c: "Hello, GUI!", // string
 			//d: false, // boolean (checkbox)
 			e: "#fff000", // color (hex)
@@ -145,9 +146,9 @@ function loadCube(){
 		};
 		// gui.add( parameters )
 		gui.add( parameters, 'a' ).name('Confeti explosion');
-
+		gui.add( parameters, 'b' ).name('Remove confeti');
 		
-		//gui.add( parameters, 'b' ).min(128).max(256).step(16).name('Slider');
+		//gui.add( parameters, 'g' ).min(128).max(256).step(16).name('Slider');
 		//gui.add( parameters, 'c' ).name('String');
 		//gui.add( parameters, 'd' ).name('Boolean');
 		
@@ -208,7 +209,6 @@ function loadCube(){
 
     	for(var i = 0; i < list.length; i++)
     	{
-    		console.log("Comparando")
 			if(list[i].position.y < 1.5){
     			if(!collides(list[i])){
     				list[i].position.y -= 0.03;
@@ -236,10 +236,7 @@ function loadCube(){
 
 function confetiExplosion(){
 
-	// quitar el confeti anterior
-	for( var i = list.length - 1; i >= 0; i--){
-		scene.remove(list[i]);
-	}
+	removeConfeti();
 	
 	var confetiMat = new THREE.MeshPhongMaterial( {
 			color: Math.random() * 0x808008 + 0x808080,
@@ -270,6 +267,14 @@ function confetiExplosion(){
 		list.push(confetiMesh);
 		scene.add( confetiMesh );
 		}
+}
+
+function removeConfeti(){
+
+	// quitar el confeti anterior
+	for( var i = list.length - 1; i >= 0; i--){
+		scene.remove(list[i]);
+	}
 }
 
 function changeRingColor(color) {
