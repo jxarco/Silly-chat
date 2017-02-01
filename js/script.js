@@ -423,6 +423,8 @@ function send(argument, hex_color, list){
     }else if(argument == "newlight"){
       objectToSend.info = 7;
       objectToSend.l_list = list;
+    }else if(argument == "rem_confeti"){
+      objectToSend.info = 8;
     }
 
     server.sendMessage(objectToSend);

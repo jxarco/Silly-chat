@@ -109,7 +109,7 @@ function loadCube(){
 		var parameters = 
 		{
 			a: function(){ confetiExplosion(); send("confeti") },
-			b: function(){ removeConfeti(); },
+			b: function(){ removeConfeti(); send("rem_confeti") },
 			c: 100, // numeric slider
 			e: "#fff000", // color (hex)
 			f: function(){ changeRingColor(parameters.e); send("ring_hex", parameters.e) },
