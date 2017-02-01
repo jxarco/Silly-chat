@@ -49,7 +49,6 @@ server.on_message = function( user_id, message){
 		return;
 	}
 
-	console.log("hola")
 
 	// si info=1 el mensaje solo sirve para indicar que
 	// esa persona esta conectada 

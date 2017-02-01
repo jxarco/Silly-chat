@@ -210,7 +210,10 @@ function loadCube(){
 }
 
 function updateMeshPosition(user_id, object){
-	var objectToMove = scene.getObjectByName("user_id");
+
+	console.log(object)
+
+	window.objectToMove = scene.getObjectByName(user_id);
 
 	objectToMove.position.x = object.x;
 	objectToMove.position.y = object.y;
