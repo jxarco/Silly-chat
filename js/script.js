@@ -29,6 +29,7 @@ var room_bool = false;
 var list;
 var color;
 window.player = new THREE.Group();
+window.server_on = false;
 
 init();
 

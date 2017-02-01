@@ -28,6 +28,7 @@ function init_server(){
 server.on_connect = function(){  
 	console.log("Connected to server! :)");
 	appear_connected(); // aparecer en People connected
+	window.server_on = true;
 }
 
 server.on_message = function( user_id, message){
@@ -44,7 +45,7 @@ server.on_message = function( user_id, message){
 		changeRingColor(objectReceived.ring_hex);
 		return;
 	}else if(objectReceived.info == 10){
-		console.log("me he cambiado la posicion");
+		updateMeshPosition(user_id, objectReceived);
 		return;
 	}
 

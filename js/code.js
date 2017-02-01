@@ -201,12 +201,20 @@ function loadCube(){
 			info: 10
 		}
 
-		server.sendMessage(groupPosition);
+		if(window.server_on) server.sendMessage(groupPosition);
 
 	}
 
 	init();
 	animate();
+}
+
+function updateMeshPosition(user_id, object){
+	var objectToMove = scene.getObjectByName("user_id");
+
+	objectToMove.position.x = object.x;
+	objectToMove.position.y = object.y;
+	objectToMove.position.z = object.z;
 }
 
 function createNewLight(list, colorl, user_id){
