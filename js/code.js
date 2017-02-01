@@ -13,14 +13,14 @@ var app = {
 
 var count = 0;
 
-var camera, scene, renderer, startTime, light_sphere, light_sphere2;
+var camera, scene, renderer, startTime;
 var baseRing, ground;
 var container = document.querySelector(".canvas_container");
 var tam = container.getBoundingClientRect();
-var list = []
+var confeti_list = []
 var collidableMeshList = [];
 
-var spotLight;
+//var spotLight;
 var spotLightSpherePosX = 2;
 var spotLightSpherePosY = 4;
 var spotLightSpherePosZ = 10;
@@ -35,7 +35,7 @@ function loadCube(){
 		// Lights
 		scene.add( new THREE.AmbientLight( 0x505050 ) );
 
-		spotLight = new THREE.SpotLight( "red" );
+		/*spotLight = new THREE.SpotLight( "red" );
 		spotLight.angle = Math.PI / 5;
 		spotLight.penumbra = 0.2;
 		spotLight.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
@@ -51,9 +51,9 @@ function loadCube(){
 		spotLight2.castShadow = true;
 		spotLight2.shadow.camera.near = 3;
 		spotLight2.shadow.camera.far = 10;
-		scene.add( spotLight2 );
+		scene.add( spotLight2 );*/
 
-		var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
+		/*var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
 		var lightMat1 = new THREE.MeshBasicMaterial( {color: 0xff0000} );
 		light_sphere = new THREE.Mesh( lightGeometry, lightMat1 );
 		light_sphere.position.set( spotLightSpherePosX, spotLightSpherePosY, spotLightSpherePosZ );
@@ -62,7 +62,7 @@ function loadCube(){
 		var lightMat2 = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
 		light_sphere2 = new THREE.Mesh( lightGeometry, lightMat2 );
 		light_sphere2.position.set( spotLightSpherePosX - 10, spotLightSpherePosY , spotLightSpherePosZ + 5);
-		scene.add( light_sphere2 );
+		scene.add( light_sphere2 );*/
 
 		var directionalLight = new THREE.DirectionalLight( 0x55505a, 1 );
 		directionalLight.position.set( 0, 3, 0 );
@@ -87,7 +87,8 @@ function loadCube(){
 		// BaseRing
 		var RingMat = new THREE.MeshPhongMaterial( {
 				color: 0xffffff,
-				shininess: 100,
+				shininess: 20,
+				specular: 0xffffff,
 				side: THREE.DoubleSide
 			} );
 		var baseRingGeo = new THREE.BoxGeometry( 5, 1, 5 );
@@ -136,24 +137,29 @@ function loadCube(){
 		{
 			a: function(){ confetiExplosion(); send("confeti") },
 			b: function(){ removeConfeti(); },
-			//g: 200, // numeric slider
-			//c: "Hello, GUI!", // string
+			c: 100, // numeric slider
+			//g: "Hello, GUI!", // string
 			//d: false, // boolean (checkbox)
 			e: "#fff000", // color (hex)
 			f: function(){ changeRingColor(parameters.e); send("ring_hex", parameters.e) },
 			//w: "...", // dummy value, only type is important
-			//x: 0, y: 0, z: 0
 		};
 		// gui.add( parameters )
 		gui.add( parameters, 'a' ).name('Confeti explosion');
 		gui.add( parameters, 'b' ).name('Remove confeti');
+		gui.add( baseRing.material, 'shininess' , 0, 50).step(1).name('Ring shininess');
+
+		var change_color = gui.addColor( parameters, 'e' ).name('Ring Color');
+
+		change_color.onChange( function( colorValue  )
+ 	    {
+ 	      changeRingColor(colorValue);
+ 	    });
 		
-		//gui.add( parameters, 'g' ).min(128).max(256).step(16).name('Slider');
-		//gui.add( parameters, 'c' ).name('String');
 		//gui.add( parameters, 'd' ).name('Boolean');
-		
-		gui.addColor( parameters, 'e' ).name('Color');
-		gui.add( parameters, 'f' ).name('Save color');
+		//gui.add( parameters, 'g' ).name('String');
+
+		gui.add( parameters, 'f' ).name('Send color');
 		
 		/*var stringList = ["One", "Two", "Three"];
 		gui.add( parameters, 'w', stringList ).name('List');*/
@@ -164,11 +170,9 @@ function loadCube(){
 		folder.add( camera.position , 'y', -10, 50 ).step(1);
 		folder.add( camera.position , 'z', -10, 50 ).step(1);
 		folder.close();
-	
 
 		// Start
 		startTime = Date.now();
-		//confetiExplosion();
 	}
 
 	function collides(mesh){
@@ -190,41 +194,30 @@ function loadCube(){
 		camera.updateProjectionMatrix();
 		renderer.setSize( tam.width, tam.height );
 	}
+
 	function animate() {
 		var currentTime = Date.now();
 		var time = ( currentTime - startTime ) / 1000;
 		requestAnimationFrame( animate );
 
-    	light_sphere2.position.x = 10*Math.cos(time * 0.5) + 0;
-    	light_sphere2.position.z = 10*Math.sin(time * 0.5) + 0;
-
-    	spotLight2.position.x = 10*Math.cos(time * 0.5) + 0;
-    	spotLight2.position.z = 10*Math.sin(time * 0.5) + 0;
-
-    	light_sphere.position.x = -10*Math.cos(time * 0.5) + 0;
-    	light_sphere.position.z = 10*Math.sin(time * 0.5) + 0;
-
-    	spotLight.position.x = -10*Math.cos(time * 0.5) + 0;
-    	spotLight.position.z = 10*Math.sin(time * 0.5) + 0;
-
-    	for(var i = 0; i < list.length; i++)
+    	for(var i = 0; i < confeti_list.length; i++)
     	{
-			if(list[i].position.y < 1.5){
-    			if(!collides(list[i])){
-    				list[i].position.y -= 0.03;
-					list[i].rotation.x = Math.random() * time;
-					list[i].rotation.y = Math.random() * time;
-					list[i].scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );
+			if(confeti_list[i].position.y < 1.5){
+    			if(!collides(confeti_list[i])){
+    				confeti_list[i].position.y -= 0.03;
+					confeti_list[i].rotation.x = Math.random() * time;
+					confeti_list[i].rotation.y = Math.random() * time;
+					confeti_list[i].scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );
     			}
 			}else{
-				list[i].position.y -= 0.03;
-				list[i].rotation.x = Math.random()  * time;
-				list[i].rotation.y = Math.random()  * time;
-				list[i].scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );
+				confeti_list[i].position.y -= 0.03;
+				confeti_list[i].rotation.x = Math.random()  * time;
+				confeti_list[i].rotation.y = Math.random()  * time;
+				confeti_list[i].scale.setScalar( Math.cos( time ) * 0.125 + 0.875 );
 			}
 
-			if(list[i].position.y < 0){
-				scene.remove(list[i])
+			if(confeti_list[i].position.y < 0){
+				scene.remove(confeti_list[i])
 			}
     	}
 
@@ -232,6 +225,39 @@ function loadCube(){
 	}
 	init();
 	animate();
+}
+
+function createNewLight(list, colorl, user_id){
+
+	var group = new THREE.Group();
+	group.name = user_id;
+
+	var spotLight = new THREE.SpotLight( colorl );
+	spotLight.angle = Math.PI / 5;
+	spotLight.penumbra = 0.2;
+	spotLight.position.set( list[0], list[1], list[2] );
+	spotLight.castShadow = true;
+	spotLight.shadow.camera.near = 3;
+	spotLight.shadow.camera.far = 10;
+
+	group.add( spotLight );
+
+	var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
+	var lightMat = new THREE.MeshBasicMaterial( {color: colorl } );
+	var light_sphere = new THREE.Mesh( lightGeometry, lightMat );
+	light_sphere.position.set( list[0], list[1], list[2] );
+
+	group.add( light_sphere );
+
+	scene.add(group);
+}
+
+function deleteLight(user_id){
+	for( var i = 0; i < scene.children.length; i++){
+		if(scene.children[i].name == user_id){
+			scene.remove(scene.children[i]);
+		}
+	}
 }
 
 function confetiExplosion(){
@@ -264,7 +290,7 @@ function confetiExplosion(){
 		confetiMesh.position.x = x - 15;
 		confetiMesh.position.y = y + 7;
 		confetiMesh.position.z = z - 15;
-		list.push(confetiMesh);
+		confeti_list.push(confetiMesh);
 		scene.add( confetiMesh );
 		}
 }
@@ -272,8 +298,8 @@ function confetiExplosion(){
 function removeConfeti(){
 
 	// quitar el confeti anterior
-	for( var i = list.length - 1; i >= 0; i--){
-		scene.remove(list[i]);
+	for( var i = confeti_list.length - 1; i >= 0; i--){
+		scene.remove(confeti_list[i]);
 	}
 }
 
@@ -283,6 +309,14 @@ function changeRingColor(color) {
   color = color.replace( '#','0x' );
   //set the color in the object
   baseRing.material.color.setHex(color);
+}
+
+function updateRingColor(hex_color){
+	baseRing.material.color.setHex(hex_color);
+}
+
+function getRingColor(){
+	return baseRing.material.color.getHex();
 }
 
 

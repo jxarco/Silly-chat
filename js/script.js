@@ -26,6 +26,8 @@ else{ // en caso de estar en modo local y no usar el host
 
 var random, guestname, avatarPath, num_rand_avatar;
 var room_bool = false;
+var list;
+var color;
 
 init();
 
@@ -61,6 +63,8 @@ function init(){
   num_rand_avatar = Math.floor((Math.random() * 21) + 1);
   num_rand_avatar = 19;
   avatarPath = "assets/avatar" + num_rand_avatar +".png";
+  list = [2 + (Math.random() * 3 + 1), 4 + (Math.random() * 3 + 1), 10]; // posicion de nuestra luz canvas 3d
+  color = Math.random() * 0x808008 + 0x808080;
 
   // actualizamos los datos en la página
   update();
@@ -89,6 +93,8 @@ function appear_connected(){
   var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
   people.appendChild(conectados);
 
+  createNewLight(list, color);
+
   // una vez haya conexión
   document.getElementById("textinput").focus();
 }
@@ -100,6 +106,9 @@ function new_connection(user_id){
   objectToSend.name = guestname;
   objectToSend.avatar = avatarPath;
   objectToSend.info = 1;
+  objectToSend.hex_color = color; // color de la luz
+  objectToSend.l_list = list; // posicion de la luz
+  objectToSend.ring = getRingColor();
 
   // esto podria ser un array
   var send_to = user_id;
@@ -113,6 +122,8 @@ function accept_handshaking(user_id){
   objectToSend.name = guestname;
   objectToSend.avatar = avatarPath;
   objectToSend.info = 2; // una vez se acaba el handshaking, no queremos volver a hacerlo
+  objectToSend.hex_color = color;
+  objectToSend.l_list = list;
 
   // esto podria ser un array
   var send_to = user_id;
@@ -394,7 +405,7 @@ function createMsg(guestname, avatarPath, argument){
 }
 
 // enviar nuestros mensajes al chat
-function send(argument, hex_color){
+function send(argument, hex_color, list){
 
   var objectToSend = {}; // nuestro objeto a enviar
 
@@ -407,6 +418,9 @@ function send(argument, hex_color){
     }else if(argument == "ring_hex"){
       objectToSend.info = 6;
       objectToSend.ring_hex = hex_color;
+    }else if(argument == "newlight"){
+      objectToSend.info = 7;
+      objectToSend.l_list = list;
     }
 
     server.sendMessage(objectToSend);

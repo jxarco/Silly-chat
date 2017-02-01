@@ -57,12 +57,19 @@ server.on_message = function( user_id, message){
         
 		var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
 		people.appendChild(conectados);
+
+		// crear la luz de la otra persona
+		createNewLight(objectReceived.l_list, objectReceived.hex_color, user_id);
 		
 		// una vez el nuevo recibe la información de cada uno, 
 		// devuelve su información para que los demás completen
 		// su registro:
 
-		if(objectReceived.info == 1) accept_handshaking(user_id);
+		if(objectReceived.info == 1){
+			updateRingColor(objectReceived.ring); // los que estan en la sala me dicen de que color
+												// es el ring
+			accept_handshaking(user_id);
+		}
 
 		// añadir posibilidad de chat privado para cada
 		// uno de los chats
@@ -150,6 +157,9 @@ server.on_user_disconnected = function(user_id){
 	var parent = div_container.parentNode;
 
 	parent.removeChild(div_container);
+
+	// borrar tb la luz del que se ha ido
+	deleteLight(user_id);
 }
 
 server.on_close = function(){  
