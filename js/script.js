@@ -72,7 +72,6 @@ function init(){
   update();
 
   // estados inicials de ciertos elementos visuales
-  document.getElementById("chatBox").style.display = "block";
   /*document.getElementById("opacitypanel").style.display = "block";
   document.getElementById("opacitypanel").style.zIndex = "20";*/
 }
@@ -95,10 +94,7 @@ function appear_connected(){
   var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
   people.appendChild(conectados);
 
-  createNewLight(list, color, "player");
-
-  // una vez haya conexión
-  document.getElementById("textinput").focus();
+  createNewLight(list, color, "player");  
 }
 
 function new_connection(user_id){
@@ -355,7 +351,7 @@ document.getElementById("uinput").addEventListener("keyup", function(event){
 
 function privateInfo() {
   update();
-  document.getElementById("persInfoBox").style.display = "block";
+  document.getElementById("right_info").style.display = "block";
   closeNav();
 }
 
@@ -501,13 +497,17 @@ function showProfile(path, name) {
 
 //abrir o cerrar chat
 function openChat() {
-  if (document.getElementById("chatBox").style.display == "block"){
-    document.getElementById("chatBox").style.display = "none";
-    closeNav();
-  }else {
-    document.getElementById("chatBox").style.display = "block";
-    closeNav();
-  }
+
+  document.getElementById("chatBox").style.display = "block";
+  document.getElementById("textinput").focus();
+  closeNav();
+
+}
+
+function closeChat() {
+
+  document.getElementById("chatBox").style.display = "none";
+
 }
 
 // ****************************************************************************
@@ -537,6 +537,8 @@ function keyListener(event){
 
     hideDivs();
 
+    closeChat();
+
     var op_panel = document.getElementById("opacitypanel");
     if(op_panel.dataset['boolean'] == "true") hideOpPanel();
   }
@@ -555,7 +557,7 @@ window.onclick = function(event) {
 
   // si clicamos en hide profile, el perfil se esconderá
   if (event.target.matches('.hideProfile')) {
-    document.getElementById("persInfoBox").style.display = "none";
+    document.getElementById("right_info").style.display = "none";
     hideDivs();
   }
 

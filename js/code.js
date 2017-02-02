@@ -117,16 +117,20 @@ function loadCube(){
 		// gui.add( parameters )
 		gui.add( parameters, 'a' ).name('Confeti explosion');
 		gui.add( parameters, 'b' ).name('Remove confeti');
-		gui.add( baseRing.material, 'shininess' , 0, 50).step(1).name('Ring shininess');
+		
+		var ring_folder = gui.addFolder('Ring options');
 
-		var change_color = gui.addColor( parameters, 'e' ).name('Ring Color');
+		ring_folder.add( baseRing.material, 'shininess' , 0, 50).step(1).name('Ring shininess');
+
+		var change_color = ring_folder.addColor( parameters, 'e' ).name('Ring Color');
 
 		change_color.onChange( function( colorValue  )
  	    {
  	      changeRingColor(colorValue);
  	    });
 
-		gui.add( parameters, 'f' ).name('Send color');
+		ring_folder.add( parameters, 'f' ).name('Send color');
+		ring_folder.close();
 		
 		// manera de hacer un grupo de parametros
 		var folder = gui.addFolder('Camera position');
@@ -197,9 +201,12 @@ function loadCube(){
 			info: 10
 		}
 
-		scene.getObjectByName("player").position.x = camera.position.x;
-		scene.getObjectByName("player").position.y = camera.position.y;
-		scene.getObjectByName("player").position.z = camera.position.z;
+		// a veces carga antes --> evitamos fallos	
+		if(scene.getObjectByName("player")){
+			scene.getObjectByName("player").position.x = camera.position.x;
+			scene.getObjectByName("player").position.y = camera.position.y;
+			scene.getObjectByName("player").position.z = camera.position.z;
+		}
 
 		if(window.server_on) server.sendMessage(groupPosition);
 

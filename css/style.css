@@ -7,18 +7,15 @@
 
 html, body{
 	height: 100%;
-	background: #dce8f2;
+	background: rgba(46, 51, 58, 0.5);
 }
 
 /* Transition for initial info  */
 
-#hideMe {
+/*#hideMe {
     -moz-animation: cssAnimation 0s ease-in 4s forwards;
-    /* Firefox */
     -webkit-animation: cssAnimation 0s ease-in 4s forwards;
-    /* Safari and Chrome */
     -o-animation: cssAnimation 0s ease-in 4s forwards;
-    /* Opera */
     animation: cssAnimation 0s ease-in 4s forwards;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
@@ -29,7 +26,7 @@ html, body{
 	margin-bottom: 10px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	padding: 15px;
-}
+}*/
 
 @keyframes cssAnimation {
     to {
@@ -84,7 +81,7 @@ html, body{
 
 
 .heading{
-	background-color: #fbfbfb;
+	background: linear-gradient(#555a63, #ccc);
 	color: white;
 	font-size: 30px;
 	margin-bottom: 10px;
@@ -92,11 +89,12 @@ html, body{
 	display: flex;
 	padding: 15px;
 	position: relative;
+	border-radius: 5px;
 }
 
 .heading .logo{
-	width: 70px;
-	height: 70px;
+	width: 50px;
+	height: 50px;
 	background: #eee;
 	border-radius: 50%;
 	display: flex;
@@ -108,30 +106,20 @@ html, body{
 	cursor: pointer;
 }
 
-.heading .titlename{
-	margin: auto;
-	color: black;
-	padding: 10px;
-	width: 60%;
-	text-align: center;
-}
-
-.titlename img{
-	height: 5vh;
-}
-
 .personalInfo {
 	display: block;
+	position: absolute;
 	height: 37vh;
-	background: #ffffff; 
+	background: rgba(255,255,255,0.2); 
 	padding: 25px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	width: 100%;
+	width: 20%;
 }
 
 .personalInfo p{
 	font-size: 1.5vw;
 	text-align: center;
+	color: white;
 }
 
 .personalInfo .pic{
@@ -144,6 +132,7 @@ html, body{
 	text-align: center;
 	font-size: 1vw;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+	background: rgba(255,255,255,0.5); 
 	vertical-align: middle;
 	padding: 5px;
 	width: 70%;
@@ -217,6 +206,7 @@ html, body{
     padding: 30px;
     background-color: rgba(0,0,0,0.8);
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+    z-index: 20;
 }
 
 .personalInfo .avatars{
@@ -228,6 +218,7 @@ html, body{
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     position: fixed;
     overflow: scroll;
+    z-index: 20;
 }
 
 /* todo este dropdown es para los avatares*/
@@ -259,21 +250,21 @@ html, body{
 /* CHAT BOX */
 
 .chat{
-	display: block;
+	display: none;
+	position: absolute;
 	width: 20%;
-	height: 75vh;
-	background: #ffffff; 
+	height: 78vh;
+	background: rgba(255,255,255,0.2); 
 	padding: 15px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	float: left;
-	margin-left: 1%;
 }
 
 .msgs{
 	padding: 10px;
 	width: 100%;
 	height: 60vh;
-	background: #eee;
+	background: rgba(255,255,255,0.2); 
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
@@ -378,14 +369,14 @@ html, body{
 }
 
 .chatinput textarea{
-	background: #fbfbfb;
+	background: rgba(220,220,220,0.8); 
 	width: 80%;
 	height: 30px;
 	border: 2px solid #eee;
 	resize: none;
 	padding: 2%;
 	font-size: 1vw;
-	color: #999;
+	color: #000000;
 	margin-right: 15px;
 }
 
@@ -396,6 +387,7 @@ html, body{
     cursor: pointer;
     z-index: 1;
     float: right;
+    padding-top: 5px;
 }
 
 .chatinput img:active {
@@ -411,7 +403,7 @@ html, body{
 
 .uppercase p{
 	font-size: 1vw;
-	color: #9ca4af;
+	color: #ffffff;
 }
 
 .uppercase .ucselection{
@@ -522,16 +514,18 @@ html, body{
 
 /*  CONTACTS   */
 #connected{
-	height: 37vh;
-	background: #ffffff; 
+	height: 40vh;
 	padding: 25px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	width: 100%;
-	margin-top: 1vh;
+	background: rgba(255,255,255,0.2); 
+	width: 20%;
+	margin-top: 18.9%;
+	position: absolute;
 }
 
 #connected p{
 	text-align: center;
+	color: white;
 }
 
 #con_title{
@@ -539,9 +533,6 @@ html, body{
 }
 
 .people{
-	height: 100%;
-	background: #ffffff; 
-	width: 100%;
 	overflow-y: scroll;
 }
 
@@ -563,10 +554,11 @@ html, body{
 	padding: 10px 15px;
 	margin: 5px 10px 0;
 	border-radius: 10px;
-	border-color: #ccc;
-	border-style: inset;
+	border-color: #eee;
+	border-style: outset;
 	font-size: 1vw;
 	word-wrap: break-word;
+	background: rgba(255,255,255,0.25); 
 }
 
 /* *************************************** */
@@ -578,19 +570,16 @@ html, body{
 }
 
 .rest_org{
-	display: block;
-	float: right;
-	width: 20%;
-	height: 75vh;
-	margin-right: 1%;
-	top: 0px;
-	max-height: 75vh;
+	display: none;
+	position: absolute;
+	width: 100%;
+	margin-left: 80%; 
 }
 
 .canvas_container{
 	display: block;
-	width: 56%;
-	height: 75vh;
+	width: 100%;
+	height: 78vh;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	margin: 0 auto;
 }
@@ -602,8 +591,7 @@ html, body{
 #gui_id{
 	position: absolute;
 	min-height: 50vh;
-	left: 22%;
-	top: 17.5%;
+	top: 15%;
 }
 
 
