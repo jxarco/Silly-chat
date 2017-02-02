@@ -73,6 +73,7 @@ function loadCube(){
 
 		baseRing = new THREE.Mesh( baseRingGeo, RingMat );
 		baseRing.castShadow = true;
+		baseRing.receiveShadow = true;
 		baseRing.position.x = 0;
 		baseRing.position.y = 1;
 		scene.add( baseRing );
@@ -86,6 +87,7 @@ function loadCube(){
 			for(var j = -5; j <= 5; j += 10){
 				cornerRing  = new THREE.Mesh( cornerRingGeo, RingMat );
 				cornerRing.castShadow = true;
+				cornerRing.receiveShadow = true;
 				cornerRing.position.x = i;
 				cornerRing.position.y = 2;
 				cornerRing.position.z = j;
@@ -362,10 +364,12 @@ function createFigure(id){
 	var playerHead = new THREE.Mesh(playerHeadGeo, playerMat);
 	playerHead.position.y = 3.55;
 	playerHead.rotation.x = - Math.PI / 2;
+	playerHead.castShadow = true;
 	group.add(playerHead);
 
 	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
 	var playerBody = new THREE.Mesh(playerBodyGeo, playerMat);
+	playerBody.castShadow = true;
 	playerBody.position.y = 2.25;
 	group.add(playerBody);
 
