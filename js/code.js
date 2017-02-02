@@ -22,10 +22,6 @@ var tam = container.getBoundingClientRect();
 var confeti_list = []
 var collidableMeshList = [];
 
-//var spotLight;
-var spotLightSpherePosX = 2;
-var spotLightSpherePosY = 4;
-var spotLightSpherePosZ = 10;
 
 function loadCube(){
 	
@@ -154,6 +150,14 @@ function loadCube(){
 			a: function(){ confetiExplosion(); send("confeti") },
 			b: function(){ removeConfeti(); send("rem_confeti") },
 			c: 100, // numeric slider
+			d: function(){
+				camera.position.x = 5;
+				camera.position.y = 10;
+				camera.position.z = 18;
+
+				controls.target.set( 0, 1, 0 );
+				controls.update();
+			},
 			e: "#fff000", // color (hex)
 			f: function(){ changeRingColor(parameters.e); send("ring_hex", parameters.e) },
 		};
@@ -177,6 +181,7 @@ function loadCube(){
 		
 		// manera de hacer un grupo de parametros
 		var folder = gui.addFolder('Camera position');
+		folder.add(parameters, 'd').name('Default camera');
 		folder.add( camera.position , 'x', -10, 50 ).step(1);
 		folder.add( camera.position , 'y', -10, 50 ).step(1);
 		folder.add( camera.position , 'z', -10, 50 ).step(1);
