@@ -537,7 +537,6 @@ function keyListener(event){
     document.getElementById("avatarslist").style.display = "none";
 
     hideDivs();
-
     closeChat();
 
     var op_panel = document.getElementById("opacitypanel");

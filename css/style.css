@@ -590,7 +590,9 @@ html, body{
 
 #gui_id{
 	position: absolute;
+	min-height: 50vh;
 	top: 15%;
+	right: 0;
 }
 
 
