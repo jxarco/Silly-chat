@@ -2,27 +2,21 @@
 var server = new SillyClient(); //create our class
 var room;
 
-init_server();
-
 function init_server(){
 
-	//var op_panel = document.getElementById("opacitypanel");
+	var op_panel = document.getElementById("opacitypanel");
 
-	//if(op_panel.dataset['boolean'] == "false"){
+	if(op_panel.dataset['boolean'] == "false"){
 		
-	//	var roominput = document.getElementById("roominput");
-	//	room = roominput.value;
-
-		// sidbewobfoewubfoebfuowevfwe
-		room = "una"
-		// wouefouwegfuoewbfouwebffvou
+		var roominput = document.getElementById("roominput");
+		room = roominput.value;
 
 		server.connect("84.89.136.194:9000", room);
-		console.log("connected in room: " + room)
-//		op_panel.dataset['boolean'] = "true";
-	//	hideOpPanel();
-//		roominput.style.display = "none";
-	//}
+		console.log("connected in room: " + room);
+		op_panel.dataset['boolean'] = "true";
+		hideOpPanel();
+		roominput.style.display = "none";
+	}
 }
 
 server.on_connect = function(){  

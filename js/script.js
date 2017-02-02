@@ -39,15 +39,16 @@ function init(){
   var intro_logo = document.querySelector("#image_avatar img");
   intro_logo.src = "assets/favicon.png";
 
-  /*var label_name = document.querySelector("#contact_name");
-  label_name.innerHTML = "Create or join a room to begin chatting:";
+  var label_name = document.querySelector("#contact_name");
+  label_name.innerHTML = "Create or join a room to begin:";
 
   var roominput = document.querySelector("#roominput");
-  roominput.focus();
 
   // show all
   document.getElementById("opacitypanel").style.display = "block";
   document.getElementById("opacitypanel").style.zIndex = "20";
+
+  roominput.focus();
 
   document.getElementById("roominput").addEventListener("keyup", function(event){
   event.preventDefault();
@@ -55,7 +56,7 @@ function init(){
     {
       init_server();
     }
-  });*/
+  });
 
   // al entrar, asignar nombre de usuario aleatorio
   random = Math.floor((Math.random() * 999) + 1);
@@ -72,8 +73,8 @@ function init(){
   update();
 
   // estados inicials de ciertos elementos visuales
-  /*document.getElementById("opacitypanel").style.display = "block";
-  document.getElementById("opacitypanel").style.zIndex = "20";*/
+  document.getElementById("opacitypanel").style.display = "block";
+  document.getElementById("opacitypanel").style.zIndex = "20";
 }
 
 function hideIntro(){

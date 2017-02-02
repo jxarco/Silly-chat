@@ -114,7 +114,7 @@ function loadCube(){
 			e: "#fff000", // color (hex)
 			f: function(){ changeRingColor(parameters.e); send("ring_hex", parameters.e) },
 		};
-		// gui.add( parameters )
+		
 		gui.add( parameters, 'a' ).name('Confeti explosion');
 		gui.add( parameters, 'b' ).name('Remove confeti');
 		
