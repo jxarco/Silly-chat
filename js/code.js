@@ -79,9 +79,10 @@ function loadCube(){
 		scene.add( baseRing );
 		collidableMeshList.push(baseRing);
 
+		// 4 corners
+
 		var cornerRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 32, 32, false);
 
-		// 4 corners
 		var cornerRing;
 		for(var i = -5; i <= 5; i += 10){
 			for(var j = -5; j <= 5; j += 10){
@@ -92,6 +93,39 @@ function loadCube(){
 				cornerRing.position.y = 2;
 				cornerRing.position.z = j;
 				scene.add( cornerRing );
+			}
+		}
+
+		// 8 cuerdas
+
+		var ropeRingGeo = new THREE.CylinderGeometry(0.05, 0.05, 10, 32, 32, false);
+
+		var ropeRing;
+
+		for(var i = -5; i <= 10; i += 10){
+			for(var j = 2; j <= 3; j += 1){
+				ropeRing  = new THREE.Mesh( ropeRingGeo, RingMat );
+				ropeRing.castShadow = true;
+				ropeRing.receiveShadow = true;
+				ropeRing.position.x = i;
+				ropeRing.position.y = j;
+				ropeRing.position.z = 0;
+				ropeRing.rotation.x = - Math.PI / 2;
+				scene.add( ropeRing );
+			}
+		}
+
+		for(var i = -5; i <= 10; i += 10){
+			for(var j = 2; j <= 3; j += 1){
+				ropeRing  = new THREE.Mesh( ropeRingGeo, RingMat );
+				ropeRing.castShadow = true;
+				ropeRing.receiveShadow = true;
+				ropeRing.position.x = 0;
+				ropeRing.position.y = j;
+				ropeRing.position.z = i;
+				ropeRing.rotation.x = - Math.PI/2;
+				ropeRing.rotation.z = - Math.PI/2;
+				scene.add( ropeRing );
 			}
 		}
 
