@@ -11,7 +11,9 @@ var app = {
 	}
 }
 
-var count = 0;
+// player move controls
+var w = false, a = false, s = false, d = false;
+var velocity = new THREE.Vector3(0,0,0);
 
 var camera, scene, renderer, startTime;
 var baseRing, ground;
@@ -32,6 +34,11 @@ function loadCube(){
 		camera.position.set( 5, 10, 18 );
 		scene = new THREE.Scene();
 		scene.background = new THREE.Color( 0x00032 );
+		
+		// Fog
+
+		scene.fog = new THREE.Fog(0xffffff, 750);
+
 		// Lights
 		scene.add( new THREE.AmbientLight( 0x505050, 0.2 ) );
 
@@ -62,7 +69,7 @@ function loadCube(){
 				specular: 0xffffff,
 				side: THREE.DoubleSide
 			} );
-		var baseRingGeo = new THREE.BoxGeometry( 5, 1, 5 );
+		var baseRingGeo = new THREE.BoxGeometry( 10, 1, 10 );
 
 		baseRing = new THREE.Mesh( baseRingGeo, RingMat );
 		baseRing.castShadow = true;
@@ -75,8 +82,8 @@ function loadCube(){
 
 		// 4 corners
 		var cornerRing;
-		for(var i = -2.5; i <= 2.5; i += 5){
-			for(var j = -2.5; j <= 2.5; j += 5){
+		for(var i = -5; i <= 5; i += 10){
+			for(var j = -5; j <= 5; j += 10){
 				cornerRing  = new THREE.Mesh( cornerRingGeo, RingMat );
 				cornerRing.castShadow = true;
 				cornerRing.position.x = i;
@@ -167,7 +174,7 @@ function loadCube(){
 	}
 
 	function animate() {
-		var currentTime = Date.now();
+		var currentTime = performance.now();
 		var time = ( currentTime - startTime ) / 1000;
 		requestAnimationFrame( animate );
 
@@ -201,6 +208,8 @@ function loadCube(){
 			info: 10
 		}
 
+		// LIGHT AND SPHERE MOVEMENTS
+
 		// a veces carga antes --> evitamos fallos	
 		if(scene.getObjectByName("player")){
 			scene.getObjectByName("player").position.x = camera.position.x;
@@ -208,7 +217,23 @@ function loadCube(){
 			scene.getObjectByName("player").position.z = camera.position.z;
 		}
 
+		// PASSING POSITION TO OTHERS TO PRINT IT
 		if(window.server_on) server.sendMessage(groupPosition);
+
+		// PLAYER IN RING MOVEMENTS
+
+		if(scene.getObjectByName("player_body")){
+
+			var px = scene.getObjectByName("player_body").position.x;
+			var pz = scene.getObjectByName("player_body").position.z;
+
+			if(w && movementLimits(px, pz - 0.1)) scene.getObjectByName("player_body").position.z -= 0.1;
+			if(a && movementLimits(px - 0.1, pz)) scene.getObjectByName("player_body").position.x -= 0.1;
+			if(s && movementLimits(px, pz + 0.1)) scene.getObjectByName("player_body").position.z += 0.1;
+			if(d && movementLimits(px + 0.1, pz)) scene.getObjectByName("player_body").position.x += 0.1;
+
+			
+		}
 
 	}
 
@@ -221,7 +246,6 @@ function updateMeshPosition(user_id, ox, oy, oz){
 	scene.getObjectByName(user_id).position.x = ox;
 	scene.getObjectByName(user_id).position.y = oy;
 	scene.getObjectByName(user_id).position.z = oz;
-
 }
 
 function createNewLight(list, colorl, user_id){
@@ -252,6 +276,8 @@ function createNewLight(list, colorl, user_id){
 	window.player = group;
 
 	scene.add(group);
+
+	createFigure(user_id);
 }
 
 function deleteLight(user_id){
@@ -320,5 +346,84 @@ function updateRingColor(hex_color){
 function getRingColor(){
 	return baseRing.material.color.getHex();
 }
+
+function createFigure(id){
+
+	var group = new THREE.Group();
+	group.name = id + "_body";
+
+	var playerHeadGeo = new THREE.CylinderGeometry(0.45, 0.45, 0.35, 32);
+	var playerMat = new THREE.MeshPhongMaterial( {
+			color: 0xffffff,
+			shininess: 15,
+			side: THREE.DoubleSide
+		} );
+
+	var playerHead = new THREE.Mesh(playerHeadGeo, playerMat);
+	playerHead.position.y = 3.55;
+	playerHead.rotation.x = - Math.PI / 2;
+	group.add(playerHead);
+
+	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
+	var playerBody = new THREE.Mesh(playerBodyGeo, playerMat);
+	playerBody.position.y = 2.25;
+	group.add(playerBody);
+
+	scene.add(group);
+}
+
+var onKeyDown = function (event){
+
+	switch(event.keyCode){
+		case 87:
+			w = true;
+			break;
+		case 65:
+			a = true;
+			break;
+		case 83:
+			s = true;
+			break;
+		case 68:
+			d = true;
+			break;
+	}
+}
+
+var onKeyUp = function (event){
+
+	switch(event.keyCode){
+		case 87:
+			w = false;
+			break;
+		case 65:
+			a = false;
+			break;
+		case 83:
+			s = false;
+			break;
+		case 68:
+			d = false;
+			break;
+	}
+}
+
+document.addEventListener('keydown', onKeyDown, false);
+document.addEventListener('keyup', onKeyUp, false);
+
+function movementLimits(x, z){
+	if(x > 4.35 || x < -4.35) return false;
+	if(z > 4.5 || z < -4.35) return false;
+	return true;
+}
+
+
+
+
+
+
+
+
+
 
 
