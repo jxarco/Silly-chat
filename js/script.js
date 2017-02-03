@@ -214,6 +214,7 @@ function changeMyPic(path){
   avatarPath = path; // aqui solo damos valor a la variable 
   update(); // esta cambia el nombre y la foto
   send_avatar_info(path);
+  updateTexture("player_body", path);
 
   // -> coge las cosas que son de la clase myavatar
   var all_my_avatars = document.getElementsByClassName("myavatar");
@@ -288,6 +289,9 @@ function changeSuInfo(path, id, name){
   for (var i = 0; i < my_priv_message_to.length; i++) {
     my_priv_message_to[i].innerHTML = "To [" + name + "]: ";
   }
+
+  // recargar nueva textura
+  updateTexture(id + "_body", path);
 }
 
 // cambia el nombre de usuario

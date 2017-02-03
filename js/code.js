@@ -297,7 +297,7 @@ function loadCube(){
 	animate();
 }
 
-function updateMeshPosition(user_id, ox, oy, oz, ry){
+function updateMeshPosition(user_id, ox, oy, oz){
 
 	if(scene.getObjectByName(user_id)){
 		scene.getObjectByName(user_id).position.x = ox;
@@ -306,14 +306,20 @@ function updateMeshPosition(user_id, ox, oy, oz, ry){
 	}
 }
 
-function updatePlayerPosition(user_id, ox, oy, oz){
+function updatePlayerPosition(user_id, ox, oy, oz, ry){
 
 	if(scene.getObjectByName(user_id + "_body")){
 		scene.getObjectByName(user_id + "_body").position.x = ox;
 		scene.getObjectByName(user_id + "_body").position.y = oy;
 		scene.getObjectByName(user_id + "_body").position.z = oz;
-		scene.getObjectByName(user_id).rotation.y = ry;
+		scene.getObjectByName(user_id + "_body").rotation.y = ry;
 	}
+}
+
+function updateTexture(id, path){
+	var head = scene.getObjectByName(id).children[0];
+	head.material.map = new THREE.ImageUtils.loadTexture(path);
+	head.material.needsUpdate = true;
 }
 
 function createNewLight(list, colorl, user_id){
