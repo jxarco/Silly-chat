@@ -336,9 +336,10 @@ function createNewLight(list, colorl, user_id){
 	createFigure(user_id, colorl);
 }
 
-function deleteLight(user_id){
+function deleteUser(user_id){
 	for( var i = 0; i < scene.children.length; i++){
-		if(scene.children[i].name == user_id){
+		// borrará la luz(grupo luz + esfera) y el jugador
+		if(scene.children[i].name.includes(user_id)){
 			scene.remove(scene.children[i]);
 		}
 	}

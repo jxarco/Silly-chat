@@ -163,8 +163,8 @@ server.on_user_disconnected = function(user_id){
 
 	parent.removeChild(div_container);
 
-	// borrar tb la luz del que se ha ido
-	deleteLight(user_id);
+	// borrar usuario que se ha ido
+	deleteUser(user_id);
 }
 
 server.on_close = function(){  
