@@ -64,7 +64,7 @@ function init(){
 
   // asignamos también un avatar por defecto 
   num_rand_avatar = Math.floor((Math.random() * 21) + 1);
-  num_rand_avatar = 19;
+  num_rand_avatar = 1; // esto podemos quitarlo despues
   avatarPath = "assets/avatar" + num_rand_avatar +".png";
   list = [2 + (Math.random() * 3 + 1), 4 + (Math.random() * 3 + 1), 10]; // posicion de nuestra luz canvas 3d
   color = Math.random() * 0x808008 + 0x808080;
@@ -95,7 +95,7 @@ function appear_connected(){
   var people = document.querySelector("#pp"); // cogemos el sitio donde iran los conectados
   people.appendChild(conectados);
 
-  createNewLight(list, color, "player");  
+  createNewLight(list, color, "player", avatarPath);  
 }
 
 function new_connection(user_id){

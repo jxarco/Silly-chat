@@ -64,7 +64,7 @@ server.on_message = function( user_id, message){
 		people.appendChild(conectados);
 
 		// crear la luz de la otra persona
-		createNewLight(objectReceived.l_list, objectReceived.hex_color, user_id);
+		createNewLight(objectReceived.l_list, objectReceived.hex_color, user_id, pathBueno);
 		
 		// una vez el nuevo recibe la información de cada uno, 
 		// devuelve su información para que los demás completen

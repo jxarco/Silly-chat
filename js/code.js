@@ -22,6 +22,7 @@ var tam = container.getBoundingClientRect();
 var confeti_list = []
 var collidableMeshList = [];
 
+var audio = new Audio('assets/audio.mp3');;
 
 function loadCube(){
 	
@@ -322,7 +323,7 @@ function updateTexture(id, path){
 	head.material.needsUpdate = true;
 }
 
-function createNewLight(list, colorl, user_id){
+function createNewLight(list, colorl, user_id, path){
 
 	var group = new THREE.Group();
 	group.name = user_id;
@@ -351,7 +352,7 @@ function createNewLight(list, colorl, user_id){
 
 	scene.add(group);
 
-	createFigure(user_id, colorl);
+	createFigure(user_id, colorl, path);
 }
 
 function deleteUser(user_id){
@@ -372,6 +373,8 @@ function deleteUser(user_id){
 function confetiExplosion(){
 
 	removeConfeti();
+
+	audio.play();
 	
 	var confetiMat = new THREE.MeshPhongMaterial( {
 			color: Math.random() * 0x808008 + 0x808080,
@@ -401,10 +404,13 @@ function confetiExplosion(){
 		confetiMesh.position.z = z - 15;
 		confeti_list.push(confetiMesh);
 		scene.add( confetiMesh );
-		}
+	}
 }
 
 function removeConfeti(){
+
+	audio.pause();
+	audio.currentTime = 0;
 
 	// quitar el confeti anterior
 	for( var i = confeti_list.length - 1; i >= 0; i--){
@@ -428,26 +434,51 @@ function getRingColor(){
 	return baseRing.material.color.getHex();
 }
 
-function createFigure(id, colorf){
+function createFigure(id, colorf, path){
 
 	var group = new THREE.Group();
 	group.name = id + "_body";
 
-	var playerHeadGeo = new THREE.CylinderGeometry(0.45, 0.45, 0.35, 32);
-	var playerMat = new THREE.MeshPhongMaterial( {
+	var playerBodyMat = new THREE.MeshPhongMaterial( {
 			color: colorf,
 			shininess: 15,
 			side: THREE.DoubleSide
-		} );
+		} ); // [0] -> player
 
-	var playerHead = new THREE.Mesh(playerHeadGeo, playerMat);
-	playerHead.position.y = 3.55;
+	var materials = [
+
+		new THREE.MeshPhongMaterial( {
+			color: colorf,
+			shininess: 15,
+			side: THREE.DoubleSide
+		} ),
+
+		new THREE.MeshPhongMaterial( {
+			color: colorf,
+			shininess: 15,
+			side: THREE.DoubleSide
+		} ),
+
+		new THREE.MeshPhongMaterial( {
+			map: new THREE.TextureLoader().load(path),
+			shininess: 15,
+			side: THREE.DoubleSide
+		} )// [1] -> head
+	]
+
+
+	var playerHeadGeo = new THREE.CylinderGeometry(0.75, 0.75, 0.35, 32);
+	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
+		
+	var playerHead = new THREE.Mesh(playerHeadGeo, new THREE.MultiMaterial(materials));
+	playerHead.position.y = 3.8;
 	playerHead.rotation.x = - Math.PI / 2;
+	playerHead.rotation.y = Math.PI / 2;
 	playerHead.castShadow = true;
 	group.add(playerHead);
 
-	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
-	var playerBody = new THREE.Mesh(playerBodyGeo, playerMat);
+	
+	var playerBody = new THREE.Mesh(playerBodyGeo, playerBodyMat);
 	playerBody.castShadow = true;
 	playerBody.position.y = 2.25;
 	group.add(playerBody);
