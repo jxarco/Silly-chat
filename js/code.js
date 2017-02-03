@@ -272,9 +272,17 @@ function loadCube(){
 			if(a && movementLimits(px - 0.1, pz)) scene.getObjectByName("player_body").position.x -= 0.1;
 			if(s && movementLimits(px, pz + 0.1)) scene.getObjectByName("player_body").position.z += 0.1;
 			if(d && movementLimits(px + 0.1, pz)) scene.getObjectByName("player_body").position.x += 0.1;
-
-			
 		}
+
+		var playerPosition = {
+			px : scene.getObjectByName("player_body").position.x,
+			py : scene.getObjectByName("player_body").position.y,
+			pz : scene.getObjectByName("player_body").position.z,
+			info: 11
+		}
+
+		// PASSING POSITION TO OTHERS TO PRINT IT
+		if(window.server_on) server.sendMessage(playerPosition);
 
 	}
 
@@ -287,6 +295,13 @@ function updateMeshPosition(user_id, ox, oy, oz){
 	scene.getObjectByName(user_id).position.x = ox;
 	scene.getObjectByName(user_id).position.y = oy;
 	scene.getObjectByName(user_id).position.z = oz;
+}
+
+function updatePlayerPosition(user_id, ox, oy, oz){
+
+	scene.getObjectByName(user_id + "_body").position.x = ox;
+	scene.getObjectByName(user_id + "_body").position.y = oy;
+	scene.getObjectByName(user_id + "_body").position.z = oz;
 }
 
 function createNewLight(list, colorl, user_id){
@@ -318,7 +333,7 @@ function createNewLight(list, colorl, user_id){
 
 	scene.add(group);
 
-	createFigure(user_id);
+	createFigure(user_id, colorl);
 }
 
 function deleteLight(user_id){
@@ -388,14 +403,14 @@ function getRingColor(){
 	return baseRing.material.color.getHex();
 }
 
-function createFigure(id){
+function createFigure(id, colorf){
 
 	var group = new THREE.Group();
 	group.name = id + "_body";
 
 	var playerHeadGeo = new THREE.CylinderGeometry(0.45, 0.45, 0.35, 32);
 	var playerMat = new THREE.MeshPhongMaterial( {
-			color: 0xffffff,
+			color: colorf,
 			shininess: 15,
 			side: THREE.DoubleSide
 		} );
