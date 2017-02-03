@@ -12,7 +12,7 @@ var app = {
 }
 
 // player move controls
-var w = false, a = false, s = false, d = false;
+var w = false, a = false, s = false, d = false, k = false, l = false;
 var velocity = new THREE.Vector3(0,0,0);
 
 var camera, scene, renderer, startTime;
@@ -160,6 +160,9 @@ function loadCube(){
 			},
 			e: "#fff000", // color (hex)
 			f: function(){ changeRingColor(parameters.e); send("ring_hex", parameters.e) },
+			g: function () {
+				initFight();
+			}
 		};
 		
 		gui.add( parameters, 'a' ).name('Confeti explosion');
@@ -273,11 +276,14 @@ function loadCube(){
 			if(s && movementLimits(px, pz + 0.1)) scene.getObjectByName("player_body").position.z += 0.1;
 			if(d && movementLimits(px + 0.1, pz)) scene.getObjectByName("player_body").position.x += 0.1;
 
+			if(k) scene.getObjectByName("player_body").rotation.y += 0.1;
+			if(l) scene.getObjectByName("player_body").rotation.y -= 0.1;
 
 			var playerPosition = {
 				px : scene.getObjectByName("player_body").position.x,
 				py : scene.getObjectByName("player_body").position.y,
 				pz : scene.getObjectByName("player_body").position.z,
+				ry : scene.getObjectByName("player_body").rotation.y,
 				info: 11
 			}
 		}
@@ -291,7 +297,7 @@ function loadCube(){
 	animate();
 }
 
-function updateMeshPosition(user_id, ox, oy, oz){
+function updateMeshPosition(user_id, ox, oy, oz, ry){
 
 	if(scene.getObjectByName(user_id)){
 		scene.getObjectByName(user_id).position.x = ox;
@@ -306,6 +312,7 @@ function updatePlayerPosition(user_id, ox, oy, oz){
 		scene.getObjectByName(user_id + "_body").position.x = ox;
 		scene.getObjectByName(user_id + "_body").position.y = oy;
 		scene.getObjectByName(user_id + "_body").position.z = oz;
+		scene.getObjectByName(user_id).rotation.y = ry;
 	}
 }
 
@@ -442,6 +449,10 @@ function createFigure(id, colorf){
 	scene.add(group);
 }
 
+function initFight(){
+
+}
+
 var onKeyDown = function (event){
 
 	switch(event.keyCode){
@@ -456,6 +467,12 @@ var onKeyDown = function (event){
 			break;
 		case 68:
 			d = true;
+			break;
+		case 75:
+			k = true;
+			break;
+		case 76:
+			l = true;
 			break;
 	}
 }
@@ -474,6 +491,12 @@ var onKeyUp = function (event){
 			break;
 		case 68:
 			d = false;
+			break;
+		case 75:
+			k = false;
+			break;
+		case 76:
+			l = false;
 			break;
 	}
 }

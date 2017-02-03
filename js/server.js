@@ -45,7 +45,7 @@ server.on_message = function( user_id, message){
 		updateMeshPosition(user_id, objectReceived.px, objectReceived.py, objectReceived.pz);
 		return;
 	}else if(objectReceived.info == 11){
-		updatePlayerPosition(user_id, objectReceived.px, objectReceived.py, objectReceived.pz);
+		updatePlayerPosition(user_id, objectReceived.px, objectReceived.py, objectReceived.pz, objectReceived.ry);
 		return;
 	}
 
