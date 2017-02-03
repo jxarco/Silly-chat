@@ -158,7 +158,7 @@ server.on_user_disconnected = function(user_id){
 	console.log("Somebody has disconnected from the room");
 
 	var user_disc = document.querySelector(".user_conn_" + user_id);
-	var div_container = user_disc.parentNode;
+	if(user_disc) var div_container = user_disc.parentNode;
 	var parent = div_container.parentNode;
 
 	parent.removeChild(div_container);
