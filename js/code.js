@@ -469,6 +469,7 @@ function createFigure(id, colorf, path){
 
 	var playerHeadGeo = new THREE.CylinderGeometry(0.75, 0.75, 0.35, 32);
 	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
+	var playerArmGeo = new THREE.BoxGeometry(0.2, 1, 0.2);
 		
 	var playerHead = new THREE.Mesh(playerHeadGeo, new THREE.MultiMaterial(materials));
 	playerHead.position.y = 3.8;
@@ -482,6 +483,20 @@ function createFigure(id, colorf, path){
 	playerBody.castShadow = true;
 	playerBody.position.y = 2.25;
 	group.add(playerBody);
+
+	// arms
+	var playerArm;
+	for(var i = -0.7; i <= 0.7; i += 1.4){
+
+		playerArm = new THREE.Mesh(playerArmGeo, playerBodyMat);
+		playerArm.position.x = i;
+		playerArm.position.y = 6;
+		playerArm.position.z = 0.5;
+		playerArm.rotation.x = - Math.PI / 2;
+		playerArm.castShadow = true;
+		playerArm.position.y = 2.25;
+		group.add(playerArm);
+	}
 
 	scene.add(group);
 }
