@@ -7,11 +7,12 @@ var app = {
 
 // player move controls
 var w = false, a = false, s = false, d = false, k = false, l = false;
-var space = false, begin = false;
+// var space = false, begin = false;
 
 var camera, scene, renderer, startTime;
 var baseRing, ground;
 var container = document.querySelector(".canvas_container");
+
 var tam = container.getBoundingClientRect();
 
 var confeti_list = []
@@ -126,11 +127,12 @@ function loadCube(){
 
 		// Renderer
 		renderer = new THREE.WebGLRenderer();
+		renderer.domElement.id = "my_canvas";
 		renderer.shadowMap.enabled = true;
 		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( tam.width, tam.height );
 		window.addEventListener( 'resize', onWindowResize, false );
-		container.appendChild( renderer.domElement );
+		container.appendChild( renderer.domElement );		
 
 		// Controls
 		var controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -140,8 +142,7 @@ function loadCube(){
 		// GUI
 
 		var gui = new dat.GUI();
-		var canvas_container = document.querySelector(".canvas_container");
-		canvas_container.appendChild(gui.domElement);
+		container.appendChild(gui.domElement);
 		gui.domElement.id = "gui_id";
 	
 		var parameters = 
@@ -293,10 +294,9 @@ function loadCube(){
 
 		// BATTLE
 
-		if(space && begin){
-			console.log("que hacemos")
-		}
-
+		// if(space && begin){
+		// 	console.log("que hacemos")
+		// }
 	}
 
 	init();
@@ -555,19 +555,6 @@ function createFigure(id, colorf, path){
 	playerBody.position.y = 2.25;
 	group.add(playerBody);
 
-	// arms
-	var playerArm;
-	for(var i = -0.7; i <= 0.7; i += 1.4){
-
-		playerArm = new THREE.Mesh(playerArmGeo, playerBodyMat);
-		playerArm.position.x = i;
-		playerArm.position.z = 0.5;
-		playerArm.rotation.x = - Math.PI / 2;
-		playerArm.castShadow = true;
-		playerArm.position.y = 2.5;
-		group.add(playerArm);
-	}
-
 	scene.add(group);
 }
 
@@ -612,6 +599,10 @@ function popCube(argumentx, argumentz){
 
 var onKeyDown = function (event){
 
+	if(document.activeElement.localName == "textarea"){
+		return;
+	}
+
 	switch(event.keyCode){
 		case 87:
 			w = true;
@@ -635,6 +626,10 @@ var onKeyDown = function (event){
 }
 
 var onKeyUp = function (event){
+
+	if(document.activeElement.localName == "textarea"){
+		return;
+	}
 
 	switch(event.keyCode){
 		case 87:
@@ -662,9 +657,6 @@ var onKeyUp = function (event){
 	}
 }
 
-document.addEventListener('keydown', onKeyDown, false);
-document.addEventListener('keyup', onKeyUp, false);
-
 function movementLimits(x, z){
 	if(x > 4.35 || x < -4.35) return false;
 	if(z > 4.5 || z < -4.35) return false;
@@ -672,6 +664,7 @@ function movementLimits(x, z){
 }
 
 
-
+document.addEventListener('keydown', onKeyDown, false);
+document.addEventListener('keyup', onKeyUp, false);	
 
 
