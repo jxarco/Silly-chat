@@ -302,6 +302,127 @@ function loadCube(){
 	init();
 	animate();
 }
+function confetiExplosion(){
+
+	removeConfeti();
+
+	audio.play();
+	
+	var confetiMat = new THREE.MeshPhongMaterial( {
+			color: Math.random() * 0x808008 + 0x808080,
+			shininess: 100,
+			side: THREE.DoubleSide
+		} );
+
+	var confetiGeo = new THREE.BoxGeometry(0.12, 0.01, 0.07);
+
+	for(var i = 0; i < 2000; i++){
+
+		confetiMat = new THREE.MeshPhongMaterial( {
+			color: Math.random() * 0x808008 + 0x808080,
+			shininess: 100,
+			side: THREE.DoubleSide
+		} );
+
+		var y = (Math.random() * 30) + 1;
+		var x = (Math.random() * 30) + 1;
+		var z = (Math.random() * 30) + 1;
+
+		confetiMesh  = new THREE.Mesh( confetiGeo, confetiMat );
+		confetiMesh.castShadow = true;
+		confetiMesh.rotation.x = (Math.random() * 2 * Math.PI) + 1;
+		confetiMesh.position.x = x - 15;
+		confetiMesh.position.y = y + 7;
+		confetiMesh.position.z = z - 15;
+		confeti_list.push(confetiMesh);
+		scene.add( confetiMesh );
+	}
+}
+
+function createFigure(id, colorf, path){
+
+	var group = new THREE.Group();
+	group.name = id + "_body";
+
+	var playerBodyMat = new THREE.MeshPhongMaterial( {
+			color: colorf,
+			shininess: 15,
+			side: THREE.DoubleSide
+		} ); // -> player
+
+	materials = [
+
+		new THREE.MeshPhongMaterial( {
+			color: colorf,
+			shininess: 15,
+			side: THREE.DoubleSide
+		} ),
+
+		new THREE.MeshPhongMaterial( {
+			color: colorf,
+			shininess: 15,
+			side: THREE.DoubleSide
+		} ),
+
+		new THREE.MeshPhongMaterial( {
+			map: new THREE.TextureLoader().load(path),
+			shininess: 15,
+			side: THREE.DoubleSide
+		} )// -> head
+	]
+
+
+	var playerHeadGeo = new THREE.CylinderGeometry(0.75, 0.75, 0.35, 32);
+	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
+	var playerArmGeo = new THREE.CylinderGeometry(0.18, 0.15, 1.5, 32);
+		
+	var playerHead = new THREE.Mesh(playerHeadGeo, new THREE.MultiMaterial(materials));
+	playerHead.position.y = 3.8;
+	playerHead.rotation.x = - Math.PI / 2;   
+	playerHead.rotation.y = Math.PI / 2;
+	playerHead.castShadow = true;
+	group.add(playerHead);
+
+	
+	var playerBody = new THREE.Mesh(playerBodyGeo, playerBodyMat);
+	playerBody.castShadow = true;
+	playerBody.position.y = 2.25;
+	group.add(playerBody);
+
+	scene.add(group);
+}
+
+function createNewLight(list, colorl, user_id, path){
+
+	var group = new THREE.Group();
+	group.name = user_id;
+
+	var spotLight = new THREE.SpotLight( colorl, 0.75 );
+	spotLight.angle = Math.PI / 5;
+	spotLight.penumbra = 0.2;
+	spotLight.castShadow = true;
+	spotLight.shadow.camera.near = 3;
+	spotLight.shadow.camera.far = 10;
+
+	group.add( spotLight );
+
+	var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
+	var lightMat = new THREE.MeshBasicMaterial( {color: colorl } );
+	var light_sphere = new THREE.Mesh( lightGeometry, lightMat );
+
+	group.add( light_sphere );
+
+	group.position.x = list[0];
+	group.position.y = list[1];
+	group.position.z = list[2];
+
+	// cada uno guarda su propia luz
+	window.player = group;
+
+	scene.add(group);
+
+	createFigure(user_id, colorl, path);
+}
 
 function createChairs(){
 
@@ -392,36 +513,9 @@ function updateTexture(id, path){
 	head.material.needsUpdate = true;
 }
 
-function createNewLight(list, colorl, user_id, path){
+function updateRingColor(hex_color){
 
-	var group = new THREE.Group();
-	group.name = user_id;
-
-	var spotLight = new THREE.SpotLight( colorl, 0.75 );
-	spotLight.angle = Math.PI / 5;
-	spotLight.penumbra = 0.2;
-	spotLight.castShadow = true;
-	spotLight.shadow.camera.near = 3;
-	spotLight.shadow.camera.far = 10;
-
-	group.add( spotLight );
-
-	var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
-	var lightMat = new THREE.MeshBasicMaterial( {color: colorl } );
-	var light_sphere = new THREE.Mesh( lightGeometry, lightMat );
-
-	group.add( light_sphere );
-
-	group.position.x = list[0];
-	group.position.y = list[1];
-	group.position.z = list[2];
-
-	// cada uno guarda su propia luz
-	window.player = group;
-
-	scene.add(group);
-
-	createFigure(user_id, colorl, path);
+	baseRing.material.color.setHex(hex_color);
 }
 
 function deleteUser(user_id){
@@ -436,43 +530,6 @@ function deleteUser(user_id){
 		if(scene.children[i].name == (user_id + "_body")){
 			scene.remove(scene.children[i]);
 		}
-	}
-}
-
-function confetiExplosion(){
-
-	removeConfeti();
-
-	audio.play();
-	
-	var confetiMat = new THREE.MeshPhongMaterial( {
-			color: Math.random() * 0x808008 + 0x808080,
-			shininess: 100,
-			side: THREE.DoubleSide
-		} );
-
-	var confetiGeo = new THREE.BoxGeometry(0.12, 0.01, 0.07);
-
-	for(var i = 0; i < 2000; i++){
-
-		confetiMat = new THREE.MeshPhongMaterial( {
-			color: Math.random() * 0x808008 + 0x808080,
-			shininess: 100,
-			side: THREE.DoubleSide
-		} );
-
-		var y = (Math.random() * 30) + 1;
-		var x = (Math.random() * 30) + 1;
-		var z = (Math.random() * 30) + 1;
-
-		confetiMesh  = new THREE.Mesh( confetiGeo, confetiMat );
-		confetiMesh.castShadow = true;
-		confetiMesh.rotation.x = (Math.random() * 2 * Math.PI) + 1;
-		confetiMesh.position.x = x - 15;
-		confetiMesh.position.y = y + 7;
-		confetiMesh.position.z = z - 15;
-		confeti_list.push(confetiMesh);
-		scene.add( confetiMesh );
 	}
 }
 
@@ -495,67 +552,9 @@ function changeRingColor(color) {
   baseRing.material.color.setHex(color);
 }
 
-function updateRingColor(hex_color){
-
-	baseRing.material.color.setHex(hex_color);
-}
-
 function getRingColor(){
 
 	return baseRing.material.color.getHex();
-}
-
-function createFigure(id, colorf, path){
-
-	var group = new THREE.Group();
-	group.name = id + "_body";
-
-	var playerBodyMat = new THREE.MeshPhongMaterial( {
-			color: colorf,
-			shininess: 15,
-			side: THREE.DoubleSide
-		} ); // -> player
-
-	materials = [
-
-		new THREE.MeshPhongMaterial( {
-			color: colorf,
-			shininess: 15,
-			side: THREE.DoubleSide
-		} ),
-
-		new THREE.MeshPhongMaterial( {
-			color: colorf,
-			shininess: 15,
-			side: THREE.DoubleSide
-		} ),
-
-		new THREE.MeshPhongMaterial( {
-			map: new THREE.TextureLoader().load(path),
-			shininess: 15,
-			side: THREE.DoubleSide
-		} )// -> head
-	]
-
-
-	var playerHeadGeo = new THREE.CylinderGeometry(0.75, 0.75, 0.35, 32);
-	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
-	var playerArmGeo = new THREE.CylinderGeometry(0.18, 0.15, 1.5, 32);
-		
-	var playerHead = new THREE.Mesh(playerHeadGeo, new THREE.MultiMaterial(materials));
-	playerHead.position.y = 3.8;
-	playerHead.rotation.x = - Math.PI / 2;   
-	playerHead.rotation.y = Math.PI / 2;
-	playerHead.castShadow = true;
-	group.add(playerHead);
-
-	
-	var playerBody = new THREE.Mesh(playerBodyGeo, playerBodyMat);
-	playerBody.castShadow = true;
-	playerBody.position.y = 2.25;
-	group.add(playerBody);
-
-	scene.add(group);
 }
 
 function initFight(){
@@ -599,7 +598,7 @@ function popCube(argumentx, argumentz){
 
 var onKeyDown = function (event){
 
-	if(document.activeElement.localName == "textarea"){
+	if(document.activeElement.localName == "textarea" || document.activeElement.localName == "input"){
 		return;
 	}
 
@@ -627,7 +626,7 @@ var onKeyDown = function (event){
 
 var onKeyUp = function (event){
 
-	if(document.activeElement.localName == "textarea"){
+	if(document.activeElement.localName == "textarea" || document.activeElement.localName == "input"){
 		return;
 	}
 
