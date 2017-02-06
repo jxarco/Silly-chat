@@ -1,11 +1,5 @@
 var app = {
 
-	/*init: function(){
-		console.log("app init");
-
-		var canvas_painter = new CanvasPainter("#painter");
-	},*/
-
 	start3D: function(){
 		loadCube();
 	}
@@ -502,10 +496,12 @@ function changeRingColor(color) {
 }
 
 function updateRingColor(hex_color){
+
 	baseRing.material.color.setHex(hex_color);
 }
 
 function getRingColor(){
+
 	return baseRing.material.color.getHex();
 }
 
@@ -576,6 +572,7 @@ function createFigure(id, colorf, path){
 }
 
 function initFight(){
+
 	//begin = true;
 }
 
