@@ -13,14 +13,16 @@ var app = {
 
 // player move controls
 var w = false, a = false, s = false, d = false, k = false, l = false;
-var velocity = new THREE.Vector3(0,0,0);
+var space = false, begin = false;
 
 var camera, scene, renderer, startTime;
 var baseRing, ground;
 var container = document.querySelector(".canvas_container");
 var tam = container.getBoundingClientRect();
+
 var confeti_list = []
 var collidableMeshList = [];
+var materials;
 
 var audio = new Audio('assets/audio.mp3');;
 
@@ -48,7 +50,6 @@ function loadCube(){
 
 		// Objects
 
-		//var floorTexture = new THREE.TextureLoader().load( 'assets/grass_texture.png' );
 		var floorGeo = new THREE.PlaneGeometry( 40, 40, 1, 1 )
 		var flootMat = new THREE.MeshPhongMaterial( { color: 0xf1f4f1, shininess: 5 } );
 
@@ -81,6 +82,7 @@ function loadCube(){
 		var cornerRingGeo = new THREE.CylinderGeometry(0.25, 0.25, 3, 32, 32, false);
 
 		var cornerRing;
+
 		for(var i = -5; i <= 5; i += 10){
 			for(var j = -5; j <= 5; j += 10){
 				cornerRing  = new THREE.Mesh( cornerRingGeo, RingMat );
@@ -168,6 +170,7 @@ function loadCube(){
 		
 		gui.add( parameters, 'a' ).name('Confeti explosion');
 		gui.add( parameters, 'b' ).name('Remove confeti');
+		gui.add( parameters, 'g' ).name('FIGHT');
 		
 		var ring_folder = gui.addFolder('Ring options');
 
@@ -277,8 +280,8 @@ function loadCube(){
 			if(s && movementLimits(px, pz + 0.1)) scene.getObjectByName("player_body").position.z += 0.1;
 			if(d && movementLimits(px + 0.1, pz)) scene.getObjectByName("player_body").position.x += 0.1;
 
-			if(k) scene.getObjectByName("player_body").rotation.y += 0.1;
-			if(l) scene.getObjectByName("player_body").rotation.y -= 0.1;
+			if(k) scene.getObjectByName("player_body").rotation.y += 0.05;
+			if(l) scene.getObjectByName("player_body").rotation.y -= 0.05;
 
 			var playerPosition = {
 				px : scene.getObjectByName("player_body").position.x,
@@ -291,6 +294,12 @@ function loadCube(){
 
 		// PASSING POSITION TO OTHERS TO PRINT IT
 		if(window.server_on) server.sendMessage(playerPosition);
+
+		// BATTLE
+
+		if(space && begin){
+			console.log("que hacemos")
+		}
 
 	}
 
@@ -319,7 +328,7 @@ function updatePlayerPosition(user_id, ox, oy, oz, ry){
 
 function updateTexture(id, path){
 	var head = scene.getObjectByName(id).children[0];
-	head.material.map = new THREE.ImageUtils.loadTexture(path);
+	head.material.materials[2].map = new THREE.ImageUtils.loadTexture(path);
 	head.material.needsUpdate = true;
 }
 
@@ -443,9 +452,9 @@ function createFigure(id, colorf, path){
 			color: colorf,
 			shininess: 15,
 			side: THREE.DoubleSide
-		} ); // [0] -> player
+		} ); // -> player
 
-	var materials = [
+	materials = [
 
 		new THREE.MeshPhongMaterial( {
 			color: colorf,
@@ -463,13 +472,13 @@ function createFigure(id, colorf, path){
 			map: new THREE.TextureLoader().load(path),
 			shininess: 15,
 			side: THREE.DoubleSide
-		} )// [1] -> head
+		} )// -> head
 	]
 
 
 	var playerHeadGeo = new THREE.CylinderGeometry(0.75, 0.75, 0.35, 32);
 	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
-	var playerArmGeo = new THREE.BoxGeometry(0.2, 1, 0.2);
+	var playerArmGeo = new THREE.CylinderGeometry(0.2, 0.2, 1.5, 32);
 		
 	var playerHead = new THREE.Mesh(playerHeadGeo, new THREE.MultiMaterial(materials));
 	playerHead.position.y = 3.8;
@@ -490,7 +499,7 @@ function createFigure(id, colorf, path){
 
 		playerArm = new THREE.Mesh(playerArmGeo, playerBodyMat);
 		playerArm.position.x = i;
-		playerArm.position.y = 6;
+		playerArm.position.y = 6.5;
 		playerArm.position.z = 0.5;
 		playerArm.rotation.x = - Math.PI / 2;
 		playerArm.castShadow = true;
@@ -502,7 +511,7 @@ function createFigure(id, colorf, path){
 }
 
 function initFight(){
-
+	//begin = true;
 }
 
 var onKeyDown = function (event){
@@ -549,6 +558,9 @@ var onKeyUp = function (event){
 			break;
 		case 76:
 			l = false;
+			break;
+		case 32:
+			space = true;
 			break;
 	}
 }
