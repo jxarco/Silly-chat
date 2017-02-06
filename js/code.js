@@ -50,7 +50,7 @@ function loadCube(){
 
 		// Objects
 
-		var floorGeo = new THREE.PlaneGeometry( 40, 40, 1, 1 )
+		var floorGeo = new THREE.PlaneGeometry( 30, 30, 1, 1 )
 		var flootMat = new THREE.MeshPhongMaterial( { color: 0xf1f4f1, shininess: 5 } );
 
 		// Ground
@@ -127,6 +127,8 @@ function loadCube(){
 				scene.add( ropeRing );
 			}
 		}
+
+		createChairs();
 
 		// Renderer
 		renderer = new THREE.WebGLRenderer();
@@ -305,6 +307,70 @@ function loadCube(){
 
 	init();
 	animate();
+}
+
+function createChairs(){
+
+		// Sillas
+
+		var chairMat = new THREE.MeshPhongMaterial( {
+				color: 0xffffff,
+				shininess: 20,
+				specular: 0xffffff,
+				side: THREE.DoubleSide
+			} );
+
+		var chairGeo = new THREE.BoxGeometry( 1, 1, 1 );
+
+		var chair;
+
+		for(var i = 0.5; i <= 4; i += 1){
+			for(var j = -15; j <= 15; j += 1){
+				chair  = new THREE.Mesh( chairGeo, chairMat );
+				chair.castShadow = true;
+				chair.receiveShadow = true;
+				chair.position.x = j;
+				chair.position.y = i;
+				chair.position.z = -15 - i;
+				scene.add( chair );
+			}
+		}
+
+		for(var i = 0.5; i <= 4; i += 1){
+			for(var j = -15; j <= 15; j += 1){
+				chair  = new THREE.Mesh( chairGeo, chairMat );
+				chair.castShadow = true;
+				chair.receiveShadow = true;
+				chair.position.x = -15 - i;
+				chair.position.y = i;
+				chair.position.z = j;
+				scene.add( chair );
+			}
+		}
+
+		for(var i = 0.5; i <= 4; i += 1){
+			for(var j = -15; j <= 15; j += 1){
+				chair  = new THREE.Mesh( chairGeo, chairMat );
+				chair.castShadow = true;
+				chair.receiveShadow = true;
+				chair.position.x = j;
+				chair.position.y = i;
+				chair.position.z = 15 + i;
+				scene.add( chair );
+			}
+		}
+
+		for(var i = 0.5; i <= 4; i += 1){
+			for(var j = -15; j <= 15; j += 1){
+				chair  = new THREE.Mesh( chairGeo, chairMat );
+				chair.castShadow = true;
+				chair.receiveShadow = true;
+				chair.position.x = 15 + i;
+				chair.position.y = i;
+				chair.position.z = j;
+				scene.add( chair );
+			}
+		}
 }
 
 function updateMeshPosition(user_id, ox, oy, oz){
