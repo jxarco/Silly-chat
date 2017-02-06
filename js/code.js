@@ -536,13 +536,15 @@ function popCube(argumentx, argumentz){
 	popped.position.z = pz;
 	scene.add(popped);
 
-	var poppedPosition = {
-		x: px,
-		z: pz,
-		info: 12
-	}
+	if(!argumentx){
+		var poppedPosition = {
+			x: px,
+			z: pz,
+			info: 12
+		}
 
-	if(window.server_on) server.sendMessage(poppedPosition);
+		if(window.server_on) server.sendMessage(poppedPosition);
+	}
 }
 
 var onKeyDown = function (event){
