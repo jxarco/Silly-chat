@@ -478,11 +478,11 @@ function createFigure(id, colorf, path){
 
 	var playerHeadGeo = new THREE.CylinderGeometry(0.75, 0.75, 0.35, 32);
 	var playerBodyGeo = new THREE.BoxGeometry(1, 1.5, 1);
-	var playerArmGeo = new THREE.CylinderGeometry(0.2, 0.2, 1.5, 32);
+	var playerArmGeo = new THREE.CylinderGeometry(0.18, 0.15, 1.5, 32);
 		
 	var playerHead = new THREE.Mesh(playerHeadGeo, new THREE.MultiMaterial(materials));
 	playerHead.position.y = 3.8;
-	playerHead.rotation.x = - Math.PI / 2;
+	playerHead.rotation.x = - Math.PI / 2;   
 	playerHead.rotation.y = Math.PI / 2;
 	playerHead.castShadow = true;
 	group.add(playerHead);
@@ -499,11 +499,10 @@ function createFigure(id, colorf, path){
 
 		playerArm = new THREE.Mesh(playerArmGeo, playerBodyMat);
 		playerArm.position.x = i;
-		playerArm.position.y = 6.5;
 		playerArm.position.z = 0.5;
 		playerArm.rotation.x = - Math.PI / 2;
 		playerArm.castShadow = true;
-		playerArm.position.y = 2.25;
+		playerArm.position.y = 2.5;
 		group.add(playerArm);
 	}
 
@@ -512,6 +511,38 @@ function createFigure(id, colorf, path){
 
 function initFight(){
 	//begin = true;
+}
+
+function popCube(argumentx, argumentz){
+
+	if(!argumentx){
+		var px = scene.getObjectByName("player_body").position.x;
+		var pz = scene.getObjectByName("player_body").position.z;
+	}else{
+		var px = argumentx;
+		var pz = argumentz;
+	}
+	
+	var poppedGeo = new THREE.BoxGeometry(0.25, 0.25, 0.25);
+	var poppedMat = new THREE.MeshPhongMaterial( {
+			color: Math.random() * 0x808008 + 0x808080,
+			shininess: 100,
+			side: THREE.DoubleSide
+	});
+
+	var popped = new THREE.Mesh(poppedGeo, poppedMat);
+	popped.position.x = px;
+	popped.position.y = 2;
+	popped.position.z = pz;
+	scene.add(popped);
+
+	var poppedPosition = {
+		x: px,
+		z: pz,
+		info: 12
+	}
+
+	if(window.server_on) server.sendMessage(poppedPosition);
 }
 
 var onKeyDown = function (event){
@@ -560,7 +591,8 @@ var onKeyUp = function (event){
 			l = false;
 			break;
 		case 32:
-			space = true;
+			//space = true;
+			popCube();
 			break;
 	}
 }
@@ -573,12 +605,6 @@ function movementLimits(x, z){
 	if(z > 4.5 || z < -4.35) return false;
 	return true;
 }
-
-
-
-
-
-
 
 
 

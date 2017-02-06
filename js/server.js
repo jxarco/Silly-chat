@@ -47,6 +47,9 @@ server.on_message = function( user_id, message){
 	}else if(objectReceived.info == 11){
 		updatePlayerPosition(user_id, objectReceived.px, objectReceived.py, objectReceived.pz, objectReceived.ry);
 		return;
+	}else if(objectReceived.info == 12){
+		popCube(objectReceived.x, objectReceived.y);
+		return;
 	}
 
 
