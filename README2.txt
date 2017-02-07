@@ -1,7 +1,7 @@
 # ECV
 
-Primera práctica
-- Chat
+Segunda práctica
+- CANVAS 3D
 
 Alejandro Rodríguez Corrales
 174249
@@ -22,7 +22,7 @@ dar permisos al navegador para mostrarlas y además, dado que nuestro chat se
 encuentra en una carpeta local, tendremos que abrirlo desde el host que 
 nos ofrece GitHub:
 
-						https://jxarco.github.io/ECV1
+				https://jxarco.github.io/ECV1
 
 Una vez dentro, clicar al escudo de la barra navegación para permitir todas
 las cargas de scripts, sino no funcionará nada.
@@ -30,13 +30,64 @@ las cargas de scripts, sino no funcionará nada.
 Si se abre localmente, funcionará de la misma manera todo excepto que no
 dispondremos de notificaciones.
 
-##############################################################################
-
-U TALK CHAT
-
-Este es el nombre que le hemos puesto a nuestro chat. Varios elementos: 
+!!!!!!!				!!!!!!!				 	    !!!!!!
+UPDATE: Con XAMPP funcionan!!! No hace falta usar el servidor de GitHub
+!!!!!!!				!!!!!!!				 	    !!!!!!
 
 ##############################################################################
+
+Añadido el canvas 3d y aplicada una nueva distribución: 
+
+	- En la nueva distribución, podemos abrir la información con la tecla P.
+	Para cerrarla, pulsamos ESC o haciendo clic en HIDE.
+
+		o INFORMACION desde ahora = PERFIL + GENTE
+
+	- De la misma manera, podemos abrir el chat rápidamente con la tecla C.
+	Cerramos con ESC.
+
+##############################################################################
+
+CANVAS 3D:
+
+	- Inicialmente:
+		o Servidor OFF: Veremos la escena sin muñecos ni luces.
+		o Servidor ON: Cuando alguien se conecta, se añade a la escena
+		automáticamente una luz propia y un jugador.
+	
+		Este jugador podrá moverse con WASD dentro del ring y además podrá
+		crear cubos pulsando SPACE.
+	
+	- Cada vez que alguien se conecte, el resto verán una nueva luz y otro 
+	jugador. El mundo está sincronizado para todos ellos.
+
+	- Cada uno podrá ver donde esta situada la cámara de cada jugador.
+	(Esfera del color de la cámara)
+
+	- Cuando un usuario se desconecte, se eliminará de la escena su luz
+	y su jugador.
+
+	- GUI: 
+		o Lanzar confeti: Visible para todos los presentes
+			- Audio junto con el lanzamiento.
+			- Cuando colisiona con ring o suelo se quedará hasta…
+		o … Eliminar confeti: Simplemente borramos todo el confeti, 
+		para todos. (Se para la música.)
+
+		o Opciones del ring: Cambiar color del ring.
+		Para que los demás lo vean visible, cambiar + SEND COLOR.
+		
+		o Opciones de cámara: Podemos cambiar la visualización de la
+		cámara tanto por orbit controls o por la GUI.
+
+		o Botón de cámara por defecto.
+
+##############################################################################
+
+(PRÁCTICA 1 DE AQUÍ HACIA ABAJO)
+
+##############################################################################
+
 
 Selección de sala: Pantalla de inicio. Escribir “room” a la que queremos
 entrar y pulsar ENTER. 
@@ -50,7 +101,7 @@ Menú: Podemos abrirlo en la parte superior izquierda. En el podremos:
 
 	- Abrir o cerrar el chat
 	- Eliminar la conversación existente
-	- Abrir Perfil de usuario
+	- Abrir Información (Desde la P2 PERFIL + PERSONAS ONLINE)
 	- Cambiar tema: Hay 4 disponibles, cada uno con un CSS distinto.
 		o Simple
 		o Elegant
@@ -81,7 +132,6 @@ están en el chat.
 	- Desaparecerán del panel los usuarios que se desconecten.
 
 ##############################################################################
-
 
 Cuadro de chat: En el podremos realizar 3 operaciones distintas:
 	
