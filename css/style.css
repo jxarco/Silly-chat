@@ -570,7 +570,7 @@ html, body{
 }
 
 .rest_org{
-	display: none;
+	display: block;
 	position: absolute;
 	width: 100%;
 	margin-left: 80%; 

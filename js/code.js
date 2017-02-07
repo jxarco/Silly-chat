@@ -36,7 +36,7 @@ function loadCube(){
 		// Lights
 		scene.add( new THREE.AmbientLight( 0x505050, 0.2 ) );
 
-		var directionalLight = new THREE.DirectionalLight( 0x55505a, 0.5 );
+		var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.25 );
 		directionalLight.position.set( 0, 3, 0 );
 		directionalLight.castShadow = true;
 		directionalLight.shadow.camera.near = 1;
@@ -650,8 +650,13 @@ var onKeyUp = function (event){
 			l = false;
 			break;
 		case 32:
-			//space = true;
 			popCube();
+			break;
+		case 67:
+			openChat();
+			break;
+		case 80:
+			privateInfo();
 			break;
 	}
 }

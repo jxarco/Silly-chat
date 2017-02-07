@@ -539,6 +539,7 @@ function keyListener(event){
   if(keyCode == 27){
     closeNav();
     document.getElementById("avatarslist").style.display = "none";
+    document.getElementById("right_info").style.display = "none";
 
     hideDivs();
     closeChat();
@@ -561,7 +562,7 @@ window.onclick = function(event) {
 
   // si clicamos en hide profile, el perfil se esconderá
   if (event.target.matches('.hideProfile')) {
-    document.getElementById("right_info").style.display = "none";
+    
     hideDivs();
   }
 
