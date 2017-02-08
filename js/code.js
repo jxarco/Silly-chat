@@ -411,8 +411,12 @@ function createNewLight(list, colorl, user_id, path){
 
 	group.add( spotLight );
 
-	var lightGeometry = new THREE.SphereGeometry( 0.25, 32, 32 );
-	var lightMat = new THREE.MeshBasicMaterial( {color: colorl } );
+	var lightGeometry = new THREE.SphereGeometry( 0.8, 32, 32 );
+	var lightMat = new THREE.MeshPhongMaterial( {
+			map: new THREE.TextureLoader().load("assets/sphere.png"),
+			shininess: 15,
+			side: THREE.DoubleSide
+		} );
 	var light_sphere = new THREE.Mesh( lightGeometry, lightMat );
 
 	group.add( light_sphere );
