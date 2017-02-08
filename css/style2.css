@@ -13,21 +13,18 @@ html, body{
 /* Transition for initial info  */
 
 #hideMe {
-    -moz-animation: cssAnimation 0s ease-in 10s forwards;
-    /* Firefox */
-    -webkit-animation: cssAnimation 0s ease-in 10s forwards;
-    /* Safari and Chrome */
-    -o-animation: cssAnimation 0s ease-in 10s forwards;
-    /* Opera */
-    animation: cssAnimation 0s ease-in 10s forwards;
+    -moz-animation: cssAnimation 0s ease-in 3s forwards;
+    -webkit-animation: cssAnimation 0s ease-in 3s forwards;
+    -o-animation: cssAnimation 0s ease-in 3s forwards;
+    animation: cssAnimation 0s ease-in 3s forwards;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
 
     font-size: 2vw;
     text-align: center;
-    color: white;
-	background: linear-gradient(black, #670015);
+    background-color: #fbfbfb;
 	margin-bottom: 10px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	padding: 15px;
 }
 
@@ -51,6 +48,7 @@ html, body{
 /*  .trans -> style for the profile and the trans. background  */
 .trans
 {
+	display: none;
 	position: fixed;
     padding: 30px;
     background-color: rgba(0,0,0,0.75);
@@ -61,13 +59,13 @@ html, body{
 }
 
 #roominput{
-	background: #fbfbfb;
+	background: none;
 	width: 20%;
 	height: 50px;
 	border: 3px solid #000000;
 	resize: none;
 	font-size: 1.5vw;
-	color: #999;
+	color: #FFFFFF;
 	padding-top: 10px;
 	padding-left: 10px;
 	display: block;
@@ -79,7 +77,6 @@ html, body{
 	height: 100%;
 	position: relative;
 	display: inline-block;
-	background: #670015
 }
 
 
@@ -88,19 +85,19 @@ html, body{
 	color: white;
 	font-size: 30px;
 	margin-bottom: 10px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	display: flex;
 	padding: 15px;
 	position: relative;
-	box-shadow: 5px 10px 50px 15px rgba(0,0,0,0.5); 
+	border-radius: 5px;
 }
 
 .heading .logo{
-	width: 60px;
-	height: 60px;
-	background: #fffb9e;
+	width: 50px;
+	height: 50px;
+	background: #eee;
 	border-radius: 50%;
 	display: flex;
-	border-style: inset;
 }
 .logo img{
 	width: 60%;
@@ -109,134 +106,89 @@ html, body{
 	cursor: pointer;
 }
 
-.heading .titlename{
-	margin: auto;
-	color: black;
-	padding: 10px;
-	width: 60%;
-	text-align: center;
-}
-
-.heading .titlename img{
-	height: 8vh;
-	content: url("../assets/title_elegant.png");
-}
-
 .personalInfo {
 	display: block;
-	color: #FFE995;
-	float: left;
-	width: 25%;
-	background: linear-gradient(black, #212120);
-	border-radius: 5px;
+	position: absolute;
+	height: 37vh;
+	background: rgba(255,255,255,0.2); 
 	padding: 25px;
-	margin: 0 auto;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	margin-left: 2%;
-	border-style: outset;
-	border-width: 5px;
+	width: 20%;
 }
 
 .personalInfo p{
-	font-size: 2.5vw;
+	font-size: 1.5vw;
 	text-align: center;
+	color: white;
 }
 
 .personalInfo .pic{
-	align-items: center;
 	display: flex;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .personalInfo #gn{
 	margin-top: 20px;
 	text-align: center;
-	font-size: 2vw;
-	box-shadow: 0px 8px 10px 0px rgba(150,150,150,0.5);
-	height: 7%;
+	font-size: 1vw;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+	background: rgba(255,255,255,0.5); 
 	vertical-align: middle;
-	border-style: inset;
+	padding: 5px;
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 10px;
 }
 
 .personalInfo .pic img{
-	width: 80%;
-	height: 80%;
+	width: 40%;
+	height: 40%;
 	margin: 20px;
 	position: static;
 	overflow: auto;
 	margin: auto;
 }
 
+.personalInfo .pic img:hover{
+	border-radius: 50%;
+	background-color: rgba(100, 100, 100, 0.25);
+}
+
 .personalInfo .profileOptions {
 	display: flex;
-	margin-top: 50px;
+	margin-top: 20px;
 	position: relative;
 	width: 100%;
-	font-size: 1.2vw;
+	font-size: 1vw;
 }
 
 .personalInfo .profileOptions button {
 	width: 30%;
-	font-size: 100%;
-	color: #670015;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
 	position: relative;
-    background-color: #FFE995;
+    background-color: #707eb2;
     border-radius: 10%;
+    color: #FFFFFF;
     padding: 5px 0px;
-    margin: 3%;
+    margin: 2%;
     text-decoration: none;
     overflow: hidden;
     cursor: pointer;
-}
-
-.personalInfo .profileOptions button:active{
-	outline: none;
-	border: 2px solid #670015;
-}
-
-#uaccept{
-	width: 30%;
-	font-size: 100%;
-	color: #670015;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
-	position: relative;
-    background-color: #FFE995;
-    border-radius: 10%;
-    padding: 5px 0px;
-    margin: 3%;
-    text-decoration: none;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-#uaccept:active{
-	outline: none;
-	border: 2px solid #670015;
-}
-
-#uinput:focus{
-	outline: none;
-	border: 3px solid #670015;
 }
 
 .newname{
 	display: none;
-	padding: 15px;
+	padding: 10px;
 	margin: 10px 2%;
-	font-size: 15px;
+	z-index: 20;
 }
 
 .accept{
 	display: none;
-	padding: 15px;
+	padding: 10px;
 	margin: 10px 2%;
-	font-size: 15px;
-
 	position: relative;
-    background-color: #4CAF50;
+    background-color: #707eb2;
     border-radius: 10%;
     color: #FFFFFF;
     padding: 5px 15px;
@@ -246,18 +198,27 @@ html, body{
     cursor: pointer;
 }
 
+.change_name
+{
+	display: none;
+	position: fixed;
+	width: 16%;
+    padding: 30px;
+    background-color: rgba(0,0,0,0.8);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+    z-index: 20;
+}
+
 .personalInfo .avatars{
 	display: none;
-    background-color: #FFE995;
+    background-color: rgba(0,0,0,0.8);
     margin-bottom: 50px;
-    
-    width: 100%;
-	height: 450px;
-    
+    width: 16%;
+	height: 350px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 2;
-    
+    position: fixed;
     overflow: scroll;
+    z-index: 20;
 }
 
 /* todo este dropdown es para los avatares*/
@@ -266,7 +227,8 @@ html, body{
     border-radius: 5px;
     margin-top: 20px;
     z-index: 3;
-    max-width: 30%;
+    max-width: 27%;
+    margin-left: 9px;
 }
 
 .dropdown img{
@@ -276,6 +238,8 @@ html, body{
 }
 
 .dropdown img:hover{
+	background-color: #fbfbfb;
+	border-radius: 50%;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5); 
 }
 
@@ -286,24 +250,21 @@ html, body{
 /* CHAT BOX */
 
 .chat{
-	display: block;
-	width: 40%;
-	height: 75vh;
-	background: linear-gradient(black, #212120);
-	padding: 25px;
-	margin: 0 auto;
-	border-radius: 5px;
+	display: none;
+	position: absolute;
+	width: 20%;
+	height: 78vh;
+	background: rgba(255,255,255,0.2); 
+	padding: 15px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	position: static;
-	border-style: outset;
-	border-width: 5px;
+	float: left;
 }
 
 .msgs{
 	padding: 10px;
 	width: 100%;
-	height: 55vh;
-	background: #fffb9e;
+	height: 60vh;
+	background: rgba(255,255,255,0.2); 
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
@@ -318,11 +279,12 @@ html, body{
 .private .message{
 	background: red;
 	max-width: 80%;
+	font-size: 15vw;
 }
 
 .msg .avatar{
-	width: 11%;
-	height: 11%;
+	width: 17%;
+	height: 17%;
 	border-radius: 50%;
 }
 
@@ -337,8 +299,8 @@ html, body{
 }
 
 .msg .myavatar{
-	width: 11%;
-	height: 11%;
+	width: 17%;
+	height: 17%;
 	border-radius: 50%;
 }
 
@@ -349,16 +311,16 @@ html, body{
 }
 
 .msg .message{
-	padding: 15px 15px;
-	margin: 5px 10px 0;
-	border-radius: 30px;
+	padding: 8px 8px;
+	margin: 5px 5px 0;
+	border-radius: 10px;
 	color: white;
-	font-size: 1vw;
+	font-size: 0.9vw;
 	word-wrap: break-word;
 }
 
 .received .message{
-	background: #670015;
+	background: #1adda4;
 	max-width: 80%;
 }
 
@@ -367,61 +329,69 @@ html, body{
 }
 
 .sent .message{
-	background: #212120;
+	background: #1ddced;
+	max-width: 80%;
 	order: -1;
 	margin-left: auto;
-	max-width: 80%;
 }
+
+/********* Enviados privado****************/
 
 .sent_private .message{
 	background: red;
 	order: -1;
 	margin-left: auto;
 	max-width: 80%;
-
 }
+
+.sent_private .guest_console{
+	background: red;
+	order: -1;
+	margin-left: auto;
+	max-width: 80%;
+	display: block;
+
+	padding: 8px 8px;
+	margin: 5px 10px 0;
+	border-radius: 10px;
+	color: white;
+	font-size: 0.9vw;
+	word-wrap: break-word;
+}
+
 
 /****  INPUT Y OPCIONES DE ENVIO *********************************************/
 
 .chatinput{
 	margin-top: 20px;
 	width: 100%;
+	display: flex;
 }
 
 .chatinput textarea{
-	background: white;
+	background: rgba(220,220,220,0.8); 
 	width: 80%;
-	height: 50px;
+	height: 30px;
 	border: 2px solid #eee;
 	resize: none;
 	padding: 2%;
-	font-size: 1.25vw;
-	color: black;
+	font-size: 1vw;
+	color: #000000;
+	margin-right: 15px;
 }
 
-.chatinput textarea:focus{
-	outline: none;
-	border: 3px solid #670015;
-}
-
-.chatinput button {
-    position: absolute;
-    background-color: #670015;
-    border-style: inset;
-    font-size: 1.5vw;
-    color: #FFFFFF;
-    width: 5%;
-    text-align: center;
+.chatinput img {
+    width: 13%;
+    height: 13%;
     overflow: hidden;
     cursor: pointer;
     z-index: 1;
-    margin-top: 10px;
-    margin-left: 20px;
+    float: right;
+    padding-top: 5px;
 }
 
-.chatinput button:active {
+.chatinput img:active {
 	border-style: inset;
-	outline: none;
     background-color: #ccc;
 }
 
@@ -432,15 +402,13 @@ html, body{
 }
 
 .uppercase p{
-	font-size: 1.1vw;
-	color: #9ca4af;
+	font-size: 1vw;
+	color: #ffffff;
 }
 
 .uppercase .ucselection{
-	margin: auto;
-	transform: scale(1.15);
+	margin: auto; 
 }
-
 
 
 /*******************************************************/
@@ -523,9 +491,6 @@ html, body{
 
 /*******************************************************/
 
-
-/*******************************************************/
-
 /* PROFILE BOX */
 
 #image_avatar img{ /* zoom del avatar de la otra persona */
@@ -548,29 +513,27 @@ html, body{
 /* *************************************** */
 
 /*  CONTACTS   */
-
-.people {
-	display: block;
-	color: #FFE995;
-	float: right;
-	width: 25%;
-	height: 100%;
-	background: linear-gradient(black, #212120);
+#connected{
+	height: 40vh;
 	padding: 25px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	margin-right: 2%;
-	top: 0px;
-	max-height: 75vh;
-	overflow-y: scroll;
-	border-style: outset;
-	border-width: 5px;
-	border-radius: 5px;
+	background: rgba(255,255,255,0.2); 
+	width: 20%;
+	margin-top: 18.9%;
+	position: absolute;
 }
 
-.people p{
-	font-size: 2.5vw;
+#connected p{
 	text-align: center;
-	
+	color: white;
+}
+
+#con_title{
+	font-size: 1.5vw;
+}
+
+.people{
+	overflow-y: scroll;
 }
 
 .user {
@@ -590,12 +553,70 @@ html, body{
 .user p{
 	padding: 10px 15px;
 	margin: 5px 10px 0;
-	border-color: #ccc;
-	border-style: inset;
-	font-size: 1.2vw;
+	border-radius: 10px;
+	border-color: #eee;
+	border-style: outset;
+	font-size: 1vw;
 	word-wrap: break-word;
-	box-shadow: 0px 8px 10px 0px rgba(150,150,150,0.5);
+	background: rgba(255,255,255,0.25); 
 }
 
 /* *************************************** */
+
+/* PRACTICA 2 */
+
+.screen{
+	display: flex;
+}
+
+.rest_org{
+	display: block;
+	position: absolute;
+	width: 100%;
+	margin-left: 80%; 
+}
+
+.canvas_container{
+	display: block;
+	width: 100%;
+	height: 78vh;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	margin: 0 auto;
+}
+
+#painter{
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+}
+
+#gui_id{
+	position: absolute;
+	min-height: 50vh;
+	top: 15%;
+	right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
