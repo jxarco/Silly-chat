@@ -412,7 +412,7 @@ function send(argument, hex_color, list){
 
   var objectToSend = {}; // nuestro objeto a enviar
 
-  if(argument){ // EXPLOSION DE CONFETI
+  if(argument){
     objectToSend.name = guestname;
     objectToSend.message = argument;
     objectToSend.avatar = avatarPath;
@@ -426,11 +426,11 @@ function send(argument, hex_color, list){
       objectToSend.l_list = list;
     }else if(argument == "rem_confeti"){
       objectToSend.info = 8;
+    }else if (argument == "rem_popped"){
+      objectToSend.info = 13;
     }
 
     server.sendMessage(objectToSend);
-
-    //createMsg(guestname, avatarPath, argument);
     
     return;
   }
@@ -562,7 +562,7 @@ window.onclick = function(event) {
 
   // si clicamos en hide profile, el perfil se esconderá
   if (event.target.matches('.hideProfile')) {
-    
+    document.getElementById("right_info").style.display = "none";
     hideDivs();
   }
 

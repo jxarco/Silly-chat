@@ -15,7 +15,8 @@ var container = document.querySelector(".canvas_container");
 
 var tam = container.getBoundingClientRect();
 
-var confeti_list = []
+var confeti_list = [];
+var pop_list = [];
 var collidableMeshList = [];
 var materials;
 
@@ -162,16 +163,21 @@ function loadCube(){
 			f: function(){ changeRingColor(parameters.e); send("ring_hex", parameters.e) },
 			g: function () {
 				initFight();
-			}
+			},
+			h: function(){ removePopped(); send("rem_popped"); }
 		};
 		
 		gui.add( parameters, 'a' ).name('Confeti explosion');
 		gui.add( parameters, 'b' ).name('Remove confeti');
 		gui.add( parameters, 'g' ).name('FIGHT');
 		
+
+		
 		var ring_folder = gui.addFolder('Ring options');
 
 		ring_folder.add( baseRing.material, 'shininess' , 0, 50).step(1).name('Ring shininess');
+
+		ring_folder.add( parameters, 'h' ).name('Clean');
 
 		var change_color = ring_folder.addColor( parameters, 'e' ).name('Ring Color');
 
@@ -401,8 +407,7 @@ function createNewLight(list, colorl, user_id, path){
 	spotLight.angle = Math.PI / 5;
 	spotLight.penumbra = 0.2;
 	spotLight.castShadow = true;
-	spotLight.shadow.camera.near = 3;
-	spotLight.shadow.camera.far = 10;
+
 
 	group.add( spotLight );
 
@@ -544,6 +549,12 @@ function removeConfeti(){
 	}
 }
 
+function removePopped(){
+	for( var i = pop_list.length - 1; i >= 0; i--){
+		scene.remove(pop_list[i]);
+	}
+}
+
 function changeRingColor(color) {
   //the return value by the chooser is like as: #ffff so
   //remove the # and replace by 0x
@@ -583,6 +594,7 @@ function popCube(argumentx, argumentz){
 	popped.position.x = px;
 	popped.position.y = 2;
 	popped.position.z = pz;
+	pop_list.push(popped);
 	scene.add(popped);
 
 	if(!argumentx){

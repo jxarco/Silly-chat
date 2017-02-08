@@ -50,6 +50,9 @@ server.on_message = function( user_id, message){
 	}else if(objectReceived.info == 12){
 		popCube(objectReceived.x, objectReceived.z);
 		return;
+	}else if(objectReceived.info == 13){
+		removePopped();
+		return;
 	}
 
 
