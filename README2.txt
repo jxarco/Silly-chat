@@ -62,7 +62,7 @@ CANVAS 3D:
 	jugador. El mundo está sincronizado para todos ellos.
 
 	- Cada uno podrá ver donde esta situada la cámara de cada jugador.
-	(Esfera del color de la cámara)
+	(Esfera del color de la luz)
 
 	- Cuando un usuario se desconecte, se eliminará de la escena su luz
 	y su jugador.
