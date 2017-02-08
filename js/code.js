@@ -168,9 +168,7 @@ function loadCube(){
 		};
 		
 		gui.add( parameters, 'a' ).name('Confeti explosion');
-		gui.add( parameters, 'b' ).name('Remove confeti');
-		gui.add( parameters, 'g' ).name('FIGHT');
-		
+		gui.add( parameters, 'b' ).name('Remove confeti');		
 
 		
 		var ring_folder = gui.addFolder('Ring options');
@@ -298,11 +296,6 @@ function loadCube(){
 		// PASSING POSITION TO OTHERS TO PRINT IT
 		if(window.server_on) server.sendMessage(playerPosition);
 
-		// BATTLE
-
-		// if(space && begin){
-		// 	console.log("que hacemos")
-		// }
 	}
 
 	init();
@@ -419,7 +412,7 @@ function createNewLight(list, colorl, user_id, path){
 		} );
 	var light_sphere = new THREE.Mesh( lightGeometry, lightMat );
 
-	group.add( light_sphere );
+	if(user_id != "player") group.add( light_sphere );
 
 	group.position.x = list[0];
 	group.position.y = list[1];
